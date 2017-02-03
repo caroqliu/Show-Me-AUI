@@ -4,48 +4,46 @@ Yahya Yacoubi
 CSC 3326: Project Proposal
 February 5, 2017
 
-Proposed Project
+1. Proposed Project
 
 Title: Show Me AUI
-Show Me AUI is an application where users can see pictures of different places in AUI in a specific time frame.
 
-Requirements’ Gathering
+Description: Show Me AUI is an application where users can see pictures of different locations in Al Akhawayn University during a specific time frame. This will allow current students, prospective students, exchange students, and former alumni to either learn more about the beautiful campus or stay in touch with the place where so many great memories and friendships are formed.
 
-Users: Everyone from AUI and especially exchange students and alumni.
-Customer: OIP.
+2. Requirements’ Gathering
 
-Requirements’ Specification 
+Customer: We will reach out to the Office of International Programs to ask if they would be interested in being our customer for this application.
+
+Users: Anyone interested in AUI are welcome to use the application. The most likely users will be current students, exchange students, and alumni. 
+
+3. Requirements’ Specification 
 
 Features:
 •	A user can upload pictures to the database. The pictures uploaded will take into consideration the time and location where they were taken.
-•	A user can search for pictures in the database based on a timeframe and a location 
-(e.g: Aui’s Cafeteria on the 23th of February 2017).
-•	A user can see the recent pictures uploaded by other users.
+•	A user can search for pictures in the database based on a specific timeframe and location (e.g: AUI’s Cafeteria on 23/02/2017).
+•	A user can see recent pictures uploaded by other users.
 •	A user can follow other users.
-•	A user can login and see all the pictures that he and his friends that were uploaded.
+•	A user can login and see all the pictures that were uploaded by himself and his friends.
 •	A user can delete photos.
-•	A user can apply filters to photos before upload.
+•	A user can apply filters to photos before uploading.
 
-Project Management Plan
+4. Project Management Plan
 
-I.	Dates and Tasks
+Dates and Tasks: 
 
-March 9	Project MidReport
+March 9		Project MidReport
 April 9		Implementation Progress
 April 30	Demo Files
-Implementation/Overall Work 
-Presentation File
-			Project Final Report
+		Implementation/Overall Work 
+		Presentation File
+		Project Final Report
 
-II.	Who is Working on What
+Who is Working on What:
 
-We will work all together on all the parts (e.g: Mobile, desktop, and the web App).
-
-
+We will work together on all the parts of the application, from the data modeling and database design stage all the way to database implementation and the development of mobile, desktop, and web applications for use. 
 
 III.	Different Procedures to Meet Project Requirements and Deadlines
 
-We will create a repository where we can work all together. This will help keep the code sync and clean.
+We have created a repository on GitHub where we can work all together: https://github.com/caroqliu/Show-Me-AUI. This will keep the code updated, organized, and synced between members.
 
-We will meet twice a week to discuss the challenges that we had and plan for next week accordingly.
-
+We will meet twice a week to discuss the challenges that we have encountered as well as the progress we made, and plan for the following week’s tasks accordingly.
