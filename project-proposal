@@ -1,0 +1,51 @@
+Caroline Liu
+Achraf Mamdouh
+Yahya Yacoubi
+CSC 3326: Project Proposal
+February 5, 2017
+
+Proposed Project
+
+Title: Show Me AUI
+Show Me AUI is an application where users can see pictures of different places in AUI in a specific time frame.
+
+Requirements’ Gathering
+
+Users: Everyone from AUI and especially exchange students and alumni.
+Customer: OIP.
+
+Requirements’ Specification 
+
+Features:
+•	A user can upload pictures to the database. The pictures uploaded will take into consideration the time and location where they were taken.
+•	A user can search for pictures in the database based on a timeframe and a location 
+(e.g: Aui’s Cafeteria on the 23th of February 2017).
+•	A user can see the recent pictures uploaded by other users.
+•	A user can follow other users.
+•	A user can login and see all the pictures that he and his friends that were uploaded.
+•	A user can delete photos.
+•	A user can apply filters to photos before upload.
+
+Project Management Plan
+
+I.	Dates and Tasks
+
+March 9	Project MidReport
+April 9		Implementation Progress
+April 30	Demo Files
+Implementation/Overall Work 
+Presentation File
+			Project Final Report
+
+II.	Who is Working on What
+
+We will work all together on all the parts (e.g: Mobile, desktop, and the web App).
+
+
+
+III.	Different Procedures to Meet Project Requirements and Deadlines
+
+We will create a repository where we can work all together. This will help keep the code sync and clean.
+
+We will meet twice a week to discuss the challenges that we had and plan for next week accordingly.
+
