@@ -1,5 +1,6 @@
 CREATE TABLE User (
 	userId integer PRIMARY KEY,
+	loginId varchar(35) NOT NULL UNIQUE,
 	lastName varchar(35) NOT NULL,
 	firstName varchar(35) NOT NULL,	
 	email varchar(35) NOT NULL,
@@ -12,20 +13,14 @@ CREATE TABLE Event (
 	endTime datetime NOT NULL
 );
 
-CREATE TABLE Photographer (
-	userId integer,
-	eventId integer,
-
-	PRIMARY KEY (userId, eventId),
-
-	FOREIGN KEY (userId) REFERENCES User (userId)
-		ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (eventId) REFERENCES Event (eventId)
-		ON UPDATE CASCADE ON DELETE CASCADE
+CREATE TABLE Location (
+	locId integer PRIMARY KEY,
+	geolocalization varchar(256) NOT NULL
 );
 
 CREATE TABLE Picture (
-	imagePath varchar(256) PRIMARY KEY,
+	imageId integer PRIMARY KEY,
+	imagePath varchar(256) NOT NULL UNIQUE,
 	userId integer NOT NULL,
 	eventId integer,
 	description varchar(256) NOT NULL,	
@@ -34,35 +29,37 @@ CREATE TABLE Picture (
 	modificationTime datetime,
 	device varchar(256),
 	size double, 
-	geolocalization varchar(256),
-	FOREIGN KEY (userId) REFERENCES User (userId)
+	locId varchar(256),
+	CONSTRAINT fk_userTakes FOREIGN KEY (userId) REFERENCES User (userId)
 		ON DELETE CASCADE,
-	FOREIGN KEY (eventId) REFERENCES Event (eventId)
+	CONSTRAINT fk_evRecords FOREIGN KEY (eventId) REFERENCES Event (eventId)
+		ON DELETE SET NULL,
+	CONSTRAINT fk_imgLoc FOREIGN KEY (locId) REFERENCES Location (locId)
 		ON DELETE SET NULL
 );
 
 CREATE TABLE InPicture (
 	userId integer,
-	imagePath varchar(256),
+	imageId varchar(256),
 
 	PRIMARY KEY (userId, imagePath),
 
-	FOREIGN KEY (userId) REFERENCES User (userId)
+	CONSTRAINT fk_userTagged FOREIGN KEY (userId) REFERENCES User (userId)
 		ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (imagePath) REFERENCES Picture (imagePath)
+	CONSTRAINT fk_imgTags FOREIGN KEY (imageId) REFERENCES Picture (imageId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE PicRating (
-	rating integer NOT NULL,
 	userId integer,
-	imagePath varchar(256),
+	imageId integer,
+	rating integer NOT NULL,
 
 	PRIMARY KEY (userId, imagePath),
 
-	FOREIGN KEY (userId) REFERENCES User (userId)
+	CONSTRAINT fk_userRates FOREIGN KEY (userId) REFERENCES User (userId)
 		ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (imagePath) REFERENCES Picture (imagePath)
+	CONSTRAINT fk_imgRated FOREIGN KEY (imageId) REFERENCES Picture (imageId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -71,10 +68,10 @@ CREATE TABLE PicComment (
 	commentText varchar(256) NOT NULL,
 	postTime datetime NOT NULL,
 	userId integer,
-	imagePath varchar(256),
-	FOREIGN KEY (userID) REFERENCES User (userID)
+	imageId varchar(256),
+	CONSTRAINT fk_userSends FOREIGN KEY (userID) REFERENCES User (userID)
 		ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (imagePath) REFERENCES Picture (imagePath)
+	CONSTRAINT fk_imgGets FOREIGN KEY (imageId) REFERENCES Picture (imageId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -82,26 +79,14 @@ CREATE TABLE Tag (
 	tagName varchar(256) PRIMARY KEY
 );
 
-CREATE TABLE EventTag (
-	tagName varchar(256),
-	eventId integer,
-
-	PRIMARY KEY (tagName, eventId),
-
-	FOREIGN KEY (tagName) REFERENCES Tag (tagName)
-		ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (eventId) REFERENCES Event (eventId)
-		ON UPDATE CASCADE ON DELETE CASCADE
-);
-
 CREATE TABLE PictureTag (
 	tagName varchar(256),
-	imagePath varchar(256),
+	imageId varchar(256),
 
 	PRIMARY KEY (tagName, imagePath),
 
-	FOREIGN KEY (tagName) REFERENCES Tag (tagName)
+	CONSTRAINT fk_tagUsed FOREIGN KEY (tagName) REFERENCES Tag (tagName)
 		ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (imagePath) REFERENCES Picture (imagePath)
+	CONSTRAINT fk_imgUses FOREIGN KEY (imageId) REFERENCES Picture (imageId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 );
