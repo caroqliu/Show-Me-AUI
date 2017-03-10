@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS PictureTag;
-DROP TABLE IF EXISTS PicComment;
-DROP TABLE IF EXISTS PicRating;
+DROP TABLE IF EXISTS PictureComment;
+DROP TABLE IF EXISTS PictureRating;
 DROP TABLE IF EXISTS InPicture;
 DROP TABLE IF EXISTS Picture;
 DROP TABLE IF EXISTS Location;
@@ -60,7 +60,7 @@ CREATE TABLE InPicture (
 		ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE PicRating (
+CREATE TABLE PictureRating (
 	userId integer,
 	imageId integer,
 	rating integer NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE PicRating (
 		ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE PicComment (
+CREATE TABLE PictureComment (
 	commentId integer PRIMARY KEY,
 	commentText varchar(256) NOT NULL,
 	postTime datetime NOT NULL,
