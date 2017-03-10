@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS User;
-DROP TABLE IF EXISTS Event;
-DROP TABLE IF EXISTS Location;
-DROP TABLE IF EXISTS Picture;
-DROP TABLE IF EXISTS InPicture;
-DROP TABLE IF EXISTS PicRating;
-DROP TABLE IF EXISTS PicComment;
-DROP TABLE IF EXISTS Tag;
 DROP TABLE IF EXISTS PictureTag;
+DROP TABLE IF EXISTS PicComment;
+DROP TABLE IF EXISTS PicRating;
+DROP TABLE IF EXISTS InPicture;
+DROP TABLE IF EXISTS Picture;
+DROP TABLE IF EXISTS Location;
+DROP TABLE IF EXISTS Tag;
+DROP TABLE IF EXISTS Event;
+DROP TABLE IF EXISTS User;
 
 CREATE TABLE User (
 	userId integer PRIMARY KEY,
@@ -39,7 +39,7 @@ CREATE TABLE Picture (
 	modificationTime datetime,
 	device varchar(256),
 	size double, 
-	locationId varchar(256),
+	locationId integer,
 	CONSTRAINT fk_userTakes FOREIGN KEY (userId) REFERENCES User (userId)
 		ON DELETE CASCADE,
 	CONSTRAINT fk_evRecords FOREIGN KEY (eventId) REFERENCES Event (eventId)
@@ -54,9 +54,9 @@ CREATE TABLE InPicture (
 
 	PRIMARY KEY (userId, imageId),
 
-	CONSTRAINT fk_userTagged FOREIGN KEY (userId) REFERENCES User (userId)
+	CONSTRAINT fk_userAppearsIn FOREIGN KEY (userId) REFERENCES User (userId)
 		ON UPDATE CASCADE ON DELETE CASCADE,
-	CONSTRAINT fk_imgTags FOREIGN KEY (imageId) REFERENCES Picture (imageId)
+	CONSTRAINT fk_imgIncludes FOREIGN KEY (imageId) REFERENCES Picture (imageId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 );
 
