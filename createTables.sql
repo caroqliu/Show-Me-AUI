@@ -1,3 +1,13 @@
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Event;
+DROP TABLE IF EXISTS Location;
+DROP TABLE IF EXISTS Picture;
+DROP TABLE IF EXISTS InPicture;
+DROP TABLE IF EXISTS PicRating;
+DROP TABLE IF EXISTS PicComment;
+DROP TABLE IF EXISTS Tag;
+DROP TABLE IF EXISTS PictureTag;
+
 CREATE TABLE User (
 	userId integer PRIMARY KEY,
 	loginId varchar(35) NOT NULL UNIQUE,
@@ -14,7 +24,7 @@ CREATE TABLE Event (
 );
 
 CREATE TABLE Location (
-	locId integer PRIMARY KEY,
+	locationId integer PRIMARY KEY,
 	geolocalization varchar(256) NOT NULL
 );
 
@@ -29,20 +39,20 @@ CREATE TABLE Picture (
 	modificationTime datetime,
 	device varchar(256),
 	size double, 
-	locId varchar(256),
+	locationId varchar(256),
 	CONSTRAINT fk_userTakes FOREIGN KEY (userId) REFERENCES User (userId)
 		ON DELETE CASCADE,
 	CONSTRAINT fk_evRecords FOREIGN KEY (eventId) REFERENCES Event (eventId)
 		ON DELETE SET NULL,
-	CONSTRAINT fk_imgLoc FOREIGN KEY (locId) REFERENCES Location (locId)
+	CONSTRAINT fk_imgLocation FOREIGN KEY (locationId) REFERENCES Location (locationId)
 		ON DELETE SET NULL
 );
 
 CREATE TABLE InPicture (
 	userId integer,
-	imageId varchar(256),
+	imageId integer,
 
-	PRIMARY KEY (userId, imagePath),
+	PRIMARY KEY (userId, imageId),
 
 	CONSTRAINT fk_userTagged FOREIGN KEY (userId) REFERENCES User (userId)
 		ON UPDATE CASCADE ON DELETE CASCADE,
@@ -55,7 +65,7 @@ CREATE TABLE PicRating (
 	imageId integer,
 	rating integer NOT NULL,
 
-	PRIMARY KEY (userId, imagePath),
+	PRIMARY KEY (userId, imageId),
 
 	CONSTRAINT fk_userRates FOREIGN KEY (userId) REFERENCES User (userId)
 		ON UPDATE CASCADE ON DELETE CASCADE,
@@ -68,7 +78,7 @@ CREATE TABLE PicComment (
 	commentText varchar(256) NOT NULL,
 	postTime datetime NOT NULL,
 	userId integer,
-	imageId varchar(256),
+	imageId integer,
 	CONSTRAINT fk_userSends FOREIGN KEY (userID) REFERENCES User (userID)
 		ON UPDATE CASCADE ON DELETE CASCADE,
 	CONSTRAINT fk_imgGets FOREIGN KEY (imageId) REFERENCES Picture (imageId)
@@ -81,9 +91,9 @@ CREATE TABLE Tag (
 
 CREATE TABLE PictureTag (
 	tagName varchar(256),
-	imageId varchar(256),
+	imageId integer,
 
-	PRIMARY KEY (tagName, imagePath),
+	PRIMARY KEY (tagName, imageId),
 
 	CONSTRAINT fk_tagUsed FOREIGN KEY (tagName) REFERENCES Tag (tagName)
 		ON UPDATE CASCADE ON DELETE CASCADE,
