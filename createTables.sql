@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS User;
 #CREATE TABLES
 
 CREATE TABLE User (
-	userId integer PRIMARY KEY,
+	userId integer unsigned PRIMARY KEY,
 	username varchar(35) NOT NULL UNIQUE,
 	lastName varchar(35) NOT NULL,
 	firstName varchar(35) NOT NULL,	
@@ -22,28 +22,28 @@ CREATE TABLE User (
 );
 
 CREATE TABLE Event (
-	eventId integer PRIMARY KEY,
+	eventId integer unsigned PRIMARY KEY,
 	startTime datetime NOT NULL,
 	endTime datetime NOT NULL
 );
 
 CREATE TABLE Location (
-	locationId integer PRIMARY KEY,
+	locationId integer unsigned PRIMARY KEY,
 	geolocalization varchar(256) NOT NULL
 );
 
 CREATE TABLE Picture (
-	imageId integer PRIMARY KEY,
+	imageId integer unsigned PRIMARY KEY,
 	imagePath varchar(256) NOT NULL UNIQUE,
-	userId integer NOT NULL,
-	eventId integer,
+	userId integer unsigned NOT NULL,
+	eventId integer unsigned,
 	description varchar(256) NOT NULL,	
-	numberSeen integer NOT NULL default 0,
+	numberSeen integer unsigned NOT NULL default 0,
 	createTime datetime NOT NULL,
 	modificationTime datetime,
 	device varchar(256),
 	size double, 
-	locationId integer,
+	locationId integer unsigned,
 	CONSTRAINT fk_userTakes FOREIGN KEY (userId) REFERENCES User (userId)
 		ON DELETE CASCADE,
 	CONSTRAINT fk_evRecords FOREIGN KEY (eventId) REFERENCES Event (eventId)
@@ -53,8 +53,8 @@ CREATE TABLE Picture (
 );
 
 CREATE TABLE InPicture (
-	userId integer,
-	imageId integer,
+	userId integer unsigned,
+	imageId integer unsigned,
 
 	PRIMARY KEY (userId, imageId),
 
@@ -65,9 +65,9 @@ CREATE TABLE InPicture (
 );
 
 CREATE TABLE PictureRating (
-	userId integer,
-	imageId integer,
-	rating integer NOT NULL,
+	userId integer unsigned,
+	imageId integer unsigned,
+	rating integer unsigned NOT NULL,
 
 	PRIMARY KEY (userId, imageId),
 
@@ -78,11 +78,11 @@ CREATE TABLE PictureRating (
 );
 
 CREATE TABLE PictureComment (
-	commentId integer PRIMARY KEY,
+	commentId integer unsigned PRIMARY KEY,
 	commentText varchar(256) NOT NULL,
 	postTime datetime NOT NULL,
-	userId integer NOT NULL,
-	imageId integer NOT NULL,
+	userId integer unsigned NOT NULL,
+	imageId integer unsigned NOT NULL,
 	CONSTRAINT fk_userSends FOREIGN KEY (userID) REFERENCES User (userID)
 		ON UPDATE CASCADE ON DELETE CASCADE,
 	CONSTRAINT fk_imgGets FOREIGN KEY (imageId) REFERENCES Picture (imageId)
@@ -95,7 +95,7 @@ CREATE TABLE Tag (
 
 CREATE TABLE PictureTag (
 	tagName varchar(256),
-	imageId integer,
+	imageId integer unsigned,
 
 	PRIMARY KEY (tagName, imageId),
 
