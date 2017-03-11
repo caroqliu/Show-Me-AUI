@@ -1,4 +1,3 @@
-#DROP TABLES
 
 DROP TABLE IF EXISTS PictureTag;
 DROP TABLE IF EXISTS PictureComment;
@@ -9,8 +8,6 @@ DROP TABLE IF EXISTS Location;
 DROP TABLE IF EXISTS Tag;
 DROP TABLE IF EXISTS Event;
 DROP TABLE IF EXISTS User;
-
-#CREATE TABLES
 
 CREATE TABLE User (
 	userId integer PRIMARY KEY,
@@ -81,8 +78,8 @@ CREATE TABLE PictureComment (
 	commentId integer PRIMARY KEY,
 	commentText varchar(256) NOT NULL,
 	postTime datetime NOT NULL,
-	userId integer NOT NULL,
-	imageId integer NOT NULL,
+	userId integer,
+	imageId integer,
 	CONSTRAINT fk_userSends FOREIGN KEY (userID) REFERENCES User (userID)
 		ON UPDATE CASCADE ON DELETE CASCADE,
 	CONSTRAINT fk_imgGets FOREIGN KEY (imageId) REFERENCES Picture (imageId)
