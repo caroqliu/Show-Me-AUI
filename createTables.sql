@@ -1,4 +1,4 @@
-#DROP TABLES
+# DROP TABLES
 
 DROP TABLE IF EXISTS PictureTag;
 DROP TABLE IF EXISTS PictureComment;
@@ -9,8 +9,9 @@ DROP TABLE IF EXISTS Location;
 DROP TABLE IF EXISTS Tag;
 DROP TABLE IF EXISTS Event;
 DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Notification;
 
-#CREATE TABLES
+# CREATE TABLES
 
 CREATE TABLE User (
 	userId integer unsigned PRIMARY KEY,
@@ -103,4 +104,13 @@ CREATE TABLE PictureTag (
 		ON UPDATE CASCADE ON DELETE CASCADE,
 	CONSTRAINT fk_imgUses FOREIGN KEY (imageId) REFERENCES Picture (imageId)
 		ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE Notification (
+  notificationId integer unsigned PRIMARY KEY,
+  toUser integer unsigned NOT NULL,
+  message varchar(1024) NOT NULL,
+  
+  CONSTRAINT fk_notifyUser FOREIGN KEY (toUser) REFERENCES User (userId)
+    ON UPDATE CASCADE ON DELETE CASCADE
 );
