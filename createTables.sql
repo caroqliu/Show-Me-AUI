@@ -107,10 +107,11 @@ CREATE TABLE PictureTag (
 );
 
 CREATE TABLE Notification (
-  notificationId integer unsigned PRIMARY KEY,
-  toUser integer unsigned NOT NULL,
+  notificationId integer unsigned PRIMARY KEY AUTO_INCREMENT,
+  userId integer unsigned NOT NULL,
   message varchar(1024) NOT NULL,
+  notificationDate datetime NOT NULL,
   
-  CONSTRAINT fk_notifyUser FOREIGN KEY (toUser) REFERENCES User (userId)
+  CONSTRAINT fk_notifyUser FOREIGN KEY (userId) REFERENCES User (userId)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
