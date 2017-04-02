@@ -18,7 +18,7 @@ CREATE TABLE User (
 	username varchar(35) NOT NULL UNIQUE,
 	lastName varchar(35) NOT NULL,
 	firstName varchar(35) NOT NULL,	
-	email varchar(35) NOT NULL,
+	email varchar(35) UNIQUE NOT NULL,
 	userPassword varchar(35) NOT NULL
 );
 
