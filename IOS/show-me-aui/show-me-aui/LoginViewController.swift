@@ -10,12 +10,16 @@ import UIKit
 import SnapKit
 
 class LoginViewController: UIViewController {
-  private let userNameTextField = UITextField()
+  private let loginBrain = LoginBrain()
+  
+  // UI Elements
+  private let emailTextField = UITextField()
   private let passwordTextField = UITextField()
   private let loginButton = UIButton()
   private let welcomeLabel = UILabel()
   private let forgotPasswordButton = UIButton()
   private let createAccountButton = UIButton()
+  private let errorMessageLabel = UILabel()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -32,8 +36,46 @@ class LoginViewController: UIViewController {
     print("didTapCreatAccount")
   }
   
+  enum ErrorMessage {
+    case emptyEmail
+    case emptyPassword
+    case wrongPassword
+  }
+  
   func didTapLogin() {
-    print("didTapLogin")
+    guard let email = emailTextField.text, !email.isEmpty else {
+      // Empty email.
+      handleFailedAuthenticationWithCode(.emptyEmail)
+      return
+    }
+    
+    guard let password = passwordTextField.text, !password.isEmpty else {
+      // Empty password.
+      handleFailedAuthenticationWithCode(.emptyPassword)
+      return
+    }
+    
+    if loginBrain.query(email: email, password: password) {
+      print("Logged in")
+    } else {
+      // Failed to login.
+      handleFailedAuthenticationWithCode(.wrongPassword)
+    }
+  }
+  
+  func handleFailedAuthenticationWithCode(_ code: ErrorMessage) {
+    var errorMessage: String
+    switch code {
+    case .emptyPassword:
+      errorMessage = "Password cannot be empty."
+    case .emptyEmail:
+      errorMessage = "Email cannot be empty."
+    case .wrongPassword:
+      errorMessage = "Wrong Email/Password combination."
+    }
+    
+    errorMessageLabel.text = errorMessage
+    errorMessageLabel.isHidden = false
   }
   
   // MARK: UI
@@ -47,10 +89,23 @@ class LoginViewController: UIViewController {
     setupForgotPasswordButton()
     setUpCreateAccountButton()
     setUpVerticalLineBetweenForgotButtonAndCreateButton()
+    setUpErrorMessage()
+  }
+  
+  func setUpErrorMessage() {
+    errorMessageLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+    errorMessageLabel.textColor = UIColor.red
+    errorMessageLabel.isHidden = true
+    
+    view.addSubview(errorMessageLabel)
+    errorMessageLabel.snp.makeConstraints { make in
+      make.top.equalTo(createAccountButton.snp.bottom).offset(8)
+      make.centerX.equalTo(view)
+    }
   }
   
   func setupBackground() {
-    view.backgroundColor = UIColor(patternImage: UIImage(named: "capitan")!)
+    view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "capitan"))
     let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
     let blurEffectView = UIVisualEffectView(effect: blurEffect)
     blurEffectView.frame = view.bounds
@@ -73,16 +128,16 @@ class LoginViewController: UIViewController {
   }
   
   func setupUserNameTextField() {
-    userNameTextField.placeholder = "email"
-    userNameTextField.layer.borderWidth = 1.0
-    userNameTextField.layer.borderColor = UIColor.lightGray.cgColor
-    userNameTextField.layer.cornerRadius = 13.0
-    userNameTextField.leftViewMode = UITextFieldViewMode.always
+    emailTextField.placeholder = "email"
+    emailTextField.layer.borderWidth = 1.0
+    emailTextField.layer.borderColor = UIColor.lightGray.cgColor
+    emailTextField.layer.cornerRadius = 13.0
+    emailTextField.leftViewMode = UITextFieldViewMode.always
     let userNameSpacerView = UIView(frame:CGRect(x:0, y:0, width:20, height:10))
-    userNameTextField.leftView = userNameSpacerView
+    emailTextField.leftView = userNameSpacerView
     
-    view.addSubview(userNameTextField)
-    userNameTextField.snp.makeConstraints { make in
+    view.addSubview(emailTextField)
+    emailTextField.snp.makeConstraints { make in
       make.centerX.equalTo(view)
       make.top.equalTo(welcomeLabel.snp.bottom).offset(40)
       make.width.equalTo(300)
@@ -102,10 +157,10 @@ class LoginViewController: UIViewController {
     
     view.addSubview(passwordTextField)
     passwordTextField.snp.makeConstraints { make in
-      make.top.equalTo(userNameTextField.snp.bottom).offset(8)
-      make.width.equalTo(userNameTextField)
-      make.height.equalTo(userNameTextField)
-      make.centerX.equalTo(userNameTextField)
+      make.top.equalTo(emailTextField.snp.bottom).offset(8)
+      make.width.equalTo(emailTextField)
+      make.height.equalTo(emailTextField)
+      make.centerX.equalTo(emailTextField)
     }
   }
   
@@ -119,9 +174,9 @@ class LoginViewController: UIViewController {
     view.addSubview(loginButton)
     loginButton.snp.makeConstraints{ make in
       make.top.equalTo(passwordTextField.snp.bottom).offset(8)
-      make.width.equalTo(userNameTextField)
-      make.height.equalTo(userNameTextField)
-      make.centerX.equalTo(userNameTextField)
+      make.width.equalTo(emailTextField)
+      make.height.equalTo(emailTextField)
+      make.centerX.equalTo(emailTextField)
     }
   }
   

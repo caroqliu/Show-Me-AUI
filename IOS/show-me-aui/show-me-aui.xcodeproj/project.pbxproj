@@ -16,6 +16,7 @@
 		DEA2FEE81E997EA200641011 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEA2FEE61E997EA200641011 /* Main.storyboard */; };
 		DEA2FEEB1E997EA200641011 /* show_me_aui.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DEA2FEE91E997EA200641011 /* show_me_aui.xcdatamodeld */; };
 		DEA2FEF01E997EA200641011 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEA2FEEE1E997EA200641011 /* LaunchScreen.storyboard */; };
+		DEBDB7A11E9D307400106285 /* LoginBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBDB7A01E9D307400106285 /* LoginBrain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		DEA2FEEA1E997EA200641011 /* show_me_aui.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = show_me_aui.xcdatamodel; sourceTree = "<group>"; };
 		DEA2FEEF1E997EA200641011 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DEA2FEF11E997EA200641011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DEBDB7A01E9D307400106285 /* LoginBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginBrain.swift; sourceTree = "<group>"; };
 		F30323DE870EE73A680E8641 /* Pods-show-me-aui.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-show-me-aui.release.xcconfig"; path = "Pods/Target Support Files/Pods-show-me-aui/Pods-show-me-aui.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +91,7 @@
 				DE18069A1E9A2DA5008F563A /* ImageFeedViewController.swift */,
 				DE18069C1E9A2DD4008F563A /* PageletView.swift */,
 				DE1806981E999697008F563A /* LoginViewController.swift */,
+				DEBDB7A01E9D307400106285 /* LoginBrain.swift */,
 				DE18069E1E9A92E7008F563A /* Images.xcassets */,
 				DEA2FEEE1E997EA200641011 /* LaunchScreen.storyboard */,
 				DEA2FEF11E997EA200641011 /* Info.plist */,
@@ -223,6 +226,7 @@
 			files = (
 				DE1806991E999697008F563A /* LoginViewController.swift in Sources */,
 				DEA2FEEB1E997EA200641011 /* show_me_aui.xcdatamodeld in Sources */,
+				DEBDB7A11E9D307400106285 /* LoginBrain.swift in Sources */,
 				DE18069B1E9A2DA5008F563A /* ImageFeedViewController.swift in Sources */,
 				DEA2FEE31E997EA200641011 /* AppDelegate.swift in Sources */,
 				DE18069D1E9A2DD4008F563A /* PageletView.swift in Sources */,
