@@ -36,6 +36,7 @@ class LoginViewController: UIViewController {
     print("didTapCreatAccount")
   }
   
+  // Enum for common error messages while logging in.
   enum ErrorMessage {
     case emptyEmail
     case emptyPassword
@@ -56,10 +57,18 @@ class LoginViewController: UIViewController {
     }
     
     if loginBrain.query(email: email, password: password) {
-      print("Logged in")
+      // Logged in succesffully. Now Redirect to main page.
+      performSegue(withIdentifier: "FeedSegue", sender: self)
     } else {
       // Failed to login.
       handleFailedAuthenticationWithCode(.wrongPassword)
+    }
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    let destinationViewControlelr = segue.destination
+    if let feedViewController = destinationViewControlelr as? ImageFeedViewController {
+      
     }
   }
   
