@@ -114,7 +114,7 @@ class LoginViewController: UIViewController {
   }
   
   func setupBackground() {
-    view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "capitan"))
+    view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "login_background"))
     let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
     let blurEffectView = UIVisualEffectView(effect: blurEffect)
     blurEffectView.frame = view.bounds
