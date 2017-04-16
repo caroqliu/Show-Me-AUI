@@ -6,68 +6,110 @@ var connection = mysql.createConnection({
    user     : 'root',
    password : '',
    database : 'db'
-});
-
-var app = express();
+ });
  
-connection.connect(function(err) {
-  if(!err) {
-    console.log("Database is connected ... \n\n");  
-  } else {
-    console.log("Error connecting database ... \n\n");  
-  }
-});
+ var app = express();
  
-// Returns true if email and password are in the database, false otherwise.
-app.get("/authenticate", function(req, resp) {
-  var email    = req.query.email,
-      password = req.query.password;
+ connection.connect(function(err){
+ if(!err) {
+     console.log("Database is connected ... \n\n");  
+ } else {
+     console.log("Error connecting database ... \n\n");  
+ }
+ });
+ 
+ // Returns true if email and password are in the database, false otherwise.
+ app.get("/authenticate", function(req, resp) {
+    var email    = req.query.email,
+        password = req.query.password;
         
-  var query = "select 1 from User where email=? and userPassword=?;";
-  connection.query(query, [email, password], function(err, rows, fields) {
-    if (!err) {
-      console.log('The solution is: ', rows.affectedRows > 0 ? "true" : "false");  
-      if (rows.affectedRows > 0) {
-        resp.send("true");
-      } else {
-        resp.send("false");
-      }
-    } else {
-      console.log(err);
-    }
-  });
-});
+    var query = "select 1 from User where email=? and userPassword=?;";
+    connection.query(query, [email, password], function(err, rows, fields) {
+        if (!err) {
+            console.log('Athenticate is: ', rows.length);
+
+            resp.setHeader('Content-Type', 'application/json');
+            if (rows.length > 0) {
+                resp.send(JSON.stringify({ result : true }));
+            } else {
+                resp.send(JSON.stringify({ result : false }));
+            }
+        } else {
+            console.log(err);
+        }
+    });
+ });
  
 // Get all pictures for user Id.
 app.get("/picturesForUserId", function(req, resp) {
-  var userId = req.query.uid;
-  var query = "select imagePath from Picture where userId=?;";
+    var userId = req.query.uid;
+    var query = "select imagePath from Picture where userId=?;";
 
-  connection.query(query, [userId], function(err, rows, fields) {
-    if (!err) {
-      console.log('Image Paths: ', rows);
-      resp.send(rows);
-    } else {
-      console.log(err);
-    }
-  }); 
+    connection.query(query, [userId], function(err, rows, fields) {
+        if (!err) {
+            console.log('Image Paths: ', rows);
+            resp.send(rows);
+        } else {
+            console.log(err);
+        }
+    }); 
 });
 
 // Get picture information using image Id.
 app.get("/image", function(req, resp) {
-  var imageId = req.query.imageId;
-  var sql = "select * " +
-            "from Picture " +
-            "where imageId=?;";
+    var imageId = req.query.imageId;
+    var sql = "select * " +
+              "from Picture " +
+              "where imageId=?;";
 
-  connection.query(sql, [imageId], function(err, rows, fields) {
-    if (!err) {
-      console.log('Images: ', rows);
-      resp.send(rows);
-    } else {
-      console.log(err);
-    }
-  }); 
+    connection.query(sql, [imageId], function(err, rows, fields) {
+        if (!err) {
+            console.log('Images: ', rows);
+            resp.send(rows);
+        } else {
+            console.log(err);
+        }
+    }); 
 });
- 
+
+app.get("/getCommentsForImageId", function(req, resp) {
+    var imageId = req.query.id;
+    var sql = "select * " +
+              "from PictureComment " + 
+              "where imageId = ?";
+    
+    connection.query(sql, [imageId], function(error, rows, fields) {
+        if (!error) {
+            console.log("Comments: ", rows);
+            resp.send(JSON.stringify(rows));
+        } else {
+            console.log(error);
+        }
+    });
+    
+});
+
+app.get("/userImageForId", function(req, resp) {
+    var id = req.query.id;
+    var imageDirectory = __dirname+"/images/profile_images/";
+    console.log(imageDirectory+id+".jpg");
+    resp.sendFile(imageDirectory+id+".jpg");
+});
+
+app.get("/userNameForId", function(req, resp) {
+    var id = req.query.id;
+    var sql = "select username " +
+              "from User " + 
+              "where userId = ?";
+    
+    connection.query(sql, [id], function(error, rows, fields) {
+        if (!error) {
+            console.log("userName: ", rows);
+            resp.send(JSON.stringify(rows[0]));
+        } else {
+            console.log(error)
+        }
+    });
+});
+
 app.listen(process.env.PORT, process.env.IP);
