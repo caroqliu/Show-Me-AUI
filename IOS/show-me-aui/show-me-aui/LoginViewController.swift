@@ -23,7 +23,22 @@ class LoginViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setupUI()
+    
+    // Initialize the view only if no user is logged in.
+    let defaults = UserDefaults.standard
+    if defaults.integer(forKey: UserDefaultKey.userId) == 0 {
+      setupUI()
+    }
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    // Check if a user is already logged in.
+    let defaults = UserDefaults.standard
+    if defaults.integer(forKey: UserDefaultKey.userId) != 0 {
+      // A user is logged in, no need to prompt the user for his credetials.
+      // Redirect to main page.
+      performSegue(withIdentifier: "FeedSegue", sender: self)
+    }
   }
   
   // MARK: Targets
@@ -43,6 +58,11 @@ class LoginViewController: UIViewController {
     case wrongPassword
   }
   
+  // User defaults keys
+  struct UserDefaultKey {
+    static let userId = "userId"
+  }
+  
   func didTapLogin() {
     guard let email = emailTextField.text, !email.isEmpty else {
       // Empty email.
@@ -57,7 +77,16 @@ class LoginViewController: UIViewController {
     }
     
     if loginBrain.query(email: email, password: password) {
-      // Logged in succesffully. Now Redirect to main page.
+      // Logged in succesffully.
+      
+      // Save current user as logged in.
+      let defaults = UserDefaults.standard
+      defaults.set(1, forKey: UserDefaultKey.userId)
+      if !defaults.synchronize() {
+        NSLog("Could not synchronize userdefaults.")
+      }
+      
+      // Redirect to main page.
       performSegue(withIdentifier: "FeedSegue", sender: self)
     } else {
       // Failed to login.
@@ -114,7 +143,7 @@ class LoginViewController: UIViewController {
   }
   
   func setupBackground() {
-    view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "login_background"))
+    view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "capitan"))
     let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
     let blurEffectView = UIVisualEffectView(effect: blurEffect)
     blurEffectView.frame = view.bounds
