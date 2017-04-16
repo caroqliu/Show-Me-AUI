@@ -17,7 +17,8 @@ class ImageFeedViewController: UIViewController {
     
     view.addSubview(feedScrollView)
     feedScrollView.snp.makeConstraints { make in
-      make.edges.equalTo(view)
+      make.left.right.bottom.equalTo(view)
+      make.top.equalTo(view).offset(20)
     }
     
     let pagelet = PageletView(userImage: UIImage(named: "user_icon")!, userName: "Achraf",
@@ -25,7 +26,9 @@ class ImageFeedViewController: UIViewController {
     
     feedScrollView.addSubview(pagelet)
     pagelet.snp.makeConstraints { make in
-      make.left.right.equalTo(feedScrollView)
+      make.left.equalTo(feedScrollView)
+      let width = UIScreen.main.bounds.width
+      make.width.equalTo(width)
       make.top.bottom.equalTo(feedScrollView)
     }
   }
