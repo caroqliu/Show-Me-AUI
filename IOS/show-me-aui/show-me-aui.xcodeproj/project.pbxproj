@@ -65,6 +65,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		DE2DDD311EA3A3FD002226EA /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				DE1806981E999697008F563A /* LoginViewController.swift */,
+				DEBDB7A01E9D307400106285 /* LoginBrain.swift */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		DEA2FED61E997EA100641011 = {
 			isa = PBXGroup;
 			children = (
@@ -86,12 +95,11 @@
 		DEA2FEE11E997EA200641011 /* show-me-aui */ = {
 			isa = PBXGroup;
 			children = (
+				DE2DDD311EA3A3FD002226EA /* Login */,
 				DEA2FEE21E997EA200641011 /* AppDelegate.swift */,
 				DEA2FEE61E997EA200641011 /* Main.storyboard */,
 				DE18069A1E9A2DA5008F563A /* ImageFeedViewController.swift */,
 				DE18069C1E9A2DD4008F563A /* PageletView.swift */,
-				DE1806981E999697008F563A /* LoginViewController.swift */,
-				DEBDB7A01E9D307400106285 /* LoginBrain.swift */,
 				DE18069E1E9A92E7008F563A /* Images.xcassets */,
 				DEA2FEEE1E997EA200641011 /* LaunchScreen.storyboard */,
 				DEA2FEF11E997EA200641011 /* Info.plist */,
