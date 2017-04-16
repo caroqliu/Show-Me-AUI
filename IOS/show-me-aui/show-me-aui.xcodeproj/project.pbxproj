@@ -12,6 +12,9 @@
 		DE18069B1E9A2DA5008F563A /* ImageFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE18069A1E9A2DA5008F563A /* ImageFeedViewController.swift */; };
 		DE18069D1E9A2DD4008F563A /* PageletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE18069C1E9A2DD4008F563A /* PageletView.swift */; };
 		DE18069F1E9A92E7008F563A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE18069E1E9A92E7008F563A /* Images.xcassets */; };
+		DE2DDD331EA3AC2E002226EA /* APIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD321EA3AC2E002226EA /* APIData.swift */; };
+		DE2DDD351EA4075A002226EA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD341EA4075A002226EA /* Comment.swift */; };
+		DE2DDD371EA4082B002226EA /* SerializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD361EA4082B002226EA /* SerializationError.swift */; };
 		DEA2FEE31E997EA200641011 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA2FEE21E997EA200641011 /* AppDelegate.swift */; };
 		DEA2FEE81E997EA200641011 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEA2FEE61E997EA200641011 /* Main.storyboard */; };
 		DEA2FEEB1E997EA200641011 /* show_me_aui.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DEA2FEE91E997EA200641011 /* show_me_aui.xcdatamodeld */; };
@@ -26,6 +29,9 @@
 		DE18069A1E9A2DA5008F563A /* ImageFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFeedViewController.swift; sourceTree = "<group>"; };
 		DE18069C1E9A2DD4008F563A /* PageletView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageletView.swift; sourceTree = "<group>"; };
 		DE18069E1E9A92E7008F563A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DE2DDD321EA3AC2E002226EA /* APIData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIData.swift; sourceTree = "<group>"; };
+		DE2DDD341EA4075A002226EA /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		DE2DDD361EA4082B002226EA /* SerializationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializationError.swift; sourceTree = "<group>"; };
 		DEA2FEDF1E997EA200641011 /* show-me-aui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "show-me-aui.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEA2FEE21E997EA200641011 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEA2FEE71E997EA200641011 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -90,8 +96,11 @@
 				DEA2FEE61E997EA200641011 /* Main.storyboard */,
 				DE18069A1E9A2DA5008F563A /* ImageFeedViewController.swift */,
 				DE18069C1E9A2DD4008F563A /* PageletView.swift */,
+				DE2DDD341EA4075A002226EA /* Comment.swift */,
+				DE2DDD361EA4082B002226EA /* SerializationError.swift */,
 				DE1806981E999697008F563A /* LoginViewController.swift */,
 				DEBDB7A01E9D307400106285 /* LoginBrain.swift */,
+				DE2DDD321EA3AC2E002226EA /* APIData.swift */,
 				DE18069E1E9A92E7008F563A /* Images.xcassets */,
 				DEA2FEEE1E997EA200641011 /* LaunchScreen.storyboard */,
 				DEA2FEF11E997EA200641011 /* Info.plist */,
@@ -224,8 +233,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE2DDD371EA4082B002226EA /* SerializationError.swift in Sources */,
 				DE1806991E999697008F563A /* LoginViewController.swift in Sources */,
+				DE2DDD331EA3AC2E002226EA /* APIData.swift in Sources */,
 				DEA2FEEB1E997EA200641011 /* show_me_aui.xcdatamodeld in Sources */,
+				DE2DDD351EA4075A002226EA /* Comment.swift in Sources */,
 				DEBDB7A11E9D307400106285 /* LoginBrain.swift in Sources */,
 				DE18069B1E9A2DA5008F563A /* ImageFeedViewController.swift in Sources */,
 				DEA2FEE31E997EA200641011 /* AppDelegate.swift in Sources */,

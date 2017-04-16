@@ -35,7 +35,7 @@ class CommentCell: UITableViewCell {
       make.width.equalTo(30)
       make.height.equalTo(userImageView.snp.width)
     }
-
+    
     userNameLabel.snp.makeConstraints { make in
       make.top.equalTo(contentView).offset(8)
       make.left.equalTo(userImageView.snp.right).offset(8)
@@ -66,6 +66,13 @@ class PageletView: UIView {
   private let commentsTableView = UITableView()
   private let horizontalLine = UIView()
   
+  let imageId: Int
+  
+  init?(imageId: Int) {
+    self.imageId = imageId
+    super.init(frame: CGRect.zero)
+  }
+  
   // Height of the comments (calcualtes the height for at most 3) as only 3 are show at
   // a time.
   var commentTablePreviewHeight: CGFloat {
@@ -95,6 +102,8 @@ class PageletView: UIView {
   }
   
   init(userImage uimage: UIImage, userName name: String, pageletImage pimage: UIImage) {
+    // TODO: Change
+    self.imageId = 1
     super.init(frame: CGRect.zero)
     
     userImageView.image = uimage
@@ -254,7 +263,7 @@ class PageletView: UIView {
         make.left.equalTo(likeButton.snp.right).offset(8)
         make.width.equalTo(likeButton)
         make.height.equalTo(thumbDownButton.snp.width).multipliedBy(1.0)
-        make.bottom.equalTo(likeButton)        
+        make.bottom.equalTo(likeButton)
       }
     } else {
       thumbDownButton.setImage(#imageLiteral(resourceName: "thumb_down_filled"), for: .normal)
@@ -292,23 +301,40 @@ class PageletView: UIView {
 }
 
 extension PageletView: UITableViewDataSource, UITableViewDelegate {
+  
   func numberOfSections(in tableView: UITableView) -> Int {
     // Only One section. All comments will be gathered in the same section.
     return 1
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    // TODO: Fetch #comments from db.
-    return 2
+    let api = APIData.shared
+    let url = "getCommentsForImageId"
+    let args = ["id": String(self.imageId)]
+    if let result = api.getQuery(url: url, args: args) as? NSArray {
+      return result.count
+    }
+    
+    return 0
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell =  CommentCell()
     
-    // TODO: populate cell from db.
-    cell.userImageView.image = #imageLiteral(resourceName: "user_icon")
-    cell.userNameLabel.text = "Kakashi Senpai"
-    cell.commentLabel.text = "belle tof ma cherie.\nTest Test\nBoum."
+    let api = APIData.shared
+    let url = "getCommentsForImageId"
+    let args = ["id": String(self.imageId)]
+    
+    if let result = api.getQuery(url: url, args: args) as? NSArray {
+      do {
+        let comment = try Comment(jsonData: result[indexPath.row])
+        cell.commentLabel.text = comment?.comment
+        cell.userImageView.image = comment?.userImage
+        cell.userNameLabel.text = comment?.username
+      } catch {
+        print(error)
+      }
+    }
     
     return cell
   }
