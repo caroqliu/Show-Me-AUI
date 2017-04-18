@@ -20,6 +20,7 @@
 		DEA2FEEB1E997EA200641011 /* show_me_aui.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DEA2FEE91E997EA200641011 /* show_me_aui.xcdatamodeld */; };
 		DEA2FEF01E997EA200641011 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEA2FEEE1E997EA200641011 /* LaunchScreen.storyboard */; };
 		DEBB6FE81EA4DBEB00A8DCE2 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBB6FE71EA4DBEB00A8DCE2 /* CommentCell.swift */; };
+		DEBB6FEA1EA4DE9D00A8DCE2 /* WriteCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBB6FE91EA4DE9D00A8DCE2 /* WriteCommentViewController.swift */; };
 		DEBDB7A11E9D307400106285 /* LoginBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBDB7A01E9D307400106285 /* LoginBrain.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		DEA2FEEF1E997EA200641011 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DEA2FEF11E997EA200641011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEBB6FE71EA4DBEB00A8DCE2 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		DEBB6FE91EA4DE9D00A8DCE2 /* WriteCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteCommentViewController.swift; sourceTree = "<group>"; };
 		DEBDB7A01E9D307400106285 /* LoginBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginBrain.swift; sourceTree = "<group>"; };
 		F30323DE870EE73A680E8641 /* Pods-show-me-aui.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-show-me-aui.release.xcconfig"; path = "Pods/Target Support Files/Pods-show-me-aui/Pods-show-me-aui.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,6 +128,7 @@
 		DEBB6FE11EA4D2AB00A8DCE2 /* PageLet */ = {
 			isa = PBXGroup;
 			children = (
+				DEBB6FE91EA4DE9D00A8DCE2 /* WriteCommentViewController.swift */,
 				DE18069C1E9A2DD4008F563A /* PageletView.swift */,
 				DEBB6FE71EA4DBEB00A8DCE2 /* CommentCell.swift */,
 				DE2DDD341EA4075A002226EA /* Comment.swift */,
@@ -271,6 +274,7 @@
 				DE2DDD371EA4082B002226EA /* SerializationError.swift in Sources */,
 				DE1806991E999697008F563A /* LoginViewController.swift in Sources */,
 				DE2DDD331EA3AC2E002226EA /* APIData.swift in Sources */,
+				DEBB6FEA1EA4DE9D00A8DCE2 /* WriteCommentViewController.swift in Sources */,
 				DEA2FEEB1E997EA200641011 /* show_me_aui.xcdatamodeld in Sources */,
 				DE2DDD351EA4075A002226EA /* Comment.swift in Sources */,
 				DEBB6FE81EA4DBEB00A8DCE2 /* CommentCell.swift in Sources */,

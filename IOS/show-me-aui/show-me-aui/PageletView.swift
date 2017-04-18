@@ -246,6 +246,23 @@ class PageletView: UIView {
   
   func didTapComment() {
     print("didTapComment")
+    
+    // Get top ViewController, in order to push the WriteCommentViewController.
+    var topVC = UIApplication.shared.keyWindow?.rootViewController
+    while((topVC!.presentedViewController) != nil) {
+      topVC = topVC!.presentedViewController
+    }
+    
+    guard let rootVc = topVC else {
+      fatalError("No root Vc.")
+    }
+    
+    // Show WriteCommentViewController as a popup.
+    let writeVc = WriteCommentViewController()
+    rootVc.addChildViewController(writeVc)
+    writeVc.view.frame = rootVc.view.frame
+    rootVc.view.addSubview(writeVc.view)
+    writeVc.didMove(toParentViewController: rootVc)
   }
 }
 
