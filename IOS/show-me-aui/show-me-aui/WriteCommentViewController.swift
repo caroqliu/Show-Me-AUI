@@ -15,6 +15,18 @@ class WriteCommentViewController: UIViewController {
   private let postButton = UIButton()
   private let cancelButton = UIButton()
   
+  // The current open image id.
+  var currentImageId: Int
+  
+  // Designated initializer
+  init(imageId: Int) {
+    self.currentImageId = 1
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -93,6 +105,22 @@ class WriteCommentViewController: UIViewController {
   func didTapPost() {
     // TODO: write comment in db.
     print("didTapPost")
+    
+    guard let text = self.textArea.text, !text.isEmpty else {
+      print("empty comment text.")
+      return
+    }
+    
+    guard let userId = Session.shared.getUserIdForCurrentSession() else {
+      fatalError("No userId found while session is active.")
+    }
+    
+    let api = APIData.shared
+    api.queryServer(url: "/saveComment",
+                   args: ["text": text,
+                        "userid": String(userId),
+                       "imageid": String(self.currentImageId)])
+    
     self.removeAnimate()
   }
   

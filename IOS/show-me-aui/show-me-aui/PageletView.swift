@@ -258,7 +258,8 @@ class PageletView: UIView {
     }
     
     // Show WriteCommentViewController as a popup.
-    let writeVc = WriteCommentViewController()
+    // TODO: get current image id.
+    let writeVc = WriteCommentViewController(imageId: 1)
     rootVc.addChildViewController(writeVc)
     writeVc.view.frame = rootVc.view.frame
     rootVc.view.addSubview(writeVc.view)
@@ -275,7 +276,7 @@ extension PageletView: UITableViewDataSource, UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     let api = APIData.shared
-    let url = "getCommentsForImageId"
+    let url = "/getCommentsForImageId"
     let args = ["id": String(self.imageId)]
     if let result = api.getQuery(url: url, args: args) as? NSArray {
       return result.count
@@ -288,7 +289,7 @@ extension PageletView: UITableViewDataSource, UITableViewDelegate {
     let cell =  CommentCell()
     
     let api = APIData.shared
-    let url = "getCommentsForImageId"
+    let url = "/getCommentsForImageId"
     let args = ["id": String(self.imageId)]
     
     if let result = api.getQuery(url: url, args: args) as? NSArray {

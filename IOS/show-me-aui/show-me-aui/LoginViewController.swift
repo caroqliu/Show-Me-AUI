@@ -25,16 +25,14 @@ class LoginViewController: UIViewController {
     super.viewDidLoad()
     
     // Initialize the view only if no user is logged in.
-    let defaults = UserDefaults.standard
-    if defaults.integer(forKey: UserDefaultKey.userId) == 0 {
+    if !Session.shared.isThereAnActiveSession() {
       setupUI()
     }
   }
   
   override func viewDidAppear(_ animated: Bool) {
     // Check if a user is already logged in.
-    let defaults = UserDefaults.standard
-    if defaults.integer(forKey: UserDefaultKey.userId) != 0 {
+    if Session.shared.isThereAnActiveSession() {
       // A user is logged in, no need to prompt the user for his credetials.
       // Redirect to main page.
       performSegue(withIdentifier: "FeedSegue", sender: self)
@@ -58,11 +56,6 @@ class LoginViewController: UIViewController {
     case wrongPassword
   }
   
-  // User defaults keys
-  struct UserDefaultKey {
-    static let userId = "userId"
-  }
-  
   func didTapLogin() {
     guard let email = emailTextField.text, !email.isEmpty else {
       // Empty email.
@@ -79,25 +72,15 @@ class LoginViewController: UIViewController {
     if loginBrain.query(email: email, password: password) {
       // Logged in succesffully.
       
-      // Save current user as logged in.
-      let defaults = UserDefaults.standard
-      defaults.set(1, forKey: UserDefaultKey.userId)
-      if !defaults.synchronize() {
-        NSLog("Could not synchronize userdefaults.")
-      }
+      // TODO: save real userID.
+      let session = Session.shared
+      session.createSession(userId: 61755)
       
       // Redirect to main page.
       performSegue(withIdentifier: "FeedSegue", sender: self)
     } else {
       // Failed to login.
       handleFailedAuthenticationWithCode(.wrongPassword)
-    }
-  }
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    let destinationViewControlelr = segue.destination
-    if let feedViewController = destinationViewControlelr as? ImageFeedViewController {
-      
     }
   }
   

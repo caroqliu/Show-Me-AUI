@@ -24,7 +24,7 @@ class APIData {
   // occurs
   func getQuery(url: String, args: [String:String]) -> Any? {
     // Create request url in order to query API.
-    let url = URL(string: makeGetRequestUsing(url: url, args: args))
+    let url = makeGetRequestUsing(url: url, args: args)
     
     // Semaphore in order to wait for the request to be fetched from the server.
     let semaphore = DispatchSemaphore(value: 0);
@@ -56,13 +56,48 @@ class APIData {
     return result
   }
   
+  // Query the server using a get request.
+  // param @url: indicated the url to query.
+  // param @args: arguments in the get query.
+  // param @closure: closure that accepts a jsondata. the closure is called with the json
+  // data received from the server.
+  func queryServer(url: String, args: [String:String], closure: ((Any?) -> Void)? = nil) {
+    // Create request url in order to query API.
+    let url = makeGetRequestUsing(url: url, args: args)
+    
+    let task = URLSession.shared.dataTask(with: url!) { data, response, error in
+      guard error == nil else {
+        NSLog(error as! String)
+        return
+      }
+      
+      do {
+        // Get data From the server.
+        if let data = data {
+          // Parse data from the server as JSON.
+          let jsonData = try JSONSerialization.jsonObject(with: data)
+          
+          // Call callback with jsonData.
+          if let f = closure {
+            f(jsonData)
+          }
+        }
+      }
+      catch {
+        print("Error deserializing JSON: \(error)")
+      }
+    }
+    
+    task.resume()
+  }
+  
   // Query the server for an image.
   // param @url: indicated the url to query.
   // param @args: arguments in the get query.
   // returns a UIImage or nil in case of failure.
   func getImage(url: String, args: [String:String]) -> UIImage? {
     // Create request url in order to query API.
-    let url = URL(string: makeGetRequestUsing(url: url, args: args))
+    let url = makeGetRequestUsing(url: url, args: args)
     
     // Semaphore in order to wait for the request to be fetched from the server.
     let semaphore = DispatchSemaphore(value: 0);
@@ -90,18 +125,19 @@ class APIData {
   }
   
   // MARK: Convenience
-  func makeGetRequestUsing(url sub: String, args: [String:String]) -> String {
-    var url = serverUrl + sub
+  func makeGetRequestUsing(url sub: String, args: [String:String]) -> URL? {
+    let urlComponents = NSURLComponents()
+    urlComponents.scheme = "https";
+    urlComponents.host = "aui-lekssays.c9users.io";
+    urlComponents.path = sub;
     
-    var argNumber = 1
+    // add params
+    var items = [NSURLQueryItem]()
     for (key, value) in args {
-      let separator = (argNumber == 1) ? "?" : "&"
-      url += "\(separator)\(key)=\(value)"
-      argNumber += 1
+      items.append(NSURLQueryItem(name: key, value: value))
     }
+    urlComponents.queryItems = items as [URLQueryItem]?
     
-    print("URL-> \(url)")
-    
-    return url
+    return urlComponents.url
   }
 }
