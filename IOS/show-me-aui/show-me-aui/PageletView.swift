@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class PageletView: UIView {
+class PageletView: UIView, WriteCommentDelegate {
   private let userImageView = UIImageView()
   private let addressLabel = UILabel()
   private let pageletImageView = UIImageView()
@@ -23,6 +23,9 @@ class PageletView: UIView {
   
   // Id of the current image pagelet.
   let imageId: Int
+  
+  // Comments of the current pagelet.
+  var comments = [Comment]()
   
   init?(imageId: Int) {
     self.imageId = imageId
@@ -260,15 +263,21 @@ class PageletView: UIView {
     // Show WriteCommentViewController as a popup.
     // TODO: get current image id.
     let writeVc = WriteCommentViewController(imageId: 1)
+    writeVc.delegate = self
+    
     rootVc.addChildViewController(writeVc)
     writeVc.view.frame = rootVc.view.frame
     rootVc.view.addSubview(writeVc.view)
     writeVc.didMove(toParentViewController: rootVc)
   }
+  
+  // Reload data of the Comments table view.
+  func refreshComments() {
+    self.commentsTableView.reloadData()
+  }
 }
 
 extension PageletView: UITableViewDataSource, UITableViewDelegate {
-  
   func numberOfSections(in tableView: UITableView) -> Int {
     // Only One section. All comments will be gathered in the same section.
     return 1
@@ -278,30 +287,30 @@ extension PageletView: UITableViewDataSource, UITableViewDelegate {
     let api = APIData.shared
     let url = "/getCommentsForImageId"
     let args = ["id": String(self.imageId)]
-    if let result = api.getQuery(url: url, args: args) as? NSArray {
-      return result.count
-    }
     
-    return 0
+    self.comments = []
+    if let result = api.getQuery(url: url, args: args) as? NSArray {
+      for row in 0..<result.count {
+        do {
+          if let comment = try Comment(jsonData: result[row]) {
+            self.comments.append(comment)
+          }
+        } catch {
+          print(error)
+        }
+      }
+    }
+
+    return comments.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell =  CommentCell()
     
-    let api = APIData.shared
-    let url = "/getCommentsForImageId"
-    let args = ["id": String(self.imageId)]
-    
-    if let result = api.getQuery(url: url, args: args) as? NSArray {
-      do {
-        let comment = try Comment(jsonData: result[indexPath.row])
-        cell.commentLabel.text = comment?.comment
-        cell.userImageView.image = comment?.userImage
-        cell.userNameLabel.text = comment?.username
-      } catch {
-        print(error)
-      }
-    }
+    let comment = self.comments[indexPath.row]
+    cell.commentLabel.text = comment.comment
+    cell.userImageView.image = comment.userImage
+    cell.userNameLabel.text = comment.username
     
     return cell
   }

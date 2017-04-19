@@ -9,11 +9,18 @@
 import UIKit
 import SnapKit
 
+// WriteCommentDelegate.
+protocol WriteCommentDelegate {
+  func refreshComments()
+}
+
 class WriteCommentViewController: UIViewController {
   // UI elements.
   private let textArea = UITextView()
   private let postButton = UIButton()
   private let cancelButton = UIButton()
+  
+  var delegate: WriteCommentDelegate?
   
   // The current open image id.
   var currentImageId: Int
@@ -120,6 +127,9 @@ class WriteCommentViewController: UIViewController {
                    args: ["text": text,
                         "userid": String(userId),
                        "imageid": String(self.currentImageId)])
+    
+    // Refresh comments through delegate.
+    self.delegate?.refreshComments()
     
     self.removeAnimate()
   }
