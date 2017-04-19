@@ -31,12 +31,12 @@ struct Comment {
       
       // Get userImage.
       guard let userId = commentObject[Comment.userId] as? Int,
-        let userImage = APIData.shared.getImage(url: "userImageForId", args: ["id": String(userId)]) else {
+        let userImage = APIData.shared.getImage(url: "/userImageForId", args: ["id": String(userId)]) else {
           throw SerializationError.missing(Comment.userId)
       }
       
       // Get userename.
-      guard let resp = APIData.shared.getQuery(url: "userNameForId", args: ["id": String(userId)]) as? [String: String],
+      guard let resp = APIData.shared.getQuery(url: "/userNameForId", args: ["id": String(userId)]) as? [String: String],
         let username = resp[Comment.username] else {
           throw SerializationError.missing(Comment.username)
       }

@@ -107,9 +107,29 @@ app.get("/userNameForId", function(req, resp) {
             console.log("userName: ", rows);
             resp.send(JSON.stringify(rows[0]));
         } else {
-            console.log(error)
+            console.log(error);
         }
     });
+});
+
+app.get("/saveComment", function(req, resp) {
+  var userid = req.query.userid;
+  var text = req.query.text;
+  var imageid = req.query.imageid;
+  var sql = "insert into PictureComment (commentText, postTime, userId, imageId) "+
+            "values (?, now(), ?, ?);";
+            
+  console.log(userid, text, imageid);
+  
+  connection.query(sql, [text, userid, imageid], function(error, rows, fields) {
+    if (!error) {
+      console.log("comment saved: ", rows);
+      resp.send(JSON.stringify({ result : true }));
+    } else {
+      console.log(error);
+      resp.send(JSON.stringify({ result : false }));
+    }
+  });
 });
 
 app.listen(process.env.PORT, process.env.IP);
