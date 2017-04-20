@@ -30,6 +30,8 @@ class PageletView: UIView, WriteCommentDelegate {
   init?(imageId: Int) {
     self.imageId = imageId
     super.init(frame: CGRect.zero)
+    
+    fetchCommentsAsynchrounously()
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -69,6 +71,7 @@ class PageletView: UIView, WriteCommentDelegate {
     userNameLabel.text = name
     
     setUpUI()
+    fetchCommentsAsynchrounously()
   }
   
   func setUpUI() {
@@ -271,9 +274,50 @@ class PageletView: UIView, WriteCommentDelegate {
     writeVc.didMove(toParentViewController: rootVc)
   }
   
+  // Fetch Comments asynchronously.
+  func fetchCommentsAsynchrounously() {
+    let api = APIData.shared
+    let url = "/getCommentsForImageId"
+    let args = ["id": String(self.imageId)]
+    
+    self.comments = []
+    api.queryServer(url: url, args: args) { data in
+      let jsonData = try! JSONSerialization.jsonObject(with: data)
+      
+      if let jsonArray = jsonData as? [[String: Any]] {
+        DispatchQueue.global().async {
+          // Group for fetching comments asynchrounsly.
+          let commentsGroup = DispatchGroup()
+          
+          // Create comments from the json received.
+          for i in 0..<jsonArray.count {
+            do {
+              commentsGroup.enter()
+              self.comments.append(try Comment(json: jsonArray[i]))
+              commentsGroup.leave()
+            } catch {
+              print(error)
+            }
+          }
+          
+          commentsGroup.wait()
+          
+          DispatchQueue.main.async {
+            self.refreshComments()
+          }
+        }
+      }
+    }
+  }
+  
   // Reload data of the Comments table view.
   func refreshComments() {
     self.commentsTableView.reloadData()
+    
+    // Update autolayout.
+    commentsTableView.snp.updateConstraints { make in
+      make.height.equalTo(currentCommentTableHeight)
+    }
   }
 }
 
@@ -284,24 +328,7 @@ extension PageletView: UITableViewDataSource, UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    let api = APIData.shared
-    let url = "/getCommentsForImageId"
-    let args = ["id": String(self.imageId)]
-    
-    self.comments = []
-    if let result = api.getQuery(url: url, args: args) as? NSArray {
-      for row in 0..<result.count {
-        do {
-          if let comment = try Comment(jsonData: result[row]) {
-            self.comments.append(comment)
-          }
-        } catch {
-          print(error)
-        }
-      }
-    }
-
-    return comments.count
+    return self.comments.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

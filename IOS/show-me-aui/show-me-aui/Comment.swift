@@ -17,35 +17,54 @@ struct Comment {
   static let commentText = "commentText"
   static let userId = "userId"
   static let username = "username"
+  static let userImage = "userImage"
   
-  init?(jsonData: Any?) throws {
-    guard let json = jsonData else {
-      return nil
+  init(json: [String: Any]) throws {
+    // Get the comment text.
+    guard let comment = json[Comment.commentText] as? String else {
+      throw SerializationError.missing(Comment.commentText)
     }
     
-    if let commentObject = json as? [String: Any] {
-      // Get the comment text.
-      guard let comment = commentObject[Comment.commentText] as? String else {
-        throw SerializationError.missing(Comment.commentText)
-      }
-      
-      // Get userImage.
-      guard let userId = commentObject[Comment.userId] as? Int,
-        let userImage = APIData.shared.getImage(url: "/userImageForId", args: ["id": String(userId)]) else {
-          throw SerializationError.missing(Comment.userId)
-      }
-      
-      // Get userename.
-      guard let resp = APIData.shared.getQuery(url: "/userNameForId", args: ["id": String(userId)]) as? [String: String],
-        let username = resp[Comment.username] else {
-          throw SerializationError.missing(Comment.username)
-      }
-      
-      self.comment = comment
-      self.username = username
-      self.userImage = userImage
-    } else {
-      return nil
+    // Get userImage.
+    guard let userId = json[Comment.userId] as? Int else {
+      throw SerializationError.missing(Comment.userId)
     }
+    
+    let api = APIData.shared
+    let downloadGroup = DispatchGroup()
+    
+    // Get userImage.
+    var image: UIImage?
+    downloadGroup.enter()
+    api.queryServer(url: "/userImageForId", args: ["id": String(userId)]) { data in
+      image = UIImage(data: data)
+      downloadGroup.leave()
+    }
+    
+    // Get userename.
+    var name: String?
+    downloadGroup.enter()
+    api.queryServer(url: "/userNameForId", args: ["id": String(userId)]) { data in
+      let jsonData = try! JSONSerialization.jsonObject(with: data)
+      if let json = jsonData as? [String: String] {
+        name = json[Comment.username]
+        downloadGroup.leave()
+      }
+    }
+    
+    // Wait for username and image to be downloaded.
+    downloadGroup.wait()
+    
+    guard let username = name else {
+      throw SerializationError.missing(Comment.username)
+    }
+    
+    guard let userImage = image else {
+      throw SerializationError.missing(Comment.userImage)
+    }
+    
+    self.comment = comment
+    self.username = username
+    self.userImage = userImage
   }
 }

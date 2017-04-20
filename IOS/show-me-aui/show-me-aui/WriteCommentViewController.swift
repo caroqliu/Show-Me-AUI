@@ -11,7 +11,7 @@ import SnapKit
 
 // WriteCommentDelegate.
 protocol WriteCommentDelegate {
-  func refreshComments()
+  func fetchCommentsAsynchrounously()
 }
 
 class WriteCommentViewController: UIViewController {
@@ -129,7 +129,7 @@ class WriteCommentViewController: UIViewController {
                        "imageid": String(self.currentImageId)])
     
     // Refresh comments through delegate.
-    self.delegate?.refreshComments()
+    self.delegate?.fetchCommentsAsynchrounously()
     
     self.removeAnimate()
   }
