@@ -132,4 +132,36 @@ app.get("/saveComment", function(req, resp) {
   });
 });
 
+app.get("/saveLike", function(req, resp) {
+  var userId = req.query.userId;
+  var imageId = req.query.imageId;
+  var sql = "insert into PictureLike (userId, imageId) " +
+            "values (?, ?);";
+  connection.query(sql, [userId, imageId], function(error, rows, fields) {
+    if (!error) {
+      console.log("Like saved: ", rows);
+      resp.send(JSON.stringify({ result : true }));
+    } else {
+      console.log(error);
+      resp.send(JSON.stringify({ result : false }));
+    }
+  });
+});
+
+app.get("/saveDisLike", function(req, resp) {
+  var userId = req.query.userId;
+  var imageId = req.query.imageId;
+  var sql = "insert into PictureDisLike (userId, imageId) " +
+            "values (?, ?);";
+  connection.query(sql, [userId, imageId], function(error, rows, fields) {
+    if (!error) {
+      console.log("DisLike saved: ", rows);
+      resp.send(JSON.stringify({ result : true }));
+    } else {
+      console.log(error);
+      resp.send(JSON.stringify({ result : false }));
+    }
+  });
+});
+
 app.listen(process.env.PORT, process.env.IP);

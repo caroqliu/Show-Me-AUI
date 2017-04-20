@@ -20,6 +20,7 @@ class PageletView: UIView, WriteCommentDelegate {
   private let commentButton = UIButton()
   private let commentsTableView = UITableView()
   private let horizontalLine = UIView()
+  private let likeCounter: LikeDisLikeCounterView
   
   // Id of the current image pagelet.
   let imageId: Int
@@ -29,6 +30,7 @@ class PageletView: UIView, WriteCommentDelegate {
   
   init?(imageId: Int) {
     self.imageId = imageId
+    self.likeCounter = LikeDisLikeCounterView(forImageId: imageId)
     super.init(frame: CGRect.zero)
     
     fetchCommentsAsynchrounously()
@@ -61,9 +63,10 @@ class PageletView: UIView, WriteCommentDelegate {
     }
   }
   
+  // TODO: Remove this init.
   init(userImage uimage: UIImage, userName name: String, pageletImage pimage: UIImage) {
-    // TODO: Change
     self.imageId = 1
+    self.likeCounter = LikeDisLikeCounterView(forImageId: 1)
     super.init(frame: CGRect.zero)
     
     userImageView.image = uimage
@@ -123,6 +126,14 @@ class PageletView: UIView, WriteCommentDelegate {
     
     setupThumbDown()
     setUpCommentButton()
+    
+    // Setup likeAndDislike Counters.
+    self.addSubview(likeCounter)
+    likeCounter.snp.makeConstraints { make in
+      make.height.equalTo(15)
+      make.right.equalTo(self).offset(-8)
+      make.top.equalTo(pageletImageView.snp.bottom).offset(15)
+    }
     
     self.addSubview(horizontalLine)
     horizontalLine.snp.makeConstraints { make in
