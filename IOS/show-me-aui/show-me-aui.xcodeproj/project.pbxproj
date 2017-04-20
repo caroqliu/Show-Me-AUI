@@ -16,6 +16,7 @@
 		DE2DDD331EA3AC2E002226EA /* APIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD321EA3AC2E002226EA /* APIData.swift */; };
 		DE2DDD351EA4075A002226EA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD341EA4075A002226EA /* Comment.swift */; };
 		DE2DDD371EA4082B002226EA /* SerializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD361EA4082B002226EA /* SerializationError.swift */; };
+		DE7901591EA8F3D600B0C553 /* LikeDisLikeCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7901581EA8F3D600B0C553 /* LikeDisLikeCounterView.swift */; };
 		DEA2FEE31E997EA200641011 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA2FEE21E997EA200641011 /* AppDelegate.swift */; };
 		DEA2FEE81E997EA200641011 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEA2FEE61E997EA200641011 /* Main.storyboard */; };
 		DEA2FEEB1E997EA200641011 /* show_me_aui.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DEA2FEE91E997EA200641011 /* show_me_aui.xcdatamodeld */; };
@@ -36,6 +37,7 @@
 		DE2DDD321EA3AC2E002226EA /* APIData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIData.swift; sourceTree = "<group>"; };
 		DE2DDD341EA4075A002226EA /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		DE2DDD361EA4082B002226EA /* SerializationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializationError.swift; sourceTree = "<group>"; };
+		DE7901581EA8F3D600B0C553 /* LikeDisLikeCounterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeDisLikeCounterView.swift; sourceTree = "<group>"; };
 		DEA2FEDF1E997EA200641011 /* show-me-aui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "show-me-aui.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEA2FEE21E997EA200641011 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEA2FEE71E997EA200641011 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			children = (
 				DEBB6FE91EA4DE9D00A8DCE2 /* WriteCommentViewController.swift */,
 				DE18069C1E9A2DD4008F563A /* PageletView.swift */,
+				DE7901581EA8F3D600B0C553 /* LikeDisLikeCounterView.swift */,
 				DEBB6FE71EA4DBEB00A8DCE2 /* CommentCell.swift */,
 				DE2DDD341EA4075A002226EA /* Comment.swift */,
 			);
@@ -290,6 +293,7 @@
 				DE2DDD351EA4075A002226EA /* Comment.swift in Sources */,
 				DEBB6FE81EA4DBEB00A8DCE2 /* CommentCell.swift in Sources */,
 				DEBDB7A11E9D307400106285 /* LoginBrain.swift in Sources */,
+				DE7901591EA8F3D600B0C553 /* LikeDisLikeCounterView.swift in Sources */,
 				DE02BA0A1EA65B0500ADE8EF /* Session.swift in Sources */,
 				DE18069B1E9A2DA5008F563A /* ImageFeedViewController.swift in Sources */,
 				DEA2FEE31E997EA200641011 /* AppDelegate.swift in Sources */,
