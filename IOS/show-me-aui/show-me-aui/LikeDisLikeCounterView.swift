@@ -18,6 +18,45 @@ class LikeDisLikeCounterView: UIView {
   
   let imageId: Int
   
+  var numberOfLikes: Int {
+    get {
+      let url = "/numberOfLikes"
+      return self.getCountFromServer(url: url)
+    }
+  }
+  
+  var numberOfDislikes: Int {
+    get {
+      let url = "/numberOfDisLikes"
+      return self.getCountFromServer(url: url)
+    }
+  }
+  
+  func getCountFromServer(url: String) -> Int {
+    let api = APIData.shared
+    let args = ["imageId": String(imageId)]
+    
+    let synchronizer = DispatchGroup()
+    
+    synchronizer.enter()
+    var count = 0
+    api.queryServer(url: url, args: args) { data in
+      let json = try! JSONSerialization.jsonObject(with: data) as! [String: Int]
+      count = json["result"] ?? 0
+      synchronizer.leave()
+    }
+    
+    // Wait until result is fetched from the server.
+    synchronizer.wait()
+    
+    return count
+  }
+  
+  func refreshCounters() {
+    self.likeCounter.text = String(self.numberOfLikes)
+    self.dislikeCounter.text = String(self.numberOfDislikes)
+  }
+  
   init(forImageId id: Int) {
     self.imageId = id
     super.init(frame: CGRect.zero)
@@ -31,8 +70,7 @@ class LikeDisLikeCounterView: UIView {
   
   func setupUI() {
     // Setup likeCounter.
-    // TODO: fetch number of likes from db.
-    likeCounter.text = "100"
+    likeCounter.text = String(self.numberOfLikes)
     likeCounter.font = UIFont.preferredFont(forTextStyle: .footnote)
     self.addSubview(likeCounter)
     likeCounter.snp.makeConstraints { make in
@@ -59,8 +97,7 @@ class LikeDisLikeCounterView: UIView {
     }
     
     // Setup dislikeCounter.
-    // TODO: fetch number of dislikes from db.
-    dislikeCounter.text = "0"
+    dislikeCounter.text = String(self.numberOfDislikes)
     self.addSubview(dislikeCounter)
     dislikeCounter.snp.makeConstraints { make in
       make.left.equalTo(verticalLine.snp.right).offset(4)
