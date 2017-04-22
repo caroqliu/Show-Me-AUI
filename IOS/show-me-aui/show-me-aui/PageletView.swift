@@ -30,7 +30,7 @@ class PageletView: UIView, WriteCommentDelegate {
   
   private var isHeartSelected = false {
     didSet {
-      DispatchQueue.main.async {
+      DispatchQueue.main.async { // Dispatch task asynchrounsly
         // Save Like in the database.
         guard let currentUserId = Session.shared.getUserIdForCurrentSession() else {
           fatalError("Could not get current user id while session is active.")
@@ -42,11 +42,9 @@ class PageletView: UIView, WriteCommentDelegate {
         
         sync.enter()
         api.queryServer(url: url,
-                        args: ["userId": String(currentUserId), "imageId": String(self.imageId)]) { _ in
-                          sync.leave()
-                          
+                       args: ["userId": String(currentUserId), "imageId": String(self.imageId)]) { _ in
+          sync.leave()
         }
-        sync.wait()
         
         // Update UI.
         if self.isHeartSelected {
@@ -55,6 +53,8 @@ class PageletView: UIView, WriteCommentDelegate {
         } else {
           self.likeButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
         }
+        
+        sync.wait()
         self.likeCounter.refreshCounters()
       }
     }
@@ -62,7 +62,7 @@ class PageletView: UIView, WriteCommentDelegate {
   
   private var isThumbDownSelected = false {
     didSet {
-      DispatchQueue.main.async {
+      DispatchQueue.main.async { // Dispatch task asynchrounsly
         // Save/Remove DisLike from the database.
         guard let currentUserId = Session.shared.getUserIdForCurrentSession() else {
           fatalError("Could not get current user id while session is active.")
@@ -74,10 +74,9 @@ class PageletView: UIView, WriteCommentDelegate {
         
         sync.enter()
         api.queryServer(url: url,
-                        args: ["userId": String(currentUserId), "imageId": String(self.imageId)]) { _ in
-                          sync.leave()
+                       args: ["userId": String(currentUserId), "imageId": String(self.imageId)]) { _ in
+          sync.leave()
         }
-        sync.wait()
         
         // Update the UI.
         if self.isThumbDownSelected {
@@ -86,6 +85,8 @@ class PageletView: UIView, WriteCommentDelegate {
         } else {
           self.thumbDownButton.setImage(#imageLiteral(resourceName: "thumb_down"), for: .normal)
         }
+        
+        sync.wait()
         self.likeCounter.refreshCounters()
       }
     }
@@ -98,12 +99,37 @@ class PageletView: UIView, WriteCommentDelegate {
     self.likeCounter = LikeDisLikeCounterView(forImageId: imageId)
     super.init(frame: CGRect.zero)
     
-    // In order to query necessary elements for the pagelet.
+    // Query necessary elements for the pagelet.
     let api = APIData.shared
     var args: [String: String]
     let sync = DispatchGroup()
     guard let currentUserId = Session.shared.getUserIdForCurrentSession() else {
       return nil
+    }
+    
+    // Fetch pagelet's main image.
+    args = ["imageId": String(imageId)]
+    sync.enter()
+    api.queryServer(url: "/image", args: args) { data in
+      self.pageletImageView.image = UIImage(data: data)
+      sync.leave()
+    }
+    
+    // Fetch userImage.
+    args = ["id": String(currentUserId)]
+    sync.enter()
+    api.queryServer(url: "/userImageForId", args: args) { data in
+      self.userImageView.image = UIImage(data: data)
+      sync.leave()
+    }
+    
+    // Fetch username.
+    args = ["id": String(currentUserId)]
+    sync.enter()
+    api.queryServer(url: "/userNameForId", args: args) { data in
+      let json = try! JSONSerialization.jsonObject(with: data) as? [String: String]
+      self.userNameLabel.text = json?["username"]
+      sync.leave()
     }
     
     // Fetch user preference of current image.
@@ -187,11 +213,17 @@ class PageletView: UIView, WriteCommentDelegate {
     setUpAddressLabel()
     
     // Setup pageletImageView.
+    pageletImageView.contentMode = .scaleAspectFit
     self.addSubview(pageletImageView)
     pageletImageView.snp.makeConstraints { make in
       make.left.right.equalTo(self)
-      make.top.equalTo(addressLabel.snp.bottom).offset(8)
-      make.height.equalTo(pageletImageView.snp.width).multipliedBy(1.0)
+      make.top.greaterThanOrEqualTo(addressLabel.snp.bottom).offset(8)
+      make.top.greaterThanOrEqualTo(userImageView.snp.bottom).offset(8)
+      
+      let width = UIScreen.main.bounds.width
+      let image = self.pageletImageView.image!
+      let scale = image.size.height / image.size.width
+      make.height.equalTo(width * scale)
     }
     
     // Setup likeButton.
