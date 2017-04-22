@@ -21,8 +21,9 @@ class ImageFeedViewController: UIViewController {
       make.top.equalTo(view).offset(20)
     }
     
-    let pagelet = PageletView(userImage: UIImage(named: "user_icon")!, userName: "Achraf",
-                              pageletImage: UIImage(named: "capitan")!)
+    guard let pagelet = PageletView(imageId: 1) else {
+      fatalError()
+    }
     
     feedScrollView.addSubview(pagelet)
     pagelet.snp.makeConstraints { make in
