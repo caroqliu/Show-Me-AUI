@@ -28,11 +28,104 @@ class PageletView: UIView, WriteCommentDelegate {
   // Comments of the current pagelet.
   var comments = [Comment]()
   
+  private var isHeartSelected = false {
+    didSet {
+      DispatchQueue.main.async {
+        // Save Like in the database.
+        guard let currentUserId = Session.shared.getUserIdForCurrentSession() else {
+          fatalError("Could not get current user id while session is active.")
+        }
+        
+        let sync = DispatchGroup()
+        let api = APIData.shared
+        let url = self.isHeartSelected ? "/saveLike" : "/removeLike"
+        
+        sync.enter()
+        api.queryServer(url: url,
+                        args: ["userId": String(currentUserId), "imageId": String(self.imageId)]) { _ in
+                          sync.leave()
+                          
+        }
+        sync.wait()
+        
+        // Update UI.
+        if self.isHeartSelected {
+          self.likeButton.setImage(#imageLiteral(resourceName: "like_filled"), for: .normal)
+          self.thumbDownButton.setImage(#imageLiteral(resourceName: "thumb_down"), for: .normal)
+        } else {
+          self.likeButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
+        }
+        self.likeCounter.refreshCounters()
+      }
+    }
+  }
+  
+  private var isThumbDownSelected = false {
+    didSet {
+      DispatchQueue.main.async {
+        // Save/Remove DisLike from the database.
+        guard let currentUserId = Session.shared.getUserIdForCurrentSession() else {
+          fatalError("Could not get current user id while session is active.")
+        }
+        
+        let sync = DispatchGroup()
+        let api = APIData.shared
+        let url = self.isThumbDownSelected ? "/saveDisLike" : "/removeDisLike"
+        
+        sync.enter()
+        api.queryServer(url: url,
+                        args: ["userId": String(currentUserId), "imageId": String(self.imageId)]) { _ in
+                          sync.leave()
+        }
+        sync.wait()
+        
+        // Update the UI.
+        if self.isThumbDownSelected {
+          self.thumbDownButton.setImage(#imageLiteral(resourceName: "thumb_down_filled"), for: .normal)
+          self.likeButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
+        } else {
+          self.thumbDownButton.setImage(#imageLiteral(resourceName: "thumb_down"), for: .normal)
+        }
+        self.likeCounter.refreshCounters()
+      }
+    }
+  }
+  
+  // Designated initializer.
   init?(imageId: Int) {
+    // Initialize all members.
     self.imageId = imageId
     self.likeCounter = LikeDisLikeCounterView(forImageId: imageId)
     super.init(frame: CGRect.zero)
     
+    // In order to query necessary elements for the pagelet.
+    let api = APIData.shared
+    var args: [String: String]
+    let sync = DispatchGroup()
+    guard let currentUserId = Session.shared.getUserIdForCurrentSession() else {
+      return nil
+    }
+    
+    // Fetch user preference of current image.
+    args = ["userId": String(currentUserId), "imageId": String(imageId)]
+    
+    sync.enter()
+    api.queryServer(url: "/doesUserLikePicture", args: args) { data in
+      let json = try! JSONSerialization.jsonObject(with: data) as? [String: Bool]
+      self.isHeartSelected = json?["result"] ?? false;
+      sync.leave()
+    }
+    
+    sync.enter()
+    api.queryServer(url: "/doesUserDisLikePicture", args: args) { data in
+      let json = try! JSONSerialization.jsonObject(with: data) as? [String: Bool]
+      self.isThumbDownSelected = json?["result"] ?? false;
+      sync.leave()
+    }
+    
+    sync.wait()
+    
+    setUpUI()
     fetchCommentsAsynchrounously()
   }
   
@@ -63,19 +156,7 @@ class PageletView: UIView, WriteCommentDelegate {
     }
   }
   
-  // TODO: Remove this init.
-  init(userImage uimage: UIImage, userName name: String, pageletImage pimage: UIImage) {
-    self.imageId = 1
-    self.likeCounter = LikeDisLikeCounterView(forImageId: 1)
-    super.init(frame: CGRect.zero)
-    
-    userImageView.image = uimage
-    pageletImageView.image = pimage
-    userNameLabel.text = name
-    
-    setUpUI()
-    fetchCommentsAsynchrounously()
-  }
+  // MARK: UI
   
   func setUpUI() {
     // Setup frame of the view.
@@ -199,62 +280,16 @@ class PageletView: UIView, WriteCommentDelegate {
     }
   }
   
-  private var isHeartSelected = false
+  // MARK: Targets
+  
   func didTapLike() {
-    // TODO: record action in db.
     print("didTapLike")
     isHeartSelected = isHeartSelected ? false : true
-    
-    if !isHeartSelected {
-      likeButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
-      thumbDownButton.isHidden = false
-      
-      commentButton.snp.remakeConstraints { make in
-        make.top.equalTo(pageletImageView.snp.bottom).offset(8)
-        make.left.equalTo(thumbDownButton.snp.right).offset(8)
-        make.width.equalTo(30)
-        make.height.equalTo(likeButton.snp.width).multipliedBy(1.0)
-      }
-    } else {
-      likeButton.setImage(#imageLiteral(resourceName: "like_filled"), for: .normal)
-      thumbDownButton.isHidden = true
-      
-      commentButton.snp.remakeConstraints { make in
-        make.top.equalTo(pageletImageView.snp.bottom).offset(8)
-        make.left.equalTo(likeButton.snp.right).offset(8)
-        make.width.equalTo(30)
-        make.height.equalTo(likeButton.snp.width).multipliedBy(1.0)
-      }
-    }
   }
   
-  private var isThumbDownSelected = false
   func didTapThumbDown() {
-    // TODO: record action in db.
     print("didTapThumbsDown")
     isThumbDownSelected = isThumbDownSelected ? false : true
-    
-    if !isThumbDownSelected {
-      thumbDownButton.setImage(#imageLiteral(resourceName: "thumb_down"), for: .normal)
-      likeButton.isHidden = false
-      thumbDownButton.snp.remakeConstraints { make in
-        make.top.equalTo(pageletImageView.snp.bottom).offset(8)
-        make.left.equalTo(likeButton.snp.right).offset(8)
-        make.width.equalTo(likeButton)
-        make.height.equalTo(thumbDownButton.snp.width).multipliedBy(1.0)
-        make.bottom.equalTo(likeButton)
-      }
-    } else {
-      thumbDownButton.setImage(#imageLiteral(resourceName: "thumb_down_filled"), for: .normal)
-      likeButton.isHidden = true
-      thumbDownButton.snp.remakeConstraints { make in
-        make.top.equalTo(pageletImageView.snp.bottom).offset(8)
-        make.left.equalTo(self).offset(8)
-        make.width.equalTo(likeButton)
-        make.height.equalTo(thumbDownButton.snp.width).multipliedBy(1.0)
-        make.bottom.equalTo(likeButton)
-      }
-    }
   }
   
   override func updateConstraints() {
@@ -284,6 +319,8 @@ class PageletView: UIView, WriteCommentDelegate {
     rootVc.view.addSubview(writeVc.view)
     writeVc.didMove(toParentViewController: rootVc)
   }
+  
+  // MARK: Convenience
   
   // Fetch Comments asynchronously.
   func fetchCommentsAsynchrounously() {
