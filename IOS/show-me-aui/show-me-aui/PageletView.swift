@@ -20,7 +20,7 @@ class PageletView: UIView, WriteCommentDelegate {
   private let commentButton = UIButton()
   private let commentsTableView = UITableView()
   private let horizontalLine = UIView()
-  private let likeCounter: LikeDisLikeCounterView
+  private let likeCounter = LikeDisLikeCounterView()
   
   // Id of the current image pagelet.
   let imageId: Int
@@ -30,64 +30,26 @@ class PageletView: UIView, WriteCommentDelegate {
   
   private var isHeartSelected = false {
     didSet {
-      DispatchQueue.main.async { // Dispatch task asynchrounsly
-        // Save Like in the database.
-        guard let currentUserId = Session.shared.getUserIdForCurrentSession() else {
-          fatalError("Could not get current user id while session is active.")
-        }
-        
-        let sync = DispatchGroup()
-        let api = APIData.shared
-        let url = self.isHeartSelected ? "/saveLike" : "/removeLike"
-        
-        sync.enter()
-        api.queryServer(url: url,
-                       args: ["userId": String(currentUserId), "imageId": String(self.imageId)]) { _ in
-          sync.leave()
-        }
-        
-        // Update UI.
+      DispatchQueue.main.async {
         if self.isHeartSelected {
           self.likeButton.setImage(#imageLiteral(resourceName: "like_filled"), for: .normal)
-          self.thumbDownButton.setImage(#imageLiteral(resourceName: "thumb_down"), for: .normal)
+          self.isThumbDownSelected = false
         } else {
           self.likeButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
         }
-        
-        sync.wait()
-        self.likeCounter.refreshCounters()
       }
     }
   }
   
   private var isThumbDownSelected = false {
     didSet {
-      DispatchQueue.main.async { // Dispatch task asynchrounsly
-        // Save/Remove DisLike from the database.
-        guard let currentUserId = Session.shared.getUserIdForCurrentSession() else {
-          fatalError("Could not get current user id while session is active.")
-        }
-        
-        let sync = DispatchGroup()
-        let api = APIData.shared
-        let url = self.isThumbDownSelected ? "/saveDisLike" : "/removeDisLike"
-        
-        sync.enter()
-        api.queryServer(url: url,
-                       args: ["userId": String(currentUserId), "imageId": String(self.imageId)]) { _ in
-          sync.leave()
-        }
-        
-        // Update the UI.
+      DispatchQueue.main.async {
         if self.isThumbDownSelected {
           self.thumbDownButton.setImage(#imageLiteral(resourceName: "thumb_down_filled"), for: .normal)
-          self.likeButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
+          self.isHeartSelected = false
         } else {
           self.thumbDownButton.setImage(#imageLiteral(resourceName: "thumb_down"), for: .normal)
         }
-        
-        sync.wait()
-        self.likeCounter.refreshCounters()
       }
     }
   }
@@ -96,7 +58,6 @@ class PageletView: UIView, WriteCommentDelegate {
   init?(imageId: Int) {
     // Initialize all members.
     self.imageId = imageId
-    self.likeCounter = LikeDisLikeCounterView(forImageId: imageId)
     super.init(frame: CGRect.zero)
     
     // Query necessary elements for the pagelet.
@@ -138,14 +99,31 @@ class PageletView: UIView, WriteCommentDelegate {
     sync.enter()
     api.queryServer(url: "/doesUserLikePicture", args: args) { data in
       let json = try! JSONSerialization.jsonObject(with: data) as? [String: Bool]
-      self.isHeartSelected = json?["result"] ?? false;
+      self.isHeartSelected = json?["result"] ?? false
       sync.leave()
     }
     
     sync.enter()
     api.queryServer(url: "/doesUserDisLikePicture", args: args) { data in
       let json = try! JSONSerialization.jsonObject(with: data) as? [String: Bool]
-      self.isThumbDownSelected = json?["result"] ?? false;
+      self.isThumbDownSelected = json?["result"] ?? false
+      sync.leave()
+    }
+    
+    // Fetch number of likes and dislikes.
+    args = ["imageId": String(imageId)]
+    
+    sync.enter()
+    api.queryServer(url: "/numberOfLikes", args: args) { data in
+      let json = try! JSONSerialization.jsonObject(with: data) as! [String: Int]
+      self.likeCounter.numberOfLikes = json["result"] ?? 0
+      sync.leave()
+    }
+    
+    sync.enter()
+    api.queryServer(url: "/numberOfDisLikes", args: args) { data in
+      let json = try! JSONSerialization.jsonObject(with: data) as! [String: Int]
+      self.likeCounter.numberOfDislikes = json["result"] ?? 0
       sync.leave()
     }
     
@@ -227,7 +205,6 @@ class PageletView: UIView, WriteCommentDelegate {
     }
     
     // Setup likeButton.
-    likeButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
     likeButton.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
     self.addSubview(likeButton)
     likeButton.snp.makeConstraints { make in
@@ -300,7 +277,6 @@ class PageletView: UIView, WriteCommentDelegate {
   }
   
   func setupThumbDown() {
-    thumbDownButton.setImage(#imageLiteral(resourceName: "thumb_down"), for: .normal)
     thumbDownButton.addTarget(self, action: #selector(didTapThumbDown), for: .touchUpInside)
     
     self.addSubview(thumbDownButton)
@@ -316,11 +292,35 @@ class PageletView: UIView, WriteCommentDelegate {
   
   func didTapLike() {
     print("didTapLike")
+    
+    // Update counters.
+    if self.isThumbDownSelected {
+      self.likeCounter.numberOfDislikes -= 1
+    }
+    
+    if !self.isHeartSelected {
+      self.likeCounter.numberOfLikes += 1
+    } else {
+      self.likeCounter.numberOfLikes -= 1
+    }
+    
     isHeartSelected = isHeartSelected ? false : true
   }
   
   func didTapThumbDown() {
     print("didTapThumbsDown")
+    
+    // Update counters.
+    if self.isHeartSelected {
+      self.likeCounter.numberOfLikes -= 1
+    }
+    
+    if !self.isThumbDownSelected {
+      self.likeCounter.numberOfDislikes += 1
+    } else {
+      self.likeCounter.numberOfDislikes -= 1
+    }
+    
     isThumbDownSelected = isThumbDownSelected ? false : true
   }
   
@@ -367,24 +367,21 @@ class PageletView: UIView, WriteCommentDelegate {
       if let jsonArray = jsonData as? [[String: Any]] {
         DispatchQueue.global().async {
           // Group for fetching comments asynchrounsly.
-          let commentsGroup = DispatchGroup()
+          let sync = DispatchGroup()
           
           // Create comments from the json received.
           for i in 0..<jsonArray.count {
             do {
-              commentsGroup.enter()
+              sync.enter()
               self.comments.append(try Comment(json: jsonArray[i]))
-              commentsGroup.leave()
+              sync.leave()
             } catch {
               print(error)
             }
           }
           
-          commentsGroup.wait()
-          
-          DispatchQueue.main.async {
-            self.refreshComments()
-          }
+          sync.wait()
+          self.refreshComments()
         }
       }
     }
@@ -392,11 +389,13 @@ class PageletView: UIView, WriteCommentDelegate {
   
   // Reload data of the Comments table view.
   func refreshComments() {
-    self.commentsTableView.reloadData()
-    
-    // Update autolayout.
-    commentsTableView.snp.updateConstraints { make in
-      make.height.equalTo(currentCommentTableHeight)
+    DispatchQueue.main.async {
+      self.commentsTableView.reloadData()
+      // Update autolayout.
+      self.commentsTableView.snp.updateConstraints { make in
+        make.height.equalTo(self.currentCommentTableHeight)
+      }
+
     }
   }
 }
