@@ -22,6 +22,8 @@ class PageletView: UIView, WriteCommentDelegate {
   private let horizontalLine = UIView()
   private let likeCounter = LikeDisLikeCounterView()
   
+  var heighConstaint: Constraint?
+  
   // Id of the current image pagelet.
   let imageId: Int
   
@@ -140,6 +142,7 @@ class PageletView: UIView, WriteCommentDelegate {
   // Height of the comments table.
   var currentCommentTableHeight: CGFloat {
     get {
+      let maxHeight = CGFloat(120)
       var height = CGFloat(0)
       for row in 0..<commentsTableView.numberOfRows(inSection: 0) {
         let cellPath = IndexPath(row: row, section: 0)
@@ -149,7 +152,7 @@ class PageletView: UIView, WriteCommentDelegate {
           height += commentsTableView.estimatedRowHeight
         }
       }
-      return height
+      return min(height, maxHeight)
     }
   }
   
@@ -237,7 +240,7 @@ class PageletView: UIView, WriteCommentDelegate {
   func setUpCommentsTableView() {
     commentsTableView.allowsSelection = false
     commentsTableView.separatorStyle = .none
-    commentsTableView.estimatedRowHeight = 60
+    commentsTableView.estimatedRowHeight = 40
     commentsTableView.rowHeight = UITableViewAutomaticDimension
     
     commentsTableView.delegate = self
@@ -343,10 +346,6 @@ class PageletView: UIView, WriteCommentDelegate {
     api.queryServer(url: url, args: args)
   }
   
-  override func updateConstraints() {
-    super.updateConstraints()
-  }
-  
   func didTapComment() {
     print("didTapComment")
     
@@ -361,8 +360,7 @@ class PageletView: UIView, WriteCommentDelegate {
     }
     
     // Show WriteCommentViewController as a popup.
-    // TODO: get current image id.
-    let writeVc = WriteCommentViewController(imageId: 1)
+    let writeVc = WriteCommentViewController(imageId: self.imageId)
     writeVc.delegate = self
     
     rootVc.addChildViewController(writeVc)
@@ -414,7 +412,6 @@ class PageletView: UIView, WriteCommentDelegate {
       self.commentsTableView.snp.updateConstraints { make in
         make.height.equalTo(self.currentCommentTableHeight)
       }
-
     }
   }
 }

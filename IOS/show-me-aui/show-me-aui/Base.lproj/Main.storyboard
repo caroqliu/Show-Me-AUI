@@ -27,10 +27,10 @@
             </objects>
             <point key="canvasLocation" x="-23.199999999999999" y="138.98050974512745"/>
         </scene>
-        <!--Image Feed View Controller-->
+        <!--News Feed View Controller-->
         <scene sceneID="bnG-yf-vdb">
             <objects>
-                <viewController id="dne-Ix-BqE" customClass="ImageFeedViewController" customModule="show_me_aui" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dne-Ix-BqE" customClass="NewsFeedViewController" customModule="show_me_aui" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sAH-PR-BO8"/>
                         <viewControllerLayoutGuide type="bottom" id="agA-35-oyo"/>

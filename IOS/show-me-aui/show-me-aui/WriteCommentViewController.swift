@@ -27,7 +27,7 @@ class WriteCommentViewController: UIViewController {
   
   // Designated initializer
   init(imageId: Int) {
-    self.currentImageId = 1
+    self.currentImageId = imageId
     super.init(nibName: nil, bundle: nil)
   }
   

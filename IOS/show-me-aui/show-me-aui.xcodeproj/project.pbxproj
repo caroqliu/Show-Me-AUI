@@ -10,7 +10,7 @@
 		88EDB5F896972CC3843A3B02 /* Pods_show_me_aui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B86D618E685EF62C2EC280F /* Pods_show_me_aui.framework */; };
 		DE02BA0A1EA65B0500ADE8EF /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02BA091EA65B0500ADE8EF /* Session.swift */; };
 		DE1806991E999697008F563A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1806981E999697008F563A /* LoginViewController.swift */; };
-		DE18069B1E9A2DA5008F563A /* ImageFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE18069A1E9A2DA5008F563A /* ImageFeedViewController.swift */; };
+		DE18069B1E9A2DA5008F563A /* NewsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE18069A1E9A2DA5008F563A /* NewsFeedViewController.swift */; };
 		DE18069D1E9A2DD4008F563A /* PageletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE18069C1E9A2DD4008F563A /* PageletView.swift */; };
 		DE18069F1E9A92E7008F563A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE18069E1E9A92E7008F563A /* Images.xcassets */; };
 		DE2DDD331EA3AC2E002226EA /* APIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD321EA3AC2E002226EA /* APIData.swift */; };
@@ -31,7 +31,7 @@
 		C691BE3BCA9B1290D5558B14 /* Pods-show-me-aui.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-show-me-aui.debug.xcconfig"; path = "Pods/Target Support Files/Pods-show-me-aui/Pods-show-me-aui.debug.xcconfig"; sourceTree = "<group>"; };
 		DE02BA091EA65B0500ADE8EF /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		DE1806981E999697008F563A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		DE18069A1E9A2DA5008F563A /* ImageFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFeedViewController.swift; sourceTree = "<group>"; };
+		DE18069A1E9A2DA5008F563A /* NewsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedViewController.swift; sourceTree = "<group>"; };
 		DE18069C1E9A2DD4008F563A /* PageletView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageletView.swift; sourceTree = "<group>"; };
 		DE18069E1E9A92E7008F563A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DE2DDD321EA3AC2E002226EA /* APIData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIData.swift; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 				DE2DDD311EA3A3FD002226EA /* Login */,
 				DEBB6FE11EA4D2AB00A8DCE2 /* PageLet */,
 				DEA2FEE61E997EA200641011 /* Main.storyboard */,
-				DE18069A1E9A2DA5008F563A /* ImageFeedViewController.swift */,
+				DE18069A1E9A2DA5008F563A /* NewsFeedViewController.swift */,
 				DE18069E1E9A92E7008F563A /* Images.xcassets */,
 				DEBB6FE21EA4D2D400A8DCE2 /* Supporting Files */,
 			);
@@ -295,7 +295,7 @@
 				DEBDB7A11E9D307400106285 /* LoginBrain.swift in Sources */,
 				DE7901591EA8F3D600B0C553 /* LikeDisLikeCounterView.swift in Sources */,
 				DE02BA0A1EA65B0500ADE8EF /* Session.swift in Sources */,
-				DE18069B1E9A2DA5008F563A /* ImageFeedViewController.swift in Sources */,
+				DE18069B1E9A2DA5008F563A /* NewsFeedViewController.swift in Sources */,
 				DEA2FEE31E997EA200641011 /* AppDelegate.swift in Sources */,
 				DE18069D1E9A2DD4008F563A /* PageletView.swift in Sources */,
 			);
