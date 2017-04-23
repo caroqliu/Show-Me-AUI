@@ -16,51 +16,20 @@ class LikeDisLikeCounterView: UIView {
   private let thumbDownImageView = UIImageView()
   private let verticalLine = UIView()
   
-  let imageId: Int
-  
-  var numberOfLikes: Int {
-    get {
-      let url = "/numberOfLikes"
-      return self.getCountFromServer(url: url)
+  var numberOfLikes = 0 {
+    didSet {
+      likeCounter.text = String(numberOfLikes)
     }
   }
   
-  var numberOfDislikes: Int {
-    get {
-      let url = "/numberOfDisLikes"
-      return self.getCountFromServer(url: url)
+  var numberOfDislikes = 0 {
+    didSet {
+      dislikeCounter.text = String(numberOfDislikes)
     }
   }
   
-  func getCountFromServer(url: String) -> Int {
-    let api = APIData.shared
-    let args = ["imageId": String(imageId)]
-    
-    let synchronizer = DispatchGroup()
-    
-    synchronizer.enter()
-    var count = 0
-    api.queryServer(url: url, args: args) { data in
-      let json = try! JSONSerialization.jsonObject(with: data) as! [String: Int]
-      count = json["result"] ?? 0
-      synchronizer.leave()
-    }
-    
-    // Wait until result is fetched from the server.
-    synchronizer.wait()
-    
-    return count
-  }
-  
-  func refreshCounters() {
-    self.likeCounter.text = String(self.numberOfLikes)
-    self.dislikeCounter.text = String(self.numberOfDislikes)
-  }
-  
-  init(forImageId id: Int) {
-    self.imageId = id
+  init() {
     super.init(frame: CGRect.zero)
-    
     setupUI()
   }
   
