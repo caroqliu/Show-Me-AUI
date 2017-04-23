@@ -305,6 +305,9 @@ class PageletView: UIView, WriteCommentDelegate {
     }
     
     isHeartSelected = isHeartSelected ? false : true
+    
+    let url = isThumbDownSelected ? "/saveLike" : "/removeLike"
+    self.saveUserPreference(url: url)
   }
   
   func didTapThumbDown() {
@@ -322,6 +325,22 @@ class PageletView: UIView, WriteCommentDelegate {
     }
     
     isThumbDownSelected = isThumbDownSelected ? false : true
+    
+    
+    let url = isThumbDownSelected ? "/saveDisLike" : "/removeDisLike"
+    self.saveUserPreference(url: url)
+  }
+  
+  func saveUserPreference(url: String) {
+    guard let userId = Session.shared.getUserIdForCurrentSession() else {
+      fatalError()
+    }
+    
+    let api = APIData.shared
+    let args = ["imageId": String(imageId),
+                 "userId": String(userId)]
+    
+    api.queryServer(url: url, args: args)
   }
   
   override func updateConstraints() {
