@@ -27,7 +27,7 @@ class APIData {
         
     let task = URLSession.shared.dataTask(with: url!) { data, response, error in
       guard error == nil else {
-        NSLog(error as! String)
+        print(error)
         return
       }
       
