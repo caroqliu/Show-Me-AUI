@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,6 +27,64 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-130" y="139"/>
+        </scene>
+        <!--Snap View Controller-->
+        <scene sceneID="vll-a4-9KF">
+            <objects>
+                <viewController id="gRX-NI-QH1" customClass="SnapViewController" customModule="show_me_aui" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YLv-fh-ZfN"/>
+                        <viewControllerLayoutGuide type="bottom" id="GMt-aU-t2r"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vvn-rU-U9B">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upload_default_image" translatesAutoresizingMaskIntoConstraints="NO" id="B75-yR-B8a">
+                                <gestureRecognizers/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="B75-yR-B8a" secondAttribute="leading" id="Sb4-oc-1nq"/>
+                            <constraint firstItem="B75-yR-B8a" firstAttribute="top" secondItem="YLv-fh-ZfN" secondAttribute="bottom" constant="8" symbolic="YES" id="U1f-It-yP8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="B75-yR-B8a" secondAttribute="trailing" id="apz-WA-yHx"/>
+                            <constraint firstItem="GMt-aU-t2r" firstAttribute="top" secondItem="B75-yR-B8a" secondAttribute="bottom" constant="8" symbolic="YES" id="dFu-br-Ihl"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="b2N-Dz-UJM">
+                        <barButtonItem key="rightBarButtonItem" title="Upload" id="HYD-LZ-lKH">
+                            <connections>
+                                <segue destination="pOC-gA-3G5" kind="show" id="ABF-2x-nzi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="B75-yR-B8a" id="jEs-c7-kkA"/>
+                        <outlet property="uploadButton" destination="HYD-LZ-lKH" id="Ocx-g3-uae"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KM1-OV-zaL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1904.8" y="1300.2998500749627"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="pb3-I1-Sbq">
+            <objects>
+                <viewController id="pOC-gA-3G5" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="at9-MG-ONl"/>
+                        <viewControllerLayoutGuide type="bottom" id="pPi-Ld-8ao"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="D6d-ek-VtE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kgo-AH-CIJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3082" y="1301"/>
         </scene>
         <!--News Feed View Controller-->
         <scene sceneID="bnG-yf-vdb">
@@ -96,7 +155,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UUT-AJ-oVY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1904.8" y="523.98800599700155"/>
+            <point key="canvasLocation" x="2844" y="523.98800599700155"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="mWq-2k-L80">
@@ -111,14 +170,36 @@
                     <connections>
                         <segue destination="dne-Ix-BqE" kind="relationship" relationship="viewControllers" id="p0r-5D-EWw"/>
                         <segue destination="nIK-sY-szJ" kind="relationship" relationship="viewControllers" id="tJZ-ZZ-kLG"/>
+                        <segue destination="GDr-EM-J8t" kind="relationship" relationship="viewControllers" id="VSC-jp-VP0"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TDL-5n-Kv9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="964" y="138.98050974512745"/>
+            <point key="canvasLocation" x="964" y="139"/>
+        </scene>
+        <!--Upload-->
+        <scene sceneID="b6i-ir-tkY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GDr-EM-J8t" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Upload" image="upload_tab" id="8kI-X6-eZg"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9eE-iU-5gf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="gRX-NI-QH1" kind="relationship" relationship="rootViewController" id="H3r-Ag-7FN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n4w-Nq-aRi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="964" y="1302"/>
         </scene>
     </scenes>
     <resources>
         <image name="settings" width="25" height="25"/>
+        <image name="upload_default_image" width="225" height="225"/>
+        <image name="upload_tab" width="25" height="25"/>
     </resources>
 </document>
