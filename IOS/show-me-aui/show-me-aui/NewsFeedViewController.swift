@@ -19,6 +19,10 @@ class NewsFeedViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    // Set the tab bar item for the news feed.
+    self.tabBarItem = UITabBarItem(title: "News Feed", image: #imageLiteral(resourceName: "home"), tag: 0)
+
+    // Setup UI.
     view.addSubview(feedScrollView)
     feedScrollView.snp.makeConstraints { make in
       make.left.right.bottom.equalTo(view)
