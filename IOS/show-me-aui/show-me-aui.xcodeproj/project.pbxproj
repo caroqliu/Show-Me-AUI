@@ -16,6 +16,7 @@
 		DE2DDD331EA3AC2E002226EA /* APIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD321EA3AC2E002226EA /* APIData.swift */; };
 		DE2DDD351EA4075A002226EA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD341EA4075A002226EA /* Comment.swift */; };
 		DE2DDD371EA4082B002226EA /* SerializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD361EA4082B002226EA /* SerializationError.swift */; };
+		DE770B461EAE01A600984D7E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE770B451EAE01A600984D7E /* SettingsViewController.swift */; };
 		DE7901591EA8F3D600B0C553 /* LikeDisLikeCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7901581EA8F3D600B0C553 /* LikeDisLikeCounterView.swift */; };
 		DEA2FEE31E997EA200641011 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA2FEE21E997EA200641011 /* AppDelegate.swift */; };
 		DEA2FEE81E997EA200641011 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEA2FEE61E997EA200641011 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 		DE2DDD321EA3AC2E002226EA /* APIData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIData.swift; sourceTree = "<group>"; };
 		DE2DDD341EA4075A002226EA /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		DE2DDD361EA4082B002226EA /* SerializationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializationError.swift; sourceTree = "<group>"; };
+		DE770B451EAE01A600984D7E /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DE7901581EA8F3D600B0C553 /* LikeDisLikeCounterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeDisLikeCounterView.swift; sourceTree = "<group>"; };
 		DEA2FEDF1E997EA200641011 /* show-me-aui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "show-me-aui.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEA2FEE21E997EA200641011 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,14 @@
 			name = Session;
 			sourceTree = "<group>";
 		};
+		DE770B471EAE044400984D7E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				DE770B451EAE01A600984D7E /* SettingsViewController.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		DEA2FED61E997EA100641011 = {
 			isa = PBXGroup;
 			children = (
@@ -117,10 +127,11 @@
 		DEA2FEE11E997EA200641011 /* show-me-aui */ = {
 			isa = PBXGroup;
 			children = (
-				DE6C03CC1EA79B270098F7E5 /* Session */,
 				DEBB6FE01EA4D29100A8DCE2 /* API */,
 				DE2DDD311EA3A3FD002226EA /* Login */,
 				DEBB6FE11EA4D2AB00A8DCE2 /* PageLet */,
+				DE6C03CC1EA79B270098F7E5 /* Session */,
+				DE770B471EAE044400984D7E /* Settings */,
 				DEA2FEE61E997EA200641011 /* Main.storyboard */,
 				DE18069A1E9A2DA5008F563A /* NewsFeedViewController.swift */,
 				DE18069E1E9A92E7008F563A /* Images.xcassets */,
@@ -294,6 +305,7 @@
 				DEBB6FE81EA4DBEB00A8DCE2 /* CommentCell.swift in Sources */,
 				DEBDB7A11E9D307400106285 /* LoginBrain.swift in Sources */,
 				DE7901591EA8F3D600B0C553 /* LikeDisLikeCounterView.swift in Sources */,
+				DE770B461EAE01A600984D7E /* SettingsViewController.swift in Sources */,
 				DE02BA0A1EA65B0500ADE8EF /* Session.swift in Sources */,
 				DE18069B1E9A2DA5008F563A /* NewsFeedViewController.swift in Sources */,
 				DEA2FEE31E997EA200641011 /* AppDelegate.swift in Sources */,
