@@ -8,4 +8,5 @@ target 'show-me-aui' do
   # Pods for show-me-aui
   pod 'SnapKit', '~> 3.2.0'
   pod 'Alamofire', '~> 4.4'
+  pod 'MRProgress'
 end

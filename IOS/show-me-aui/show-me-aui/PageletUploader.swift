@@ -11,7 +11,7 @@ import Alamofire
 
 class PageletUploader {
   
-  static func upload(image: UIImage) {
+  static func upload(image: UIImage, closure: ((Progress) -> Void)? = nil) {
     // Url server address.
     let url = "https://aui-lekssays.c9users.io/upload"
     
@@ -35,6 +35,11 @@ class PageletUploader {
         case .success(let upload, _, _):
           upload.responseJSON { response in
             debugPrint(response)
+          }
+          
+          upload.uploadProgress { progress in
+            closure?(progress)
+            print(progress.fractionCompleted)
           }
         case .failure(let encodingError):
           print(encodingError)

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SnapKit
+import MRProgress
 
 class SnapViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
   var imagePicker: UIImagePickerController!
@@ -57,18 +59,18 @@ class SnapViewController: UIViewController, UINavigationControllerDelegate, UIIm
   
   func takePhoto() {
     if UIImagePickerController.isSourceTypeAvailable(
-        UIImagePickerControllerSourceType.camera) {
+      UIImagePickerControllerSourceType.camera) {
       self.imagePicker =  UIImagePickerController()
       self.imagePicker.delegate = self
       self.imagePicker.sourceType = .camera
-    
+      
       present(self.imagePicker, animated: true, completion: nil)
     }
   }
   
   func useCameraRoll() {
     if UIImagePickerController.isSourceTypeAvailable(
-        UIImagePickerControllerSourceType.savedPhotosAlbum) {
+      UIImagePickerControllerSourceType.savedPhotosAlbum) {
       self.imagePicker = UIImagePickerController()
       
       self.imagePicker.delegate = self
@@ -85,7 +87,19 @@ class SnapViewController: UIViewController, UINavigationControllerDelegate, UIIm
   
   @IBAction func didTapUpload(_ sender: Any) {
     if let image = self.image {
-      PageletUploader.upload(image: image)
+      let progressBar =
+        MRProgressOverlayView.showOverlayAdded(to: self.view, title: "Upload", mode: .determinateHorizontalBar, animated: true)
+      
+      PageletUploader.upload(image: image) { progress in
+        let fractionCompleted = Float(progress.fractionCompleted)
+        if fractionCompleted < 1.0 {
+          progressBar?.setProgress(Float(progress.fractionCompleted), animated: true)
+        } else {
+          progressBar?.dismiss(true)
+          progressBar?.removeFromSuperview()
+        }
+      }
+      
     }
   }
 }
