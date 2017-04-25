@@ -1,5 +1,5 @@
 //
-//  ImageUploader.swift
+//  PageletUploader.swift
 //  show-me-aui
 //
 //  Created by Achraf Mamdouh on 4/25/17.
