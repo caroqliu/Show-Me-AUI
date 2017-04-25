@@ -83,4 +83,9 @@ class SnapViewController: UIViewController, UINavigationControllerDelegate, UIIm
     self.image = info[UIImagePickerControllerOriginalImage] as? UIImage
   }
   
+  @IBAction func didTapUpload(_ sender: Any) {
+    if let image = self.image {
+      PageletUploader.upload(image: image)
+    }
+  }
 }
