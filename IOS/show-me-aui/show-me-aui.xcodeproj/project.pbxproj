@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		88EDB5F896972CC3843A3B02 /* Pods_show_me_aui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B86D618E685EF62C2EC280F /* Pods_show_me_aui.framework */; };
 		DE02BA0A1EA65B0500ADE8EF /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02BA091EA65B0500ADE8EF /* Session.swift */; };
+		DE0BB7101EAF7D8E00357A27 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0BB70F1EAF7D8E00357A27 /* UploadViewController.swift */; };
 		DE1806991E999697008F563A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1806981E999697008F563A /* LoginViewController.swift */; };
 		DE18069B1E9A2DA5008F563A /* NewsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE18069A1E9A2DA5008F563A /* NewsFeedViewController.swift */; };
 		DE18069D1E9A2DD4008F563A /* PageletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE18069C1E9A2DD4008F563A /* PageletView.swift */; };
@@ -32,6 +33,7 @@
 		4B86D618E685EF62C2EC280F /* Pods_show_me_aui.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_show_me_aui.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C691BE3BCA9B1290D5558B14 /* Pods-show-me-aui.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-show-me-aui.debug.xcconfig"; path = "Pods/Target Support Files/Pods-show-me-aui/Pods-show-me-aui.debug.xcconfig"; sourceTree = "<group>"; };
 		DE02BA091EA65B0500ADE8EF /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		DE0BB70F1EAF7D8E00357A27 /* UploadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
 		DE1806981E999697008F563A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DE18069A1E9A2DA5008F563A /* NewsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedViewController.swift; sourceTree = "<group>"; };
 		DE18069C1E9A2DD4008F563A /* PageletView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageletView.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				DE6C03CC1EA79B270098F7E5 /* Session */,
 				DE770B471EAE044400984D7E /* Settings */,
 				DEA2FEE61E997EA200641011 /* Main.storyboard */,
+				DE0BB70F1EAF7D8E00357A27 /* UploadViewController.swift */,
 				DE770B491EAE0D9D00984D7E /* SnapViewController.swift */,
 				DE18069E1E9A92E7008F563A /* Images.xcassets */,
 				DEBB6FE21EA4D2D400A8DCE2 /* Supporting Files */,
@@ -316,6 +319,7 @@
 				DE2DDD351EA4075A002226EA /* Comment.swift in Sources */,
 				DEBB6FE81EA4DBEB00A8DCE2 /* CommentCell.swift in Sources */,
 				DEBDB7A11E9D307400106285 /* LoginBrain.swift in Sources */,
+				DE0BB7101EAF7D8E00357A27 /* UploadViewController.swift in Sources */,
 				DE7901591EA8F3D600B0C553 /* LikeDisLikeCounterView.swift in Sources */,
 				DE770B461EAE01A600984D7E /* SettingsViewController.swift in Sources */,
 				DE02BA0A1EA65B0500ADE8EF /* Session.swift in Sources */,
