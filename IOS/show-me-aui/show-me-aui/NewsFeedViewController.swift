@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Alamofire
 
 class NewsFeedViewController: UIViewController {
   let feedScrollView = UIScrollView()
@@ -34,37 +35,27 @@ class NewsFeedViewController: UIViewController {
       make.edges.equalTo(feedScrollView)
     }
     
-    let sync = DispatchGroup()
-    let api = APIData.shared
-    let url = "/getAllPictures"
+    let url = API.UrlPaths.getPagelets
+    let parameters: Parameters = ["offset": 0, "count": 5]
     
-    var imageIds = [Int]()
+    let sync = DispatchGroup()
     
     sync.enter()
-    api.queryServer(url: url, args: [:]) { data in
-      guard let jsonArray = try! JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
-        print("Could not load json.")
-        return
-      }
-      
-      DispatchQueue.global().async {
+    Alamofire.request(url, method: .get, parameters: parameters)
+      .responseJSON(queue: DispatchQueue.global()) { response in
+        let jsonArray = response.result.value as! [[String: Any]]
+        print(jsonArray)
         for pageletJson in jsonArray {
-          guard let imageId = pageletJson["imageId"]! as? Int else {
-            fatalError("Could not create get image id.")
+          do {
+            self.pagelets.append(try PageletView(json: pageletJson))
+          } catch {
+            print(error)
           }
-          imageIds.append(imageId)
         }
         sync.leave()
       }
-    }
     
     sync.wait()
-    
-    for imageId in imageIds {
-      if let pagelet = PageletView(imageId: imageId) {
-        self.pagelets.append(pagelet)
-      }
-    }
     
     var topView = contentView
     var index = 1

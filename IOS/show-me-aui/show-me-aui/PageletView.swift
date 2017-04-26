@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Alamofire
 
 class PageletView: UIView, WriteCommentDelegate {
   private let userImageView = UIImageView()
@@ -56,85 +57,109 @@ class PageletView: UIView, WriteCommentDelegate {
     }
   }
   
-  // Designated initializer.
-  init?(imageId: Int) {
-    // Initialize all members.
+  init(json: [String: Any]) throws {
+    guard let imageId = json[API.Keys.imageId] as? Int else {
+      throw SerializationError.missing(API.Keys.imageId)
+    }
+    
+    guard let userId = json[API.Keys.userId] as? Int else {
+      throw SerializationError.missing(API.Keys.userId)
+    }
+    
+    guard let imagePath = json[API.Keys.imagePath] as? String else {
+      throw SerializationError.missing(API.Keys.imagePath)
+    }
+    
     self.imageId = imageId
     super.init(frame: CGRect.zero)
     
-    // Query necessary elements for the pagelet.
-    let api = APIData.shared
-    var args: [String: String]
-    let sync = DispatchGroup()
-    guard let currentUserId = Session.shared.getUserIdForCurrentSession() else {
-      return nil
+    // TODO: make sure the UI is setup before downloading data.
+    self.setUpUI()
+    
+    DispatchQueue.global().async {
+      // Download Section.
+      let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let filename = FileManager.randomFileName(length: 10) + ".jpg"
+        let fileURL = documentsURL.appendingPathComponent(filename)
+        
+        return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+      }
+      
+      // Download pagelet main image.
+      var parameters: Parameters = [API.Keys.imagePath: imagePath]
+      var url = API.UrlPaths.imageAtPath
+      Alamofire.download(url, method: .get, parameters: parameters, encoding: URLEncoding.default,
+                         headers: nil, to: destination)
+        .response { response in
+          if response.error == nil, let imagePath = response.destinationURL?.path {
+            DispatchQueue.main.async {
+              self.pageletImageView.image = UIImage(contentsOfFile: imagePath)
+            }
+          }
+      }
+      
+      // Download userImage.
+      parameters = [API.Keys.userId: userId]
+      url = API.UrlPaths.userImageWithId
+      Alamofire.download(url, method: .get, parameters: parameters, encoding: URLEncoding.default,
+                         headers: nil, to: destination)
+        .response { response in
+          if response.error == nil, let imagePath = response.destinationURL?.path {
+            DispatchQueue.main.async {
+              self.userImageView.image = UIImage(contentsOfFile: imagePath)
+            }
+          }
+      }
+      
+      // Fetch username.
+      parameters = [API.Keys.userId: userId]
+      url = API.UrlPaths.userNameWithId
+      Alamofire.request(url, method: .get, parameters: parameters)
+        .responseJSON { response in
+          let json = response.result.value as? [String: String]
+          DispatchQueue.main.async {
+            self.userNameLabel.text = json?[API.Keys.userName]
+          }
+        }
+      
+      // Fetch user preference of current image.
+      parameters = [API.Keys.userId: userId, API.Keys.imageId: imageId]
+      url = API.UrlPaths.doesUserLikePictureWithId
+      Alamofire.request(url, method: .get, parameters: parameters)
+        .responseJSON { response in
+          let json = response.result.value as? [String: Bool]
+          self.isThumbDownSelected = json?[API.Keys.result] ?? false
+        }
+      
+      url = API.UrlPaths.doesUserDislikePictureWithId
+      Alamofire.request(url, method: .get, parameters: parameters)
+        .responseJSON { response in
+          let json = response.result.value as? [String: Bool]
+          self.isThumbDownSelected = json?[API.Keys.result] ?? false
+        }
+      
+      // Fetch number of likes and dislikes.
+      parameters = [API.Keys.imageId: imageId]
+      url = API.UrlPaths.numberOfLikes
+      Alamofire.request(url, method: .get, parameters: parameters)
+        .responseJSON { response in
+          let json = response.result.value as? [String: Int]
+          self.likeCounter.numberOfLikes = json?[API.Keys.result] ?? 0
+        }
+      
+      parameters = [API.Keys.imageId: imageId]
+      url = API.UrlPaths.numberOfDislikes
+      Alamofire.request(url, method: .get, parameters: parameters)
+        .responseJSON { response in
+          let json = response.result.value as? [String: Int]
+          self.likeCounter.numberOfDislikes = json?[API.Keys.result] ?? 0
+        }
     }
     
-    // Fetch pagelet's main image.
-    args = ["imageId": String(imageId)]
-    sync.enter()
-    api.queryServer(url: "/image", args: args) { data in
-      self.pageletImageView.image = UIImage(data: data)
-      sync.leave()
-    }
-    
-    // Fetch userImage.
-    args = ["id": String(currentUserId)]
-    sync.enter()
-    api.queryServer(url: "/userImageForId", args: args) { data in
-      self.userImageView.image = UIImage(data: data)
-      sync.leave()
-    }
-    
-    // Fetch username.
-    args = ["id": String(currentUserId)]
-    sync.enter()
-    api.queryServer(url: "/userNameForId", args: args) { data in
-      let json = try! JSONSerialization.jsonObject(with: data) as? [String: String]
-      self.userNameLabel.text = json?["username"]
-      sync.leave()
-    }
-    
-    // Fetch user preference of current image.
-    args = ["userId": String(currentUserId), "imageId": String(imageId)]
-    
-    sync.enter()
-    api.queryServer(url: "/doesUserLikePicture", args: args) { data in
-      let json = try! JSONSerialization.jsonObject(with: data) as? [String: Bool]
-      self.isHeartSelected = json?["result"] ?? false
-      sync.leave()
-    }
-    
-    sync.enter()
-    api.queryServer(url: "/doesUserDisLikePicture", args: args) { data in
-      let json = try! JSONSerialization.jsonObject(with: data) as? [String: Bool]
-      self.isThumbDownSelected = json?["result"] ?? false
-      sync.leave()
-    }
-    
-    // Fetch number of likes and dislikes.
-    args = ["imageId": String(imageId)]
-    
-    sync.enter()
-    api.queryServer(url: "/numberOfLikes", args: args) { data in
-      let json = try! JSONSerialization.jsonObject(with: data) as! [String: Int]
-      self.likeCounter.numberOfLikes = json["result"] ?? 0
-      sync.leave()
-    }
-    
-    sync.enter()
-    api.queryServer(url: "/numberOfDisLikes", args: args) { data in
-      let json = try! JSONSerialization.jsonObject(with: data) as! [String: Int]
-      self.likeCounter.numberOfDislikes = json["result"] ?? 0
-      sync.leave()
-    }
-    
-    sync.wait()
-    
-    setUpUI()
     fetchCommentsAsynchrounously()
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -172,6 +197,7 @@ class PageletView: UIView, WriteCommentDelegate {
     self.layer.borderColor = UIColor.lightGray.cgColor
     
     // Setup userImageView.
+    userImageView.image = #imageLiteral(resourceName: "profile-placeholder")
     userImageView.layer.borderWidth = 1.0
     userImageView.layer.cornerRadius = 20
     userImageView.clipsToBounds = true
@@ -194,6 +220,7 @@ class PageletView: UIView, WriteCommentDelegate {
     setUpAddressLabel()
     
     // Setup pageletImageView.
+    pageletImageView.image = #imageLiteral(resourceName: "image_placeholder")
     pageletImageView.contentMode = .scaleAspectFit
     self.addSubview(pageletImageView)
     pageletImageView.snp.makeConstraints { make in
@@ -309,7 +336,7 @@ class PageletView: UIView, WriteCommentDelegate {
     
     isHeartSelected = isHeartSelected ? false : true
     
-    let url = isThumbDownSelected ? "/saveLike" : "/removeLike"
+    let url = isThumbDownSelected ? API.UrlPaths.savelike : API.UrlPaths.removelike
     self.saveUserPreference(url: url)
   }
   
@@ -329,8 +356,7 @@ class PageletView: UIView, WriteCommentDelegate {
     
     isThumbDownSelected = isThumbDownSelected ? false : true
     
-    
-    let url = isThumbDownSelected ? "/saveDisLike" : "/removeDisLike"
+    let url = isThumbDownSelected ? API.UrlPaths.saveDislike : API.UrlPaths.removeDislike
     self.saveUserPreference(url: url)
   }
   
@@ -339,11 +365,12 @@ class PageletView: UIView, WriteCommentDelegate {
       fatalError()
     }
     
-    let api = APIData.shared
-    let args = ["imageId": String(imageId),
-                 "userId": String(userId)]
-    
-    api.queryServer(url: url, args: args)
+    let parameters: Parameters =
+      [API.Keys.imageId: self.imageId, API.Keys.userId: userId]
+    Alamofire.request(url, method: .get, parameters: parameters)
+      .responseJSON { response in
+        debugPrint(response)
+      }
   }
   
   func didTapComment() {
@@ -373,16 +400,12 @@ class PageletView: UIView, WriteCommentDelegate {
   
   // Fetch Comments asynchronously.
   func fetchCommentsAsynchrounously() {
-    let api = APIData.shared
-    let url = "/getCommentsForImageId"
-    let args = ["id": String(self.imageId)]
-    
     self.comments = []
-    api.queryServer(url: url, args: args) { data in
-      let jsonData = try! JSONSerialization.jsonObject(with: data)
-      
-      if let jsonArray = jsonData as? [[String: Any]] {
-        DispatchQueue.global().async {
+    let parameters: Parameters = [API.Keys.imageId: self.imageId]
+    Alamofire.request(API.UrlPaths.commentsForImageId, method: .get, parameters: parameters)
+      .responseJSON(queue: DispatchQueue.global()) { response in
+        
+        if let jsonArray = response.result.value as? [[String: Any]] {
           // Group for fetching comments asynchrounsly.
           let sync = DispatchGroup()
           
@@ -400,8 +423,8 @@ class PageletView: UIView, WriteCommentDelegate {
           sync.wait()
           self.refreshComments()
         }
+        
       }
-    }
   }
   
   // Reload data of the Comments table view.
@@ -435,5 +458,22 @@ extension PageletView: UITableViewDataSource, UITableViewDelegate {
     cell.userNameLabel.text = comment.username
     
     return cell
+  }
+}
+
+extension FileManager {
+  static func randomFileName(length: Int) -> String {
+    let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    let len = UInt32(letters.length)
+    
+    var randomString = ""
+    
+    for _ in 0 ..< length {
+      let rand = arc4random_uniform(len)
+      var nextChar = letters.character(at: Int(rand))
+      randomString += NSString(characters: &nextChar, length: 1) as String
+    }
+    
+    return randomString
   }
 }
