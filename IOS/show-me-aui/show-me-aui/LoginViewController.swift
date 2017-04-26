@@ -8,9 +8,9 @@
 
 import UIKit
 import SnapKit
+import Alamofire
 
 class LoginViewController: UIViewController {
-  private let loginBrain = LoginBrain()
   
   // UI Elements
   private let emailTextField = UITextField()
@@ -56,6 +56,8 @@ class LoginViewController: UIViewController {
     case wrongPassword
   }
   
+  // MARK: didTapLogin
+  
   func didTapLogin() {
     guard let email = emailTextField.text, !email.isEmpty else {
       // Empty email.
@@ -69,19 +71,26 @@ class LoginViewController: UIViewController {
       return
     }
     
-    if loginBrain.query(email: email, password: password) {
-      // Logged in succesffully.
-      
-      // TODO: save real userID.
-      let session = Session.shared
-      session.createSession(userId: 61755)
-      
-      // Redirect to main page.
-      performSegue(withIdentifier: "FeedSegue", sender: self)
-    } else {
-      // Failed to login.
-      handleFailedAuthenticationWithCode(.wrongPassword)
-    }
+    // Authenticate.
+    let url = API.UrlPaths.authenticate
+    let parameters: Parameters = [API.Keys.email: email, API.Keys.password: password]
+    Alamofire.request(url, method: .get, parameters: parameters)
+      .responseJSON { response in
+        if let resp = response.result.value as? [String: Bool],
+          let isAuthorized = resp[API.Keys.result], isAuthorized {
+          // Logged in succesffully.
+          
+          // TODO: save real userID.
+          let session = Session.shared
+          session.createSession(userId: 61755)
+          
+          // Redirect to main page.
+          self.performSegue(withIdentifier: "FeedSegue", sender: self)
+        } else {
+          // Failed to login.
+          self.handleFailedAuthenticationWithCode(.wrongPassword)
+        }
+      }
   }
   
   func handleFailedAuthenticationWithCode(_ code: ErrorMessage) {

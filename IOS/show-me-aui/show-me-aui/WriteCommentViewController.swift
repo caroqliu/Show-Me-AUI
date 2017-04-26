@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Alamofire
 
 // WriteCommentDelegate.
 protocol WriteCommentDelegate {
@@ -102,15 +103,14 @@ class WriteCommentViewController: UIViewController {
     UIView.animate(withDuration: 0.25, animations: {
       self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
       self.view.alpha = 0.0;
-      }, completion:{(finished : Bool)  in
-        if (finished) {
-          self.view.removeFromSuperview()
-        }
+    }, completion:{(finished : Bool)  in
+      if (finished) {
+        self.view.removeFromSuperview()
+      }
     });
   }
   
   func didTapPost() {
-    // TODO: write comment in db.
     print("didTapPost")
     
     guard let text = self.textArea.text, !text.isEmpty else {
@@ -122,14 +122,15 @@ class WriteCommentViewController: UIViewController {
       fatalError("No userId found while session is active.")
     }
     
-    let api = APIData.shared
-    api.queryServer(url: "/saveComment",
-                   args: ["text": text,
-                        "userid": String(userId),
-                       "imageid": String(self.currentImageId)])
+    let url = API.UrlPaths.saveComment
+    let parameters: Parameters = [API.Keys.userId: userId,
+                                  API.Keys.imageId: self.currentImageId,
+                                  API.Keys.commentText: text]
     
-    // Refresh comments through delegate.
-    self.delegate?.fetchCommentsAsynchrounously()
+    Alamofire.request(url, method: .get, parameters: parameters).response { _ in
+      // Refresh comments through delegate.
+      self.delegate?.fetchCommentsAsynchrounously()
+    }
     
     self.removeAnimate()
   }
