@@ -26,6 +26,8 @@
 		DEA2FEF01E997EA200641011 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEA2FEEE1E997EA200641011 /* LaunchScreen.storyboard */; };
 		DEBB6FE81EA4DBEB00A8DCE2 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBB6FE71EA4DBEB00A8DCE2 /* CommentCell.swift */; };
 		DEBB6FEA1EA4DE9D00A8DCE2 /* WriteCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBB6FE91EA4DE9D00A8DCE2 /* WriteCommentViewController.swift */; };
+		DEBCB40F1EB2438300A70489 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEBCB40E1EB2438300A70489 /* Images.xcassets */; };
+		DEBCB4111EB2479D00A70489 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB4101EB2479D00A70489 /* SignUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		DEA2FEF11E997EA200641011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEBB6FE71EA4DBEB00A8DCE2 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		DEBB6FE91EA4DE9D00A8DCE2 /* WriteCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteCommentViewController.swift; sourceTree = "<group>"; };
+		DEBCB40E1EB2438300A70489 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DEBCB4101EB2479D00A70489 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		F30323DE870EE73A680E8641 /* Pods-show-me-aui.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-show-me-aui.release.xcconfig"; path = "Pods/Target Support Files/Pods-show-me-aui/Pods-show-me-aui.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,8 +147,10 @@
 				DE6C03CC1EA79B270098F7E5 /* Session */,
 				DE770B471EAE044400984D7E /* Settings */,
 				DEA2FEE61E997EA200641011 /* Main.storyboard */,
+				DEBCB4101EB2479D00A70489 /* SignUpViewController.swift */,
 				DE0BB71B1EB0F90900357A27 /* ImageEditorViewController.swift */,
 				DE770B491EAE0D9D00984D7E /* SnapViewController.swift */,
+				DEBCB40E1EB2438300A70489 /* Images.xcassets */,
 				DEBB6FE21EA4D2D400A8DCE2 /* Supporting Files */,
 			);
 			path = "show-me-aui";
@@ -251,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEBCB40F1EB2438300A70489 /* Images.xcassets in Resources */,
 				DEA2FEF01E997EA200641011 /* LaunchScreen.storyboard in Resources */,
 				DEA2FEE81E997EA200641011 /* Main.storyboard in Resources */,
 			);
@@ -316,6 +323,7 @@
 				DE0BB7161EAFF80700357A27 /* PageletUploader.swift in Sources */,
 				DE0BB71C1EB0F90900357A27 /* ImageEditorViewController.swift in Sources */,
 				DE1806991E999697008F563A /* LoginViewController.swift in Sources */,
+				DEBCB4111EB2479D00A70489 /* SignUpViewController.swift in Sources */,
 				DEBB6FEA1EA4DE9D00A8DCE2 /* WriteCommentViewController.swift in Sources */,
 				DEA2FEEB1E997EA200641011 /* show_me_aui.xcdatamodeld in Sources */,
 				DE2DDD351EA4075A002226EA /* Comment.swift in Sources */,

@@ -2,4 +2,102 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "show-me-aui/SnapViewController.swift"
+            timestampString = "515014982.186978"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "didTapUpload(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "show_me_aui.SnapViewController.didTapUpload (Any) -&gt; ()"
+                  moduleName = "show-me-aui"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/achraf/GitHub/Show-Me-AUI/IOS/show-me-aui/show-me-aui/SnapViewController.swift"
+                  timestampString = "515015273.232391"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "108"
+                  endingLineNumber = "108"
+                  offsetFromSymbolStart = "388">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "show_me_aui.SnapViewController.(didTapUpload (Any) -&gt; ()).(closure #1)"
+                  moduleName = "show-me-aui"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/achraf/GitHub/Show-Me-AUI/IOS/show-me-aui/show-me-aui/SnapViewController.swift"
+                  timestampString = "515015273.233807"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "109"
+                  endingLineNumber = "109"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "show-me-aui/SnapViewController.swift"
+            timestampString = "515015414.453449"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "didTapUpload(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "show_me_aui.SnapViewController.didTapUpload (Any) -&gt; ()"
+                  moduleName = "show-me-aui"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/achraf/GitHub/Show-Me-AUI/IOS/show-me-aui/show-me-aui/SnapViewController.swift"
+                  timestampString = "515015414.871706"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "show_me_aui.SnapViewController.didTapUpload (Any) -&gt; ()"
+                  moduleName = "show-me-aui"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/achraf/GitHub/Show-Me-AUI/IOS/show-me-aui/show-me-aui/SnapViewController.swift"
+                  timestampString = "515015414.875071"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "80">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

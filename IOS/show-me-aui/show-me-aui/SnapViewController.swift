@@ -99,7 +99,7 @@ class SnapViewController: UIViewController, UINavigationControllerDelegate, UIIm
       }
     }
   }
-  
+    
   @IBAction func didTapUpload(_ sender: Any) {
     if let image = self.image {
       let progressBar =

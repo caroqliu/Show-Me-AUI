@@ -47,6 +47,7 @@ class LoginViewController: UIViewController {
   
   func didTapCreateAccount() {
     print("didTapCreatAccount")
+    performSegue(withIdentifier: "SignupSegue", sender: nil)
   }
   
   // Enum for common error messages while logging in.

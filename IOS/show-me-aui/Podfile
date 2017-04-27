@@ -9,4 +9,6 @@ target 'show-me-aui' do
   pod 'SnapKit', '~> 3.2.0'
   pod 'Alamofire', '~> 4.4'
   pod 'MRProgress'
+  pod 'IQKeyboardManagerSwift'
+  pod 'UIView+Shake'
 end
