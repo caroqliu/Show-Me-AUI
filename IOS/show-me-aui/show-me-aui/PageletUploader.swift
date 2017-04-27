@@ -19,8 +19,7 @@ class PageletUploader {
     let arg = ["userId": Session.shared.getUserIdForCurrentSession()]
     guard let imageData = UIImageJPEGRepresentation(image, 1.0),
       let jsonData = try? JSONSerialization.data(withJSONObject: arg) else {
-        NSLog("Could not create data for upload.")
-        return;
+        fatalError("Could not create data for image.")
     }
     
     // Upload data.
