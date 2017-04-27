@@ -15,7 +15,10 @@ class NewsFeedViewController: UIViewController {
   let contentView = UIView()
   let footer = UIView()
   
-  var pagelets = [PageletView]()
+  let updateSemaphore = DispatchSemaphore(value: 1)
+  
+  // Ids of the pagelets in the newsfeed.
+  var pageletsIds = Set<Int>()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -24,6 +27,7 @@ class NewsFeedViewController: UIViewController {
     self.tabBarItem = UITabBarItem(title: "News Feed", image: #imageLiteral(resourceName: "home"), tag: 0)
 
     // Setup UI.
+    feedScrollView.delegate = self
     view.addSubview(feedScrollView)
     feedScrollView.snp.makeConstraints { make in
       make.left.right.bottom.equalTo(view)
@@ -35,6 +39,10 @@ class NewsFeedViewController: UIViewController {
       make.edges.equalTo(feedScrollView)
     }
     
+    self.fetchPagelets()
+  }
+  
+  func fetchPagelets() {
     let url = API.UrlPaths.getPagelets
     let parameters: Parameters = ["offset": 0, "count": 5]
     
@@ -47,20 +55,25 @@ class NewsFeedViewController: UIViewController {
         print(jsonArray)
         for pageletJson in jsonArray {
           do {
-            self.pagelets.append(try PageletView(json: pageletJson))
+            if let id = pageletJson[API.Keys.imageId] as? Int {
+              // Insert id of the pagelet.
+              self.pageletsIds.insert(id)
+              
+              // Add it to the contentView.
+              self.contentView.addSubview(try PageletView(json: pageletJson))
+            }
           } catch {
             print(error)
           }
         }
         sync.leave()
-      }
+    }
     
     sync.wait()
     
     var topView = contentView
     var index = 1
-    for pagelet in pagelets {
-      self.contentView.addSubview(pagelet)
+    for pagelet in self.contentView.subviews {
       pagelet.snp.makeConstraints { make in
         if index == 1 {
           make.top.equalTo(contentView)
@@ -75,12 +88,100 @@ class NewsFeedViewController: UIViewController {
       topView = pagelet
       index += 1
     }
-  
+    
     contentView.addSubview(footer)
     footer.snp.makeConstraints { make in
       make.top.equalTo(topView.snp.bottom)
       make.left.right.bottom.equalTo(contentView)
       make.height.equalTo(60)
     }
+
+  }
+  
+  func updateNewsFeed() {
+    // Beginning of critical section.
+    self.updateSemaphore.wait()
+    
+    let url = API.UrlPaths.getPagelets
+    let parameters: Parameters = ["offset": 0, "count": 5]
+    let sync = DispatchGroup()
+    var shouldUpdateUI = false
+    
+    sync.enter()
+    Alamofire.request(url, method: .get, parameters: parameters)
+      .responseJSON(queue: DispatchQueue.global()) { response in
+        let jsonArray = response.result.value as! [[String: Any]]
+        print(jsonArray)
+        for pageletJson in jsonArray {
+          do {
+            if let id = pageletJson[API.Keys.imageId] as? Int {
+              if !self.pageletsIds.contains(id) {
+                // New pagelet.
+                shouldUpdateUI = true
+                self.pageletsIds.insert(id)
+                let pagelet = try PageletView(json: pageletJson)
+                self.contentView.insertSubview(pagelet, at: 0)
+              }
+            }
+          } catch {
+            print(error)
+          }
+        }
+        sync.leave()
+    }
+    sync.wait()
+    
+    if !shouldUpdateUI {
+      return
+    }
+    
+    // Update UI if there is a new pagelet.
+    DispatchQueue.main.async {
+      var topView = self.contentView
+      var index = 1
+      for pagelet in self.contentView.subviews {
+        if index == self.contentView.subviews.count {
+          break
+        }
+        
+        pagelet.snp.remakeConstraints { make in
+          if index == 1 {
+            make.top.equalTo(self.contentView)
+          } else {
+            make.top.equalTo(topView.snp.bottom).offset(8)
+          }
+          make.left.right.equalTo(self.contentView)
+          make.width.equalTo(UIScreen.main.bounds.width)
+        }
+        
+        // set topView to current pagelet.
+        topView = pagelet
+        index += 1
+      }
+      
+      self.footer.snp.remakeConstraints { make in
+        make.top.equalTo(topView.snp.bottom)
+        make.left.right.bottom.equalTo(self.contentView)
+        make.height.equalTo(60)
+      }
+      
+      self.updateSemaphore.signal()
+    }
+  }
+}
+
+extension NewsFeedViewController: UIScrollViewDelegate {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    if scrollView.isAtTop() {
+      DispatchQueue.global().async {
+        self.updateNewsFeed()
+      }
+    }
+  }
+}
+
+extension UIScrollView {
+  func isAtTop() -> Bool {
+    return self.contentOffset.y < -50
   }
 }

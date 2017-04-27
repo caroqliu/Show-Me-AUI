@@ -6,95 +6,143 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "show-me-aui/SnapViewController.swift"
-            timestampString = "515014982.186978"
+            filePath = "show-me-aui/NewsFeedViewController.swift"
+            timestampString = "515027851.830791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "didTapUpload(_:)"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "fetchPagelets()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "show_me_aui.SnapViewController.didTapUpload (Any) -&gt; ()"
-                  moduleName = "show-me-aui"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/achraf/GitHub/Show-Me-AUI/IOS/show-me-aui/show-me-aui/SnapViewController.swift"
-                  timestampString = "515015273.232391"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
-                  offsetFromSymbolStart = "388">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "show_me_aui.SnapViewController.(didTapUpload (Any) -&gt; ()).(closure #1)"
-                  moduleName = "show-me-aui"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/achraf/GitHub/Show-Me-AUI/IOS/show-me-aui/show-me-aui/SnapViewController.swift"
-                  timestampString = "515015273.233807"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "109"
-                  endingLineNumber = "109"
-                  offsetFromSymbolStart = "28">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "show-me-aui/SnapViewController.swift"
-            timestampString = "515015414.453449"
+            filePath = "show-me-aui/NewsFeedViewController.swift"
+            timestampString = "515027935.570803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "didTapUpload(_:)"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "fetchPagelets()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "show-me-aui/PageletView.swift"
+            timestampString = "515027990.878616"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "init(json:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "show-me-aui/PageletView.swift"
+            timestampString = "515028009.459838"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
+            landmarkName = "setUpUI()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "show-me-aui/PageletView.swift"
+            timestampString = "515028121.956459"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "isHeartSelected"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "show-me-aui/PageletView.swift"
+            timestampString = "515028128.138512"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "isThumbDownSelected"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "show-me-aui/PageletView.swift"
+            timestampString = "515028161.438865"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "437"
+            endingLineNumber = "437"
+            landmarkName = "refreshComments()"
             landmarkType = "7">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "show_me_aui.SnapViewController.didTapUpload (Any) -&gt; ()"
+                  symbolName = "show_me_aui.PageletView.(refreshComments () -&gt; ()).(closure #1)"
                   moduleName = "show-me-aui"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/achraf/GitHub/Show-Me-AUI/IOS/show-me-aui/show-me-aui/SnapViewController.swift"
-                  timestampString = "515015414.871706"
+                  urlString = "file:///Users/achraf/GitHub/Show-Me-AUI/IOS/show-me-aui/show-me-aui/PageletView.swift"
+                  timestampString = "515028498.723582"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "104"
-                  endingLineNumber = "104"
-                  offsetFromSymbolStart = "28">
+                  startingLineNumber = "437"
+                  endingLineNumber = "437"
+                  offsetFromSymbolStart = "42">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "show_me_aui.SnapViewController.didTapUpload (Any) -&gt; ()"
+                  symbolName = "show_me_aui.PageletView.(refreshComments () -&gt; ()).(closure #1).(closure #1)"
                   moduleName = "show-me-aui"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/achraf/GitHub/Show-Me-AUI/IOS/show-me-aui/show-me-aui/SnapViewController.swift"
-                  timestampString = "515015414.875071"
+                  urlString = "file:///Users/achraf/GitHub/Show-Me-AUI/IOS/show-me-aui/show-me-aui/PageletView.swift"
+                  timestampString = "515028498.726688"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "104"
-                  endingLineNumber = "104"
-                  offsetFromSymbolStart = "80">
+                  startingLineNumber = "438"
+                  endingLineNumber = "438"
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
