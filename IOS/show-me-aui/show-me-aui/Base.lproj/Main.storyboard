@@ -25,11 +25,152 @@
                     </view>
                     <connections>
                         <segue destination="QNu-0R-J9M" kind="show" identifier="FeedSegue" id="zaF-Vx-a4u"/>
+                        <segue destination="Plk-l0-id5" kind="show" identifier="SignupSegue" id="oMc-ay-LDL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-130" y="139"/>
+        </scene>
+        <!--Sign Up View Controller-->
+        <scene sceneID="CdB-J9-hiX">
+            <objects>
+                <viewController id="Plk-l0-id5" customClass="SignUpViewController" customModule="show_me_aui" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="331-oe-eVi"/>
+                        <viewControllerLayoutGuide type="bottom" id="P0d-WL-kme"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UkV-Oz-VAe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="p0L-qo-NwN">
+                                <rect key="frame" x="63" y="129.5" width="250" height="409.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jb0-d2-Hcu">
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="33.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="250" id="jkz-GJ-9jr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGG-cM-tku">
+                                        <rect key="frame" x="0.0" y="63.5" width="250" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="250" id="Z5O-gE-x9P"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="quA-ys-Vzb">
+                                        <rect key="frame" x="0.0" y="109.5" width="250" height="300"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zL3-3B-eDi">
+                                                <rect key="frame" x="0.0" y="0.0" width="250" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="first name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I0X-1U-08m">
+                                                <rect key="frame" x="0.0" y="45" width="250" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="last name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KYU-Qr-Dm7">
+                                                <rect key="frame" x="0.0" y="90" width="250" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" spellCheckingType="no"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UVs-2H-xEO">
+                                                <rect key="frame" x="0.0" y="135" width="250" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iMa-Da-ft2">
+                                                <rect key="frame" x="0.0" y="180" width="250" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="retype password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zfc-IK-2we">
+                                                <rect key="frame" x="0.0" y="225" width="250" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u2c-RU-6NW">
+                                                <rect key="frame" x="0.0" y="270" width="250" height="30"/>
+                                                <color key="backgroundColor" red="0.12838346740000001" green="0.44861657090000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Sign Up">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="signUp" destination="Plk-l0-id5" eventType="touchUpInside" id="g5p-Qa-yza"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="250" id="pT4-yO-E4r"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="C7k-gL-tzl"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQ0-0u-v5i">
+                                <rect key="frame" x="8" y="28" width="62" height="20"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back-icon" translatesAutoresizingMaskIntoConstraints="NO" id="1KI-Gi-DJh">
+                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="cGi-AN-LvL"/>
+                                            <constraint firstAttribute="height" constant="20" id="uGe-7Z-THd"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Vl-zF-a9y">
+                                        <rect key="frame" x="20" y="0.0" width="42" height="20"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <color key="textColor" red="0.16411826014518738" green="0.60024720430374146" blue="0.97734075784683228" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="AzQ-eq-uZX" appends="YES" id="FHn-lo-t0g"/>
+                                </connections>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="p0L-qo-NwN" firstAttribute="centerY" secondItem="UkV-Oz-VAe" secondAttribute="centerY" id="4F9-4k-1E4"/>
+                            <constraint firstItem="LQ0-0u-v5i" firstAttribute="top" secondItem="331-oe-eVi" secondAttribute="bottom" constant="8" id="BFD-Dg-lXt"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="LQ0-0u-v5i" secondAttribute="leading" constant="8" id="oXG-Ci-QGh"/>
+                            <constraint firstItem="p0L-qo-NwN" firstAttribute="centerX" secondItem="UkV-Oz-VAe" secondAttribute="centerX" id="xaJ-Gx-41R"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backGesture" destination="AzQ-eq-uZX" id="7hb-jU-ikv"/>
+                        <outlet property="emailTextField" destination="UVs-2H-xEO" id="5zx-4w-Vk4"/>
+                        <outlet property="errorLabel" destination="xGG-cM-tku" id="7rd-TN-5Zf"/>
+                        <outlet property="firstnameTextField" destination="I0X-1U-08m" id="rGi-kr-EEA"/>
+                        <outlet property="lastnameTextField" destination="KYU-Qr-Dm7" id="tMe-Nh-bFT"/>
+                        <outlet property="passwordCheckerTextField" destination="Zfc-IK-2we" id="Ul6-ZI-5bf"/>
+                        <outlet property="passwordTextField" destination="iMa-Da-ft2" id="kBG-z5-2Ah"/>
+                        <outlet property="usernameTextField" destination="zL3-3B-eDi" id="fMd-xu-YCb"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="LoginSegue" id="kI6-pQ-ohL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rzd-WO-efZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="AzQ-eq-uZX"/>
+            </objects>
+            <point key="canvasLocation" x="-130" y="1038"/>
         </scene>
         <!--Snap View Controller-->
         <scene sceneID="vll-a4-9KF">
@@ -136,7 +277,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wh0-Yv-hqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1905" y="-161"/>
+            <point key="canvasLocation" x="2844" y="-165"/>
         </scene>
         <!--Settings-->
         <scene sceneID="ZGg-Rf-0si">
@@ -230,8 +371,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back-icon" width="24" height="24"/>
         <image name="settings" width="25" height="25"/>
         <image name="upload_default_image" width="225" height="225"/>
         <image name="upload_tab" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="kI6-pQ-ohL"/>
+    </inferredMetricsTieBreakers>
 </document>

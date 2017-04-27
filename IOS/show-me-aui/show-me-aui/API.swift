@@ -17,7 +17,7 @@ class API {
   
   
   struct Keys {
-    static let userName = "username"
+    static let userName = "userName"
     static let imageId = "imageId"
     static let userId = "userId"
     static let imagePath = "imagePath"
@@ -25,15 +25,20 @@ class API {
     static let commentText = "commentText"
     static let email = "email"
     static let password = "password"
+    static let firstName = "firstName"
+    static let lastName = "lastName"
+    static let which = "which"
   }
     
   struct UrlPaths {
+    static let addUser =                      host + "/addUser"
     static let authenticate =                 host + "/authenticate"
     static let commentsForImageId =           host + "/getCommentsForImageId"
     static let doesUserLikePictureWithId =    host + "/doesUserLikePicture"
     static let doesUserDislikePictureWithId = host + "/doesUserDisLikePicture"
     static let getPagelets =                  host + "/getAllPictures"
     static let imageAtPath =                  host + "/imageAtPath"
+    static let isUserNameAvailable          = host + "/isUserNameAvailable"
     static let numberOfLikes =                host + "/numberOfLikes"
     static let numberOfDislikes =             host + "/numberOfDisLikes"
     static let saveComment =                  host + "/saveComment"
