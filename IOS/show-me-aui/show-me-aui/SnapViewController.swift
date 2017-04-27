@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import MRProgress
 
-class SnapViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class SnapViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ImageEditorDelegate {
   var imagePicker: UIImagePickerController!
   
   // Current image in the imageView.
@@ -28,7 +28,7 @@ class SnapViewController: UIViewController, UINavigationControllerDelegate, UIIm
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+        
     // Do any additional setup after loading the view.
     self.uploadButton.isEnabled = false
     
@@ -48,6 +48,12 @@ class SnapViewController: UIViewController, UINavigationControllerDelegate, UIIm
       self.useCameraRoll()
     }))
     alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+    
+    // If on ipad.
+    if UIDevice.current.userInterfaceIdiom == .pad {
+      alert.popoverPresentationController?.barButtonItem =
+        self.navigationItem.rightBarButtonItem
+    }
     
     self.present(alert, animated: true, completion: nil)
   }
@@ -83,6 +89,15 @@ class SnapViewController: UIViewController, UINavigationControllerDelegate, UIIm
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     imagePicker.dismiss(animated: true, completion: nil)
     self.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+    performSegue(withIdentifier: "ImageEditorSegue", sender: self)
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "ImageEditorSegue" {
+      if let destination = segue.destination as? ImageEditorViewController {
+        destination.delegate = self
+      }
+    }
   }
   
   @IBAction func didTapUpload(_ sender: Any) {
