@@ -212,8 +212,10 @@ class ImageEditorViewController: UIViewController {
     let ciImage = CIImage(cgImage: cgiImage)
     filter.setValue(ciImage, forKey: kCIInputImageKey)
     
-    if let output = filter.outputImage {
-      return UIImage(ciImage: output)
+    let context = CIContext()
+    if let output = filter.outputImage,
+      let cgiImage = context.createCGImage(output, from: output.extent) {
+      return UIImage(cgImage: cgiImage)
     }
     
     return nil
