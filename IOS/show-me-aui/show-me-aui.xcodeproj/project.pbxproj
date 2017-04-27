@@ -11,10 +11,10 @@
 		DE02BA0A1EA65B0500ADE8EF /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE02BA091EA65B0500ADE8EF /* Session.swift */; };
 		DE0BB7161EAFF80700357A27 /* PageletUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0BB7151EAFF80700357A27 /* PageletUploader.swift */; };
 		DE0BB7181EB0C23600357A27 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0BB7171EB0C23600357A27 /* API.swift */; };
+		DE0BB71C1EB0F90900357A27 /* ImageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0BB71B1EB0F90900357A27 /* ImageEditorViewController.swift */; };
 		DE1806991E999697008F563A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1806981E999697008F563A /* LoginViewController.swift */; };
 		DE18069B1E9A2DA5008F563A /* NewsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE18069A1E9A2DA5008F563A /* NewsFeedViewController.swift */; };
 		DE18069D1E9A2DD4008F563A /* PageletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE18069C1E9A2DD4008F563A /* PageletView.swift */; };
-		DE18069F1E9A92E7008F563A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE18069E1E9A92E7008F563A /* Images.xcassets */; };
 		DE2DDD351EA4075A002226EA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD341EA4075A002226EA /* Comment.swift */; };
 		DE2DDD371EA4082B002226EA /* SerializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD361EA4082B002226EA /* SerializationError.swift */; };
 		DE770B461EAE01A600984D7E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE770B451EAE01A600984D7E /* SettingsViewController.swift */; };
@@ -34,10 +34,10 @@
 		DE02BA091EA65B0500ADE8EF /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		DE0BB7151EAFF80700357A27 /* PageletUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageletUploader.swift; sourceTree = "<group>"; };
 		DE0BB7171EB0C23600357A27 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		DE0BB71B1EB0F90900357A27 /* ImageEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
 		DE1806981E999697008F563A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DE18069A1E9A2DA5008F563A /* NewsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedViewController.swift; sourceTree = "<group>"; };
 		DE18069C1E9A2DD4008F563A /* PageletView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageletView.swift; sourceTree = "<group>"; };
-		DE18069E1E9A92E7008F563A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DE2DDD341EA4075A002226EA /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		DE2DDD361EA4082B002226EA /* SerializationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializationError.swift; sourceTree = "<group>"; };
 		DE770B451EAE01A600984D7E /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -143,8 +143,8 @@
 				DE6C03CC1EA79B270098F7E5 /* Session */,
 				DE770B471EAE044400984D7E /* Settings */,
 				DEA2FEE61E997EA200641011 /* Main.storyboard */,
+				DE0BB71B1EB0F90900357A27 /* ImageEditorViewController.swift */,
 				DE770B491EAE0D9D00984D7E /* SnapViewController.swift */,
-				DE18069E1E9A92E7008F563A /* Images.xcassets */,
 				DEBB6FE21EA4D2D400A8DCE2 /* Supporting Files */,
 			);
 			path = "show-me-aui";
@@ -252,7 +252,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEA2FEF01E997EA200641011 /* LaunchScreen.storyboard in Resources */,
-				DE18069F1E9A92E7008F563A /* Images.xcassets in Resources */,
 				DEA2FEE81E997EA200641011 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,6 +314,7 @@
 				DE770B4A1EAE0D9D00984D7E /* SnapViewController.swift in Sources */,
 				DE2DDD371EA4082B002226EA /* SerializationError.swift in Sources */,
 				DE0BB7161EAFF80700357A27 /* PageletUploader.swift in Sources */,
+				DE0BB71C1EB0F90900357A27 /* ImageEditorViewController.swift in Sources */,
 				DE1806991E999697008F563A /* LoginViewController.swift in Sources */,
 				DEBB6FEA1EA4DE9D00A8DCE2 /* WriteCommentViewController.swift in Sources */,
 				DEA2FEEB1E997EA200641011 /* show_me_aui.xcdatamodeld in Sources */,

@@ -66,11 +66,56 @@
                     <connections>
                         <outlet property="imageView" destination="B75-yR-B8a" id="jEs-c7-kkA"/>
                         <outlet property="uploadButton" destination="HYD-LZ-lKH" id="Ocx-g3-uae"/>
+                        <segue destination="n5N-GD-WqV" kind="show" identifier="ImageEditorSegue" id="kmF-fB-B7t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KM1-OV-zaL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1904.8" y="1300.2998500749627"/>
+        </scene>
+        <!--Image Editor View Controller-->
+        <scene sceneID="J0j-2L-zCL">
+            <objects>
+                <viewController id="n5N-GD-WqV" customClass="ImageEditorViewController" customModule="show_me_aui" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ug3-2t-y0a"/>
+                        <viewControllerLayoutGuide type="bottom" id="k2f-oJ-8ff"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4zO-Ci-EVS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Xb-0g-wu1">
+                                <rect key="frame" x="16" y="72" width="343" height="415"/>
+                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vk2-cy-WdT">
+                                <rect key="frame" x="16" y="495" width="343" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="uab-zJ-nHk"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="3Xb-0g-wu1" secondAttribute="trailing" id="3Ca-5C-HM6"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="3Xb-0g-wu1" secondAttribute="leading" id="GwT-da-zf4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vk2-cy-WdT" secondAttribute="trailing" id="LnQ-cq-IQJ"/>
+                            <constraint firstItem="vk2-cy-WdT" firstAttribute="top" secondItem="3Xb-0g-wu1" secondAttribute="bottom" constant="8" symbolic="YES" id="dF3-n0-yEA"/>
+                            <constraint firstItem="k2f-oJ-8ff" firstAttribute="top" secondItem="vk2-cy-WdT" secondAttribute="bottom" constant="8" symbolic="YES" id="qkv-ed-Diz"/>
+                            <constraint firstItem="3Xb-0g-wu1" firstAttribute="top" secondItem="ug3-2t-y0a" secondAttribute="bottom" constant="8" id="zZB-qu-iYh"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="vk2-cy-WdT" secondAttribute="leading" id="zsn-6A-if8"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="filterScrollView" destination="vk2-cy-WdT" id="oKi-zP-3pc"/>
+                        <outlet property="imageView" destination="3Xb-0g-wu1" id="0cJ-DT-sdv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cLA-gx-iRP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1904.8" y="2031.6341829085459"/>
         </scene>
         <!--News Feed View Controller-->
         <scene sceneID="bnG-yf-vdb">
