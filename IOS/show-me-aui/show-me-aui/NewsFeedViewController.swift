@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import Alamofire
+import MRProgress
 
 class NewsFeedViewController: UIViewController {
   let feedScrollView = UIScrollView()
@@ -100,6 +101,17 @@ class NewsFeedViewController: UIViewController {
     
     DispatchQueue.main.async {
       // Update UI.
+      
+      // Show to the user that an update is running.
+      let networkActivityProgress =
+        MRProgressOverlayView.showOverlayAdded(to: self.view,
+                                               title: "Updating",
+                                               mode: .indeterminate,
+                                               animated: true)
+      // Dismiss the notice after 1 second.
+      DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+        networkActivityProgress?.dismiss(true)
+      }
       
       // Add views to the content view.
       for pagelet in pagelets {
