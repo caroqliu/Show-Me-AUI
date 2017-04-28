@@ -77,13 +77,12 @@ class LoginViewController: UIViewController {
     let parameters: Parameters = [API.Keys.email: email, API.Keys.password: password]
     Alamofire.request(url, method: .get, parameters: parameters)
       .responseJSON { response in
-        if let resp = response.result.value as? [String: Bool],
-          let isAuthorized = resp[API.Keys.result], isAuthorized {
+        debugPrint(response.result.value as? [String: Int])
+        if let resp = response.result.value as? [String: Int],
+          let userId = resp[API.Keys.userId], userId > 0 {
           // Logged in succesffully.
-          
-          // TODO: save real userID.
           let session = Session.shared
-          session.createSession(userId: 61755)
+          session.createSession(userId: userId)
           
           // Redirect to main page.
           self.performSegue(withIdentifier: "FeedSegue", sender: self)
