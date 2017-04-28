@@ -141,15 +141,14 @@
 			isa = PBXGroup;
 			children = (
 				DEBB6FE01EA4D29100A8DCE2 /* API */,
+				DEBCB4131EB3AB2000A70489 /* Imaging */,
 				DE2DDD311EA3A3FD002226EA /* Login */,
 				DEBB6FE11EA4D2AB00A8DCE2 /* PageLet */,
 				DE770B481EAE0D6300984D7E /* News Feed */,
+				DEBCB4121EB3AADD00A70489 /* Signup */,
 				DE6C03CC1EA79B270098F7E5 /* Session */,
 				DE770B471EAE044400984D7E /* Settings */,
 				DEA2FEE61E997EA200641011 /* Main.storyboard */,
-				DEBCB4101EB2479D00A70489 /* SignUpViewController.swift */,
-				DE0BB71B1EB0F90900357A27 /* ImageEditorViewController.swift */,
-				DE770B491EAE0D9D00984D7E /* SnapViewController.swift */,
 				DEBCB40E1EB2438300A70489 /* Images.xcassets */,
 				DEBB6FE21EA4D2D400A8DCE2 /* Supporting Files */,
 			);
@@ -168,7 +167,6 @@
 		DEBB6FE11EA4D2AB00A8DCE2 /* PageLet */ = {
 			isa = PBXGroup;
 			children = (
-				DE0BB7151EAFF80700357A27 /* PageletUploader.swift */,
 				DEBB6FE91EA4DE9D00A8DCE2 /* WriteCommentViewController.swift */,
 				DE18069C1E9A2DD4008F563A /* PageletView.swift */,
 				DE7901581EA8F3D600B0C553 /* LikeDisLikeCounterView.swift */,
@@ -187,6 +185,24 @@
 				DEA2FEE91E997EA200641011 /* show_me_aui.xcdatamodeld */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DEBCB4121EB3AADD00A70489 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				DEBCB4101EB2479D00A70489 /* SignUpViewController.swift */,
+			);
+			name = Signup;
+			sourceTree = "<group>";
+		};
+		DEBCB4131EB3AB2000A70489 /* Imaging */ = {
+			isa = PBXGroup;
+			children = (
+				DE0BB7151EAFF80700357A27 /* PageletUploader.swift */,
+				DE0BB71B1EB0F90900357A27 /* ImageEditorViewController.swift */,
+				DE770B491EAE0D9D00984D7E /* SnapViewController.swift */,
+			);
+			name = Imaging;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
