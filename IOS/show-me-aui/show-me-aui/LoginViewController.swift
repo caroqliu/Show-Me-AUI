@@ -9,24 +9,26 @@
 import UIKit
 import SnapKit
 import Alamofire
+import UIView_Shake
+import MRProgress
 
 class LoginViewController: UIViewController {
   
   // UI Elements
-  private let emailTextField = UITextField()
-  private let passwordTextField = UITextField()
-  private let loginButton = UIButton()
-  private let welcomeLabel = UILabel()
-  private let forgotPasswordButton = UIButton()
-  private let createAccountButton = UIButton()
-  private let errorMessageLabel = UILabel()
+  @IBOutlet weak var emailTextField: UITextField!
+  @IBOutlet weak var passwordTextField: UITextField!
+  @IBOutlet weak var loginButton: UIButton!
+  @IBOutlet weak var createAccountButton: UIButton!
+  @IBOutlet weak var forgotPasswordButton: UIButton!
+  @IBOutlet weak var errorMessageLabel: UILabel!
+  @IBOutlet weak var signinForm: UIStackView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     // Initialize the view only if no user is logged in.
-    if !Session.shared.isThereAnActiveSession() {
-      setupUI()
+    if Session.shared.isThereAnActiveSession() {
+      self.signinForm.isHidden = true
     }
   }
   
@@ -39,58 +41,11 @@ class LoginViewController: UIViewController {
     }
   }
   
-  // MARK: Targets
-  
-  func didTapForgotPassword() {
-    print("didTapForgotPassword")
-  }
-  
-  func didTapCreateAccount() {
-    print("didTapCreatAccount")
-    performSegue(withIdentifier: "SignupSegue", sender: nil)
-  }
-  
   // Enum for common error messages while logging in.
   enum ErrorMessage {
     case emptyEmail
     case emptyPassword
     case wrongPassword
-  }
-  
-  // MARK: didTapLogin
-  
-  func didTapLogin() {
-    guard let email = emailTextField.text, !email.isEmpty else {
-      // Empty email.
-      handleFailedAuthenticationWithCode(.emptyEmail)
-      return
-    }
-    
-    guard let password = passwordTextField.text, !password.isEmpty else {
-      // Empty password.
-      handleFailedAuthenticationWithCode(.emptyPassword)
-      return
-    }
-    
-    // Authenticate.
-    let url = API.UrlPaths.authenticate
-    let parameters: Parameters = [API.Keys.email: email, API.Keys.password: password]
-    Alamofire.request(url, method: .get, parameters: parameters)
-      .responseJSON { response in
-        debugPrint(response.result.value as? [String: Int])
-        if let resp = response.result.value as? [String: Int],
-          let userId = resp[API.Keys.userId], userId > 0 {
-          // Logged in succesffully.
-          let session = Session.shared
-          session.createSession(userId: userId)
-          
-          // Redirect to main page.
-          self.performSegue(withIdentifier: "FeedSegue", sender: self)
-        } else {
-          // Failed to login.
-          self.handleFailedAuthenticationWithCode(.wrongPassword)
-        }
-      }
   }
   
   func handleFailedAuthenticationWithCode(_ code: ErrorMessage) {
@@ -106,162 +61,69 @@ class LoginViewController: UIViewController {
     
     errorMessageLabel.text = errorMessage
     errorMessageLabel.isHidden = false
+    errorMessageLabel.shake(10, withDelta: 5, speed: 0.05)
+  }
+
+  
+  // MARK: Targets
+  
+  @IBAction func didTapForgotPassword() {
+    print("didTapForgotPassword")
   }
   
-  // MARK: UI
-  
-  func setupUI() {
-    setupBackground()
-    setupWelcomeLabel()
-    setupUserNameTextField()
-    setupPasswordTextField()
-    setupLoginButton()
-    setupForgotPasswordButton()
-    setUpCreateAccountButton()
-    setUpVerticalLineBetweenForgotButtonAndCreateButton()
-    setUpErrorMessage()
+  @IBAction func didTapCreateAccount() {
+    print("didTapCreatAccount")
+    performSegue(withIdentifier: "SignupSegue", sender: self)
   }
   
-  func setUpErrorMessage() {
-    errorMessageLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-    errorMessageLabel.textColor = UIColor.red
-    errorMessageLabel.isHidden = true
+  @IBAction func didTapLogin() {
+    guard let email = emailTextField.text, !email.isEmpty else {
+      // Empty email.
+      handleFailedAuthenticationWithCode(.emptyEmail)
+      return
+    }
     
-    view.addSubview(errorMessageLabel)
-    errorMessageLabel.snp.makeConstraints { make in
-      make.top.equalTo(createAccountButton.snp.bottom).offset(8)
-      make.centerX.equalTo(view)
+    guard let password = passwordTextField.text, !password.isEmpty else {
+      // Empty password.
+      handleFailedAuthenticationWithCode(.emptyPassword)
+      return
     }
-  }
-  
-  func setupBackground() {
-    view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "capitan"))
-    let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
-    let blurEffectView = UIVisualEffectView(effect: blurEffect)
-    blurEffectView.frame = view.bounds
-    blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    view.addSubview(blurEffectView)
-  }
-  
-  func setupWelcomeLabel() {
-    welcomeLabel.numberOfLines = 0
-    welcomeLabel.text = "Login or Create a new account."
-    welcomeLabel.textColor = UIColor.white
     
-    view.addSubview(welcomeLabel)
-    welcomeLabel.snp.makeConstraints { make in
-      make.centerX.equalTo(view)
-      make.top.equalTo(view).offset(50)
-      make.height.equalTo(100)
-      
+    var signinProgress = MRProgressOverlayView.showOverlayAdded(to: self.view,
+                                                                animated: true)
+    
+    // Authenticate.
+    let url = API.UrlPaths.authenticate
+    let parameters: Parameters = [API.Keys.email: email, API.Keys.password: password]
+    Alamofire.request(url, method: .get, parameters: parameters)
+      .responseJSON { response in
+        debugPrint(response.result.value as? [String: Int] ?? "Empty response")
+        if let resp = response.result.value as? [String: Int],
+          let userId = resp[API.Keys.userId], userId > 0 {
+          // Logged in succesffully.
+          
+          // Create session for current user.
+          let session = Session.shared
+          session.createSession(userId: userId)
+          
+          // Show to the user a check mark.
+          signinProgress?.dismiss(true)
+          signinProgress = MRProgressOverlayView.showOverlayAdded(to: self.view,
+                                                                  title: "",
+                                                                  mode: .checkmark,
+                                                                  animated: true)
+          
+          // Redirect to main page after half a second.
+          DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            signinProgress?.dismiss(true)
+            self.performSegue(withIdentifier: "FeedSegue", sender: self)
+          })
+        } else {
+          // Failed to login.
+          signinProgress?.dismiss(true)
+          self.handleFailedAuthenticationWithCode(.wrongPassword)
+        }
     }
   }
   
-  func setupUserNameTextField() {
-    emailTextField.placeholder = "email"
-    emailTextField.layer.borderWidth = 1.0
-    emailTextField.layer.borderColor = UIColor.lightGray.cgColor
-    emailTextField.layer.cornerRadius = 13.0
-    emailTextField.leftViewMode = UITextFieldViewMode.always
-    let userNameSpacerView = UIView(frame:CGRect(x:0, y:0, width:20, height:10))
-    emailTextField.leftView = userNameSpacerView
-    
-    view.addSubview(emailTextField)
-    emailTextField.snp.makeConstraints { make in
-      make.centerX.equalTo(view)
-      make.top.equalTo(welcomeLabel.snp.bottom).offset(40)
-      make.width.equalTo(300)
-      make.height.equalTo(30)
-    }
-  }
-  
-  func setupPasswordTextField() {
-    passwordTextField.placeholder = "password"
-    passwordTextField.isSecureTextEntry = true
-    passwordTextField.layer.borderWidth = 1.0
-    passwordTextField.layer.borderColor = UIColor.lightGray.cgColor
-    passwordTextField.layer.cornerRadius = 13.0
-    passwordTextField.leftViewMode = UITextFieldViewMode.always
-    let spacerView = UIView(frame:CGRect(x:0, y:0, width:20, height:10))
-    passwordTextField.leftView = spacerView
-    
-    view.addSubview(passwordTextField)
-    passwordTextField.snp.makeConstraints { make in
-      make.top.equalTo(emailTextField.snp.bottom).offset(8)
-      make.width.equalTo(emailTextField)
-      make.height.equalTo(emailTextField)
-      make.centerX.equalTo(emailTextField)
-    }
-  }
-  
-  func setupLoginButton() {
-    loginButton.setTitle("Login", for: .normal)
-    loginButton.titleLabel?.textAlignment = .center
-    loginButton.backgroundColor = UIColor.blue
-    loginButton.layer.cornerRadius = 13.0
-    loginButton.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
-    
-    view.addSubview(loginButton)
-    loginButton.snp.makeConstraints{ make in
-      make.top.equalTo(passwordTextField.snp.bottom).offset(8)
-      make.width.equalTo(emailTextField)
-      make.height.equalTo(emailTextField)
-      make.centerX.equalTo(emailTextField)
-    }
-  }
-  
-  func setupForgotPasswordButton() {
-    forgotPasswordButton.setTitle("Forgot Password ?", for: .normal)
-    forgotPasswordButton.titleLabel?.textColor = UIColor.white
-    forgotPasswordButton.titleLabel?.font = UIFont(name: "Damascus", size: 12.0)
-    forgotPasswordButton.titleLabel?.textAlignment = .center
-    forgotPasswordButton.layer.borderWidth = 0.0
-    forgotPasswordButton.addTarget(self, action: #selector(didTapForgotPassword), for: .touchUpInside)
-    
-    view.addSubview(forgotPasswordButton)
-    forgotPasswordButton.snp.makeConstraints { make in
-      make.top.equalTo(loginButton.snp.bottom).offset(8)
-      make.left.equalTo(loginButton)
-      make.height.equalTo(30)
-    }
-    forgotPasswordButton.titleLabel?.snp.makeConstraints { make in
-      make.edges.equalTo(forgotPasswordButton)
-    }
-  }
-  
-  func setUpVerticalLineBetweenForgotButtonAndCreateButton() {
-    let verticalLineView = UIView()
-    verticalLineView.layer.borderWidth = 1.0
-    verticalLineView.layer.borderColor = UIColor.white.cgColor
-    
-    view.addSubview(verticalLineView)
-    verticalLineView.snp.makeConstraints { make in
-      make.top.equalTo(loginButton.snp.bottom).offset(10)
-      make.width.equalTo(1)
-      make.height.equalTo(15)
-      make.left.equalTo(forgotPasswordButton.snp.right)
-      make.right.equalTo(createAccountButton.snp.left)
-    }
-  }
-  
-  func setUpCreateAccountButton() {
-    // Setup createAccountButton
-    createAccountButton.setTitle("Create Account", for: .normal)
-    createAccountButton.titleLabel?.textColor = UIColor.white
-    createAccountButton.titleLabel?.font = UIFont(name: "Damascus", size: 12.0)
-    createAccountButton.titleLabel?.textAlignment = .center
-    createAccountButton.layer.borderWidth = 0.0
-    createAccountButton.addTarget(self, action: #selector(didTapCreateAccount), for: .touchUpInside)
-    
-    view.addSubview(createAccountButton)
-    createAccountButton.snp.makeConstraints { make in
-      make.top.equalTo(loginButton.snp.bottom).offset(8)
-      make.right.equalTo(loginButton)
-      make.height.equalTo(forgotPasswordButton)
-      make.width.equalTo(forgotPasswordButton)
-    }
-    createAccountButton.titleLabel?.snp.makeConstraints { make in
-      make.edges.equalTo(createAccountButton)
-    }
-  }
 }
