@@ -74,9 +74,7 @@ class PageletView: UIView, WriteCommentDelegate {
     super.init(frame: CGRect.zero)
     
     // TODO: make sure the UI is setup before downloading data.
-    DispatchQueue.main.async {
-      self.setUpUI()
-    }
+    self.setUpUI()
     
     DispatchQueue.global().async {
       // Download Section.
