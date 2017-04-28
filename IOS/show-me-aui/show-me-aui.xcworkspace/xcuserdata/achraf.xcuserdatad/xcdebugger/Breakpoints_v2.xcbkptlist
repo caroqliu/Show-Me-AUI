@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "show-me-aui/PageletView.swift"
-            timestampString = "515069482.88785"
+            filePath = "show-me-aui/Session.swift"
+            timestampString = "515073618.783075"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
-            landmarkName = "setUpUI()"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "createSession(userId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
