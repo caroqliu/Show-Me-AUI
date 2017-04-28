@@ -22,6 +22,7 @@ class Session {
   // param @userId: user's identifier to whom the session will be created.
   func createSession(userId: Int) {
     let defaults = UserDefaults.standard
+    debugPrint("Setting userId: ", userId)
     defaults.set(userId, forKey: UserDefaultKey.userId)
     if !defaults.synchronize() {
       NSLog("Could not synchronize userdefaults.")
@@ -49,5 +50,8 @@ class Session {
   func destroyCurrentSession() {
     let defaults = UserDefaults.standard
     defaults.removeObject(forKey: UserDefaultKey.userId)
+    if !defaults.synchronize() {
+      NSLog("Could not synchronize userdefaults.")
+    }
   }
 }

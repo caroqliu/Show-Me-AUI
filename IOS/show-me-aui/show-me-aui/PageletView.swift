@@ -70,6 +70,10 @@ class PageletView: UIView, WriteCommentDelegate {
       throw SerializationError.missing(API.Keys.imagePath)
     }
     
+    guard let currentUserId = Session.shared.getUserIdForCurrentSession() else {
+      throw SerializationError.missing(API.Keys.userId)
+    }
+    
     self.imageId = imageId
     super.init(frame: CGRect.zero)
     
@@ -114,6 +118,7 @@ class PageletView: UIView, WriteCommentDelegate {
       
       // Fetch username.
       parameters = [API.Keys.userId: userId]
+      debugPrint(parameters)
       url = API.UrlPaths.userNameWithId
       Alamofire.request(url, method: .get, parameters: parameters)
         .responseJSON { response in
@@ -124,12 +129,12 @@ class PageletView: UIView, WriteCommentDelegate {
         }
       
       // Fetch user preference of current image.
-      parameters = [API.Keys.userId: userId, API.Keys.imageId: imageId]
+      parameters = [API.Keys.userId: currentUserId, API.Keys.imageId: imageId]
       url = API.UrlPaths.doesUserLikePictureWithId
       Alamofire.request(url, method: .get, parameters: parameters)
         .responseJSON { response in
           let json = response.result.value as? [String: Bool]
-          self.isThumbDownSelected = json?[API.Keys.result] ?? false
+          self.isHeartSelected = json?[API.Keys.result] ?? false
         }
       
       url = API.UrlPaths.doesUserDislikePictureWithId
@@ -235,6 +240,7 @@ class PageletView: UIView, WriteCommentDelegate {
     }
     
     // Setup likeButton.
+    likeButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
     likeButton.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
     self.addSubview(likeButton)
     likeButton.snp.makeConstraints { make in
@@ -307,6 +313,7 @@ class PageletView: UIView, WriteCommentDelegate {
   }
   
   func setupThumbDown() {
+    thumbDownButton.setImage(#imageLiteral(resourceName: "thumb_down"), for: .normal)
     thumbDownButton.addTarget(self, action: #selector(didTapThumbDown), for: .touchUpInside)
     
     self.addSubview(thumbDownButton)
@@ -336,7 +343,7 @@ class PageletView: UIView, WriteCommentDelegate {
     
     isHeartSelected = isHeartSelected ? false : true
     
-    let url = isThumbDownSelected ? API.UrlPaths.savelike : API.UrlPaths.removelike
+    let url = isHeartSelected ? API.UrlPaths.savelike : API.UrlPaths.removelike
     self.saveUserPreference(url: url)
   }
   
