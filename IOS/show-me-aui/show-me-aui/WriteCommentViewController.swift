@@ -13,27 +13,20 @@ import Alamofire
 // WriteCommentDelegate.
 protocol WriteCommentDelegate {
   func fetchCommentsAsynchrounously()
+  var imageId: Int {get}
 }
 
 class WriteCommentViewController: UIViewController {
-  // UI elements.
-  private let textArea = UITextView()
-  private let postButton = UIButton()
-  private let cancelButton = UIButton()
+  // UI elements.  
+  @IBOutlet weak var textArea: UITextView!
+  @IBOutlet weak var postButton: UIButton!
+  @IBOutlet weak var cancelButton: UIButton!
+  @IBOutlet weak var containerView: UIView!
   
   var delegate: WriteCommentDelegate?
-  
-  // The current open image id.
-  var currentImageId: Int
-  
-  // Designated initializer
-  init(imageId: Int) {
-    self.currentImageId = imageId
-    super.init(nibName: nil, bundle: nil)
-  }
-  
+    
   required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+    super.init(coder: aDecoder)
   }
   
   override func viewDidLoad() {
@@ -42,9 +35,18 @@ class WriteCommentViewController: UIViewController {
     // Setup background color.
     self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
     
+    // Setup tap gesture in order to dismiss controller.
+    let tap = UITapGestureRecognizer(target: self, action: #selector(removeAnimate))
+    tap.numberOfTapsRequired = 1
+    self.view.addGestureRecognizer(tap)
+    
+    // Setup containerView.
+    containerView.backgroundColor = UIColor.white
+    containerView.clipsToBounds = true
+    containerView.layer.cornerRadius = 10.0
+    
     // Setup textArea.
     textArea.backgroundColor = UIColor.white
-    textArea.layer.cornerRadius = 10.0
     textArea.font = UIFont.preferredFont(forTextStyle: .footnote)
     textArea.delegate = self
     
@@ -52,40 +54,13 @@ class WriteCommentViewController: UIViewController {
     textArea.textColor = UIColor.lightGray
     textArea.text = "Write comment ... (at most 256 characters)"
     
-    self.view.addSubview(textArea)
-    textArea.snp.makeConstraints { make in
-      make.centerX.equalTo(view)
-      make.left.equalTo(view).offset(20)
-      make.right.equalTo(view).offset(-20)
-      make.height.equalTo(100)
-      make.centerY.equalTo(view)
-    }
-    
     // Setup PostButton.
     postButton.addTarget(self, action: #selector(didTapPost), for: .touchUpInside)
-    postButton.setTitle("Post", for: .normal)
-    postButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
-    postButton.backgroundColor = UIColor.lightGray
-    self.view.addSubview(postButton)
-    postButton.snp.makeConstraints { make in
-      make.top.equalTo(textArea.snp.bottom).offset(8)
-      make.left.equalTo(view).offset(20)
-      make.height.equalTo(20)
-    }
     
     // Setup CancelButton.
     cancelButton.addTarget(self, action: #selector(didTapCancel), for: .touchUpInside)
     cancelButton.setTitle("Cancel", for: .normal)
     cancelButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
-    cancelButton.backgroundColor = UIColor.lightGray
-    self.view.addSubview(cancelButton)
-    cancelButton.snp.makeConstraints { make in
-      make.top.equalTo(postButton)
-      make.height.equalTo(postButton)
-      make.width.equalTo(postButton)
-      make.right.equalTo(view).offset(-20)
-      make.left.equalTo(postButton.snp.right).offset(4)
-    }
     
     self.showAnimate()
   }
@@ -122,9 +97,14 @@ class WriteCommentViewController: UIViewController {
       fatalError("No userId found while session is active.")
     }
     
+    guard let imageId = self.delegate?.imageId else {
+      print("Delegate not set: Could not retrieve imageId.")
+      return
+    }
+    
     let url = API.UrlPaths.saveComment
     let parameters: Parameters = [API.Keys.userId: userId,
-                                  API.Keys.imageId: self.currentImageId,
+                                  API.Keys.imageId: imageId,
                                   API.Keys.commentText: text]
     
     Alamofire.request(url, method: .get, parameters: parameters).response { _ in

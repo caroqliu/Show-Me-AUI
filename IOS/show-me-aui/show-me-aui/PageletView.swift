@@ -394,7 +394,12 @@ class PageletView: UIView, WriteCommentDelegate {
     }
     
     // Show WriteCommentViewController as a popup.
-    let writeVc = WriteCommentViewController(imageId: self.imageId)
+    //let writeVc = WriteCommentViewController(imageId: self.imageId)
+    
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let writeVc =
+      storyboard.instantiateViewController(withIdentifier: "WriteCommentStoryBoardID") as! WriteCommentViewController
+
     writeVc.delegate = self
     
     rootVc.addChildViewController(writeVc)
