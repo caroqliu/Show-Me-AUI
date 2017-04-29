@@ -17,14 +17,18 @@ protocol WriteCommentDelegate {
 }
 
 class WriteCommentViewController: UIViewController {
-  // UI elements.  
+  // UI elements.
   @IBOutlet weak var textArea: UITextView!
   @IBOutlet weak var postButton: UIButton!
   @IBOutlet weak var cancelButton: UIButton!
   @IBOutlet weak var containerView: UIView!
+  @IBOutlet weak var autoCompleteTableView: UITableView!
   
   var delegate: WriteCommentDelegate?
-    
+  
+  // Suggestions for auto complete.
+  var suggestions = [String]()
+  
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
@@ -38,6 +42,7 @@ class WriteCommentViewController: UIViewController {
     // Setup tap gesture in order to dismiss controller.
     let tap = UITapGestureRecognizer(target: self, action: #selector(removeAnimate))
     tap.numberOfTapsRequired = 1
+    tap.delegate = self
     self.view.addGestureRecognizer(tap)
     
     // Setup containerView.
@@ -61,6 +66,13 @@ class WriteCommentViewController: UIViewController {
     cancelButton.addTarget(self, action: #selector(didTapCancel), for: .touchUpInside)
     cancelButton.setTitle("Cancel", for: .normal)
     cancelButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
+    
+    // Setup suggestionTableView.
+    autoCompleteTableView.delegate = self
+    autoCompleteTableView.dataSource = self
+    autoCompleteTableView.tableHeaderView = nil
+    autoCompleteTableView.tableFooterView = nil
+    autoCompleteTableView.bounces = false
     
     self.showAnimate()
   }
@@ -121,12 +133,91 @@ class WriteCommentViewController: UIViewController {
   }
 }
 
+extension WriteCommentViewController: UIGestureRecognizerDelegate {
+  // Gestures on autoCompleteTableView have higher precedence.
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                         shouldReceive touch: UITouch) -> Bool {
+    if (touch.view?.isDescendant(of: self.autoCompleteTableView))! {
+      return false
+    }
+    return true
+  }
+  
+}
+
+extension WriteCommentViewController: UITableViewDelegate, UITableViewDataSource {
+  
+  // MARK: UITableViewDataSource
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return 1
+  }
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return self.suggestions.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+    cell.textLabel?.text = self.suggestions[indexPath.row]
+    return cell
+  }
+  
+  // MARK: UITableViewDelegate.
+    
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // If suggestion was chosen then add it to the textView.
+    guard var text = self.textArea.text, text.contains("@") else {
+      return
+    }
+    
+    // Stops when '@' is encoutered.
+    while text.remove(at: text.index(before:text.endIndex)) != "@" { }
+    
+    // Auto Complete the text with the chosen word.
+    let chosenWord = self.suggestions[indexPath.row]
+    text = "\(text)@\(chosenWord) "
+    
+    // Reparse the comment to install StringAttributes.
+    let attributes = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: .body)]
+    self.textArea.attributedText = CommentParser.processComment(text, with: attributes)
+    
+    // Hides the autocomplete suggestion table.
+    self.autoCompleteTableView.snp.updateConstraints { make in
+      make.height.equalTo(0)
+    }
+  }
+}
+
 extension WriteCommentViewController: UITextViewDelegate {
   func textViewDidBeginEditing(_ textView: UITextView) {
     if textView.textColor == UIColor.lightGray {
       // Remove placeholder and change font color.
       textView.text = nil
       textView.textColor = UIColor.black
+      textView.font = UIFont.preferredFont(forTextStyle: .body)
     }
   }
+  
+  func textViewDidChange(_ textView: UITextView) {
+    // Checks if the user is trying to tag a person. If the last word starts with '@',
+    // then show the user all possible suggestions.
+    let word = CommentParser.getLastWord(text: textView.text)
+    if !word.isEmpty && word[word.startIndex] == "@" {
+      let nextIndex = word.index(after: word.startIndex)
+      self.suggestions =
+        CommentParser.giveSuggestionsForPrefix(word.substring(from: nextIndex))
+      debugPrint(self.suggestions)
+    } else {
+      // No suggestions.
+      self.suggestions = []
+    }
+    // Relod table of suggestions.
+    self.autoCompleteTableView.reloadData()
+    // Update UI.
+    autoCompleteTableView.snp.updateConstraints { make in
+      debugPrint("tableHeight -> ", min(self.suggestions.count, 4) * 44)
+      make.height.equalTo(min(self.suggestions.count, 3) * 40)
+    }
+  }
+  
 }
