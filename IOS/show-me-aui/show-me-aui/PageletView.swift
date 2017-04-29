@@ -465,7 +465,7 @@ extension PageletView: UITableViewDataSource, UITableViewDelegate {
     let cell =  CommentCell()
     
     let comment = self.comments[indexPath.row]
-    cell.commentLabel.text = comment.comment
+    cell.commentLabel.attributedText = CommentParser.processComment(comment.comment)
     cell.userImageView.image = comment.userImage
     cell.userNameLabel.text = comment.username
     
