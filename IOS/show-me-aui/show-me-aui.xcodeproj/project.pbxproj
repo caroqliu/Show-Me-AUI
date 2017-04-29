@@ -208,10 +208,10 @@
 		DEBCB4171EB3BFAC00A70489 /* Comments */ = {
 			isa = PBXGroup;
 			children = (
+				DEBCB4181EB3BFC300A70489 /* CommentParser.swift */,
 				DEBB6FE71EA4DBEB00A8DCE2 /* CommentCell.swift */,
 				DE2DDD341EA4075A002226EA /* Comment.swift */,
 				DEBB6FE91EA4DE9D00A8DCE2 /* WriteCommentViewController.swift */,
-				DEBCB4181EB3BFC300A70489 /* CommentParser.swift */,
 			);
 			name = Comments;
 			sourceTree = "<group>";
