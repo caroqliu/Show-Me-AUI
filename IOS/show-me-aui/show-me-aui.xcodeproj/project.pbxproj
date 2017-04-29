@@ -31,6 +31,7 @@
 		DEBCB4191EB3BFC300A70489 /* CommentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB4181EB3BFC300A70489 /* CommentParser.swift */; };
 		DEBCB41B1EB4D47100A70489 /* NotificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB41A1EB4D47100A70489 /* NotificationTableViewController.swift */; };
 		DEBCB41D1EB4EDF800A70489 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB41C1EB4EDF800A70489 /* MainTabBarController.swift */; };
+		DEBCB41F1EB4F27E00A70489 /* PageletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB41E1EB4F27E00A70489 /* PageletViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		DEBCB4181EB3BFC300A70489 /* CommentParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentParser.swift; sourceTree = "<group>"; };
 		DEBCB41A1EB4D47100A70489 /* NotificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTableViewController.swift; sourceTree = "<group>"; };
 		DEBCB41C1EB4EDF800A70489 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		DEBCB41E1EB4F27E00A70489 /* PageletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageletViewController.swift; sourceTree = "<group>"; };
 		F30323DE870EE73A680E8641 /* Pods-show-me-aui.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-show-me-aui.release.xcconfig"; path = "Pods/Target Support Files/Pods-show-me-aui/Pods-show-me-aui.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,6 +156,7 @@
 				DEBCB4121EB3AADD00A70489 /* Signup */,
 				DE6C03CC1EA79B270098F7E5 /* Session */,
 				DE770B471EAE044400984D7E /* Settings */,
+				DEBCB41E1EB4F27E00A70489 /* PageletViewController.swift */,
 				DEA2FEE61E997EA200641011 /* Main.storyboard */,
 				DEBCB41C1EB4EDF800A70489 /* MainTabBarController.swift */,
 				DEBCB40E1EB2438300A70489 /* Images.xcassets */,
@@ -364,6 +367,7 @@
 				DE2DDD351EA4075A002226EA /* Comment.swift in Sources */,
 				DEBB6FE81EA4DBEB00A8DCE2 /* CommentCell.swift in Sources */,
 				DE7901591EA8F3D600B0C553 /* LikeDisLikeCounterView.swift in Sources */,
+				DEBCB41F1EB4F27E00A70489 /* PageletViewController.swift in Sources */,
 				DEBCB41B1EB4D47100A70489 /* NotificationTableViewController.swift in Sources */,
 				DE770B461EAE01A600984D7E /* SettingsViewController.swift in Sources */,
 				DE02BA0A1EA65B0500ADE8EF /* Session.swift in Sources */,
