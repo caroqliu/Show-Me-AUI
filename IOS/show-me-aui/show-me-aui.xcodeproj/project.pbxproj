@@ -28,6 +28,7 @@
 		DEBB6FEA1EA4DE9D00A8DCE2 /* WriteCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBB6FE91EA4DE9D00A8DCE2 /* WriteCommentViewController.swift */; };
 		DEBCB40F1EB2438300A70489 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEBCB40E1EB2438300A70489 /* Images.xcassets */; };
 		DEBCB4111EB2479D00A70489 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB4101EB2479D00A70489 /* SignUpViewController.swift */; };
+		DEBCB4191EB3BFC300A70489 /* CommentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB4181EB3BFC300A70489 /* CommentParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		DEBB6FE91EA4DE9D00A8DCE2 /* WriteCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteCommentViewController.swift; sourceTree = "<group>"; };
 		DEBCB40E1EB2438300A70489 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DEBCB4101EB2479D00A70489 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		DEBCB4181EB3BFC300A70489 /* CommentParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentParser.swift; sourceTree = "<group>"; };
 		F30323DE870EE73A680E8641 /* Pods-show-me-aui.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-show-me-aui.release.xcconfig"; path = "Pods/Target Support Files/Pods-show-me-aui/Pods-show-me-aui.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,11 +169,9 @@
 		DEBB6FE11EA4D2AB00A8DCE2 /* PageLet */ = {
 			isa = PBXGroup;
 			children = (
-				DEBB6FE91EA4DE9D00A8DCE2 /* WriteCommentViewController.swift */,
+				DEBCB4171EB3BFAC00A70489 /* Comments */,
 				DE18069C1E9A2DD4008F563A /* PageletView.swift */,
 				DE7901581EA8F3D600B0C553 /* LikeDisLikeCounterView.swift */,
-				DEBB6FE71EA4DBEB00A8DCE2 /* CommentCell.swift */,
-				DE2DDD341EA4075A002226EA /* Comment.swift */,
 			);
 			name = PageLet;
 			sourceTree = "<group>";
@@ -203,6 +203,17 @@
 				DE770B491EAE0D9D00984D7E /* SnapViewController.swift */,
 			);
 			name = Imaging;
+			sourceTree = "<group>";
+		};
+		DEBCB4171EB3BFAC00A70489 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				DEBB6FE71EA4DBEB00A8DCE2 /* CommentCell.swift */,
+				DE2DDD341EA4075A002226EA /* Comment.swift */,
+				DEBB6FE91EA4DE9D00A8DCE2 /* WriteCommentViewController.swift */,
+				DEBCB4181EB3BFC300A70489 /* CommentParser.swift */,
+			);
+			name = Comments;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,6 +351,7 @@
 				DE0BB71C1EB0F90900357A27 /* ImageEditorViewController.swift in Sources */,
 				DE1806991E999697008F563A /* LoginViewController.swift in Sources */,
 				DEBCB4111EB2479D00A70489 /* SignUpViewController.swift in Sources */,
+				DEBCB4191EB3BFC300A70489 /* CommentParser.swift in Sources */,
 				DEBB6FEA1EA4DE9D00A8DCE2 /* WriteCommentViewController.swift in Sources */,
 				DEA2FEEB1E997EA200641011 /* show_me_aui.xcdatamodeld in Sources */,
 				DE2DDD351EA4075A002226EA /* Comment.swift in Sources */,
