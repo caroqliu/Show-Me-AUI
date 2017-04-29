@@ -6,9 +6,11 @@
 //  Copyright © 2017 Achraf Mamdouh. All rights reserved.
 //
 
+import Alamofire
 import UIKit
 import CoreData
 import IQKeyboardManagerSwift
+import SQLite
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +20,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Enable IQKeyboardManager.
     IQKeyboardManager.sharedManager().enable = true
+    
+    
+    // Create database for users, and download fetch them from the server.
+    // Create database for users, and download fetch them from the server.
+    do {
+      // Create Users table.
+            let db = try API.openDB()
+      try db.run(API.DB.usersTable.drop(ifExists: true))
+      try db.run(API.DB.usersTable.create { make in
+        make.column(API.DB.userName, primaryKey: true)
+      })
+      
+      // Populate table from the server.
+      let url = API.UrlPaths.getUsers
+      Alamofire.request(url).responseJSON(queue: DispatchQueue.global()) { response in
+        if let jsonArray = response.result.value as? [[String: Any]] {
+          for jsonUser in jsonArray {
+            do {
+              try db.run(API.DB.usersTable.insert(
+                API.DB.userName <- jsonUser[API.Keys.userName]! as! String
+              ))
+            } catch {
+              print(error)
+            }
+          }
+        } else {
+          NSLog("[Fetching users]: Could not convert result to json.")
+        }
+      }
+    } catch {
+      print(error)
+    }
+    
     return true
   }
 

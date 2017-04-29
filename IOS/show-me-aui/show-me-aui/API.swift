@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SQLite
 
 class API {
   #if Debug
@@ -37,6 +38,7 @@ class API {
     static let doesUserLikePictureWithId =    host + "/doesUserLikePicture"
     static let doesUserDislikePictureWithId = host + "/doesUserDisLikePicture"
     static let getPagelets =                  host + "/getAllPictures"
+    static let getUsers =                     host + "/getUsers"
     static let imageAtPath =                  host + "/imageAtPath"
     static let isUserNameAvailable          = host + "/isUserNameAvailable"
     static let numberOfLikes =                host + "/numberOfLikes"
@@ -48,6 +50,18 @@ class API {
     static let removeDislike =                host + "/removeDisLike"
     static let userImageWithId =              host + "/userImageForId"
     static let userNameWithId =               host + "/userNameForId"
+  }
+  
+  struct DB {
+    static let usersTable = Table("Users")
+    static let userName = Expression<String>("userName")
+  }
+  
+  static func openDB() throws -> Connection {
+    let path = NSSearchPathForDirectoriesInDomains(
+      .documentDirectory, .userDomainMask, true
+      ).first!
+    return try Connection("\(path)/db.sqlite3")
   }
   
 }

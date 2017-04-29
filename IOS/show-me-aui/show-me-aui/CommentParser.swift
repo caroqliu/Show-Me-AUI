@@ -8,13 +8,20 @@
 
 import Foundation
 import UIKit
+import SQLite
 
 class CommentParser {
-  static let usernames = ["maha", "kaito", "simo", "luffy", "benkiran"]
-  
   static func giveSuggestionsForPrefix(_ prefix: String) -> [String] {
-    return usernames.filter { username in
-      return username.hasPrefix(prefix)
+    do {      
+      let db = try API.openDB()
+      let table = API.DB.usersTable
+      let usernames =
+        Array(try db.prepare(table.select(API.DB.userName))).map { row in
+          return row[API.DB.userName] }
+      return usernames.filter { usr in usr.hasPrefix(prefix) }.sorted()
+    } catch {
+      print(error)
+      return []
     }
   }
   
@@ -60,17 +67,33 @@ class CommentParser {
     while index < text.endIndex {
       if text[index] == atSign {
         // At sign found. Get range of next word.
+        var word = ""
         let rangeStart = loc
         while index < text.endIndex && !isWhiteSpace(text[index]) {
+          if loc > rangeStart {
+            // To avoid appending '@'.
+            word.append(text[index])
+          }
           loc += 1
           index = text.index(after: index)
         }
         
-        // Highlight the word.
-        let range = NSRange.init(location: rangeStart, length: loc - rangeStart)
-        attributedText.addAttribute(NSForegroundColorAttributeName,
-                                    value: UIColor.blue,
-                                    range: range)
+        
+        // Highlight the word, only if valid userName.
+        do {
+          let db = try API.openDB()
+          let count =
+            try db.scalar(API.DB.usersTable.filter(API.DB.userName == word).count)
+          if count > 0 {
+            // Highlight it.
+            let range = NSRange.init(location: rangeStart, length: loc - rangeStart)
+            attributedText.addAttribute(NSForegroundColorAttributeName,
+                                        value: UIColor.blue,
+                                        range: range)
+          }
+        } catch {
+          print(error)
+        }
       }
       
       // Increment only if not the end.
