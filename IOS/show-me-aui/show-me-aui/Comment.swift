@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 struct Comment {
   var comment: String
@@ -45,10 +46,16 @@ struct Comment {
                        headers: nil, to: destination)
       .response { response in
         if response.error == nil, let imagePath = response.destinationURL?.path {
+          // Image was fetched successfully.
           image = UIImage(contentsOfFile: imagePath)
-          downloadGroup.leave()
+        } else {
+          // No image found. Assign a placeholder.
+          NSLog("Comment.init(json:): Could not get profile image.")
+          image = #imageLiteral(resourceName: "profile-placeholder")
         }
-    }
+        // Leave download group.
+        downloadGroup.leave()
+      }
     
     // Get userename.
     url = API.UrlPaths.userNameWithId
@@ -56,25 +63,29 @@ struct Comment {
     downloadGroup.enter()
     Alamofire.request(url, method: .get, parameters: parameters)
       .responseJSON { response in
-        if let json = response.result.value as? [String: String] {
-          name = json[API.Keys.userName]
-          downloadGroup.leave()
+        switch response.result {
+        case .success(let value):
+          let json = JSON(value)
+          name = json[API.Keys.userName].string
+        case .failure(let error):
+          print(error)
         }
+        // Leave download group.
+        downloadGroup.leave()
       }
     
-    // Wait for username and image to be downloaded.
-    downloadGroup.wait()
+    // Wait for username and image to be downloaded for at most 5 seconds.
+    let timeout = DispatchTime.now() + DispatchTimeInterval.seconds(5)
+    if downloadGroup.wait(timeout: timeout) == .timedOut {
+      throw SerializationError.timeout
+    }
     
     guard let username = name else {
       throw SerializationError.missing(API.Keys.userName)
     }
     
-    guard let userImage = image else {
-      throw SerializationError.missing("No user image");
-    }
-    
     self.comment = comment
     self.username = username
-    self.userImage = userImage
+    self.userImage = image ?? #imageLiteral(resourceName: "profile-placeholder")
   }
 }
