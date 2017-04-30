@@ -11,5 +11,5 @@ import Foundation
 enum SerializationError: Error {
   case missing(String)
   case invalid(String, Any)
-  case timeout
+  case timeout(String, Any)
 }
