@@ -16,11 +16,12 @@ struct Notification {
   let to: Int
   let imageId: Int
   let message: String
+  let wasRead: Bool
   
   // Construct init for json.
   init?(json: [String: Any]) {
     let json = JSON(json)
-    
+        
     guard let id = json["notificationId"].int else {
       return nil
     }
@@ -34,6 +35,10 @@ struct Notification {
     }
     
     guard let imageId = json["imageId"].int else {
+      return nil
+    }
+    
+    guard let wasRead = json["wasRead"].int else {
       return nil
     }
     
@@ -65,5 +70,6 @@ struct Notification {
     self.to = to
     self.imageId = imageId
     self.message = "\(senderName) tagged you in a post"
+    self.wasRead = (wasRead > 0) ? true : false
   }
 }

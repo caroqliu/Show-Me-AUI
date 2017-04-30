@@ -8,6 +8,7 @@
 
 import Foundation
 import SQLite
+import Alamofire
 
 class API {
   #if Debug
@@ -28,8 +29,18 @@ class API {
     static let firstName = "firstName"
     static let lastName = "lastName"
     static let which = "which"
-  }
+    static let notificationId = "notificationId"
     
+    
+    // Alamofire download destination.
+    static let alamofireDownloadDestination: DownloadRequest.DownloadFileDestination = { _, _ in
+      let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+      let filename = FileManager.randomFileName(length: 10) + ".jpg"
+      let fileURL = documentsURL.appendingPathComponent(filename)
+      return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+    }
+  }
+  
   struct UrlPaths {
     static let addUser =                      host + "/addUser"
     static let authenticate =                 host + "/authenticate"
@@ -41,6 +52,7 @@ class API {
     static let imageAtPath =                  host + "/imageAtPath"
     static let insertNotification =           host + "/insertNotification"
     static let isUserNameAvailable =          host + "/isUserNameAvailable"
+    static let markNotificationAsRead =       host + "/markNotificationAsRead"
     static let notificationsForUserId =       host + "/getNotificationsForUserId"
     static let numberOfLikes =                host + "/numberOfLikes"
     static let numberOfDislikes =             host + "/numberOfDisLikes"
