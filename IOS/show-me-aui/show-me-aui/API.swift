@@ -44,6 +44,7 @@ class API {
   struct UrlPaths {
     static let addUser =                      host + "/addUser"
     static let authenticate =                 host + "/authenticate"
+    static let changePassword =               host + "/changePassword"
     static let commentsForImageId =           host + "/getCommentsForImageId"
     static let doesUserLikePictureWithId =    host + "/doesUserLikePicture"
     static let doesUserDislikePictureWithId = host + "/doesUserDisLikePicture"

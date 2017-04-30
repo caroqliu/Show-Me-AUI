@@ -18,6 +18,7 @@
 		DE2DDD351EA4075A002226EA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD341EA4075A002226EA /* Comment.swift */; };
 		DE2DDD371EA4082B002226EA /* SerializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD361EA4082B002226EA /* SerializationError.swift */; };
 		DE2F4BCE1EB629B6007FBFB3 /* NoticationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2F4BCD1EB629B6007FBFB3 /* NoticationTableViewCell.swift */; };
+		DE2F4BD01EB68EFD007FBFB3 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2F4BCF1EB68EFD007FBFB3 /* ChangePasswordViewController.swift */; };
 		DE6949131EB5600F0073F733 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6949121EB5600F0073F733 /* Notification.swift */; };
 		DE770B461EAE01A600984D7E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE770B451EAE01A600984D7E /* SettingsViewController.swift */; };
 		DE770B4A1EAE0D9D00984D7E /* SnapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE770B491EAE0D9D00984D7E /* SnapViewController.swift */; };
@@ -49,6 +50,7 @@
 		DE2DDD341EA4075A002226EA /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		DE2DDD361EA4082B002226EA /* SerializationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializationError.swift; sourceTree = "<group>"; };
 		DE2F4BCD1EB629B6007FBFB3 /* NoticationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticationTableViewCell.swift; sourceTree = "<group>"; };
+		DE2F4BCF1EB68EFD007FBFB3 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		DE6949121EB5600F0073F733 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		DE770B451EAE01A600984D7E /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DE770B491EAE0D9D00984D7E /* SnapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				DE770B451EAE01A600984D7E /* SettingsViewController.swift */,
+				DE2F4BCF1EB68EFD007FBFB3 /* ChangePasswordViewController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				DEBCB4111EB2479D00A70489 /* SignUpViewController.swift in Sources */,
 				DEBCB4191EB3BFC300A70489 /* CommentParser.swift in Sources */,
 				DE6949131EB5600F0073F733 /* Notification.swift in Sources */,
+				DE2F4BD01EB68EFD007FBFB3 /* ChangePasswordViewController.swift in Sources */,
 				DEBB6FEA1EA4DE9D00A8DCE2 /* WriteCommentViewController.swift in Sources */,
 				DEA2FEEB1E997EA200641011 /* show_me_aui.xcdatamodeld in Sources */,
 				DE2F4BCE1EB629B6007FBFB3 /* NoticationTableViewCell.swift in Sources */,
