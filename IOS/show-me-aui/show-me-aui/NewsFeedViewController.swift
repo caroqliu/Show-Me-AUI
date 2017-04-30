@@ -25,6 +25,9 @@ class NewsFeedViewController: UIViewController {
   // Ids of the pagelets in the newsfeed.
   var pageletsIds = Set<Int>()
   
+  // Called to filter page lets to load.
+  var updatePredicate: ((Int) -> Bool)?
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -48,13 +51,15 @@ class NewsFeedViewController: UIViewController {
     contentView.addSubview(footer)
     
     // Update news feed.
-    self.updateNewsFeed()
+    self.updateNewsFeed() { _ in return true }
   }
 
-  func updateNewsFeed() {
+  func updateNewsFeed(predicate: @escaping (Int)-> Bool) {
+    // Maximum number of pagelets to add.
+    let maximumNumberOfPageletsToLoad = 4
+    
     // Arguments for querying the server.
     let url = API.UrlPaths.getPagelets
-    let parameters: Parameters = ["offset": 0, "count": 5]
     
     // User in order to wait for server response.
     let sync = DispatchGroup()
@@ -63,30 +68,33 @@ class NewsFeedViewController: UIViewController {
     var shouldUpdateUI = false
     
     // Will contain the views to add.
-    var pagelets = [UIView]()
+    var pagelets = [PageletView]()
+    
+    // Number of pagelets to load.
+    var leftToLoad = maximumNumberOfPageletsToLoad
     
     // Start of request.
     sync.enter()
-    Alamofire.request(url, method: .get, parameters: parameters)
-      .responseJSON(queue: DispatchQueue.global()) { response in
-        let jsonArray = response.result.value as! [[String: Any]]
-        print(jsonArray)
-        for pageletJson in jsonArray {
-          do {
-            if let id = pageletJson[API.Keys.imageId] as? Int {
-              if !self.pageletsIds.contains(id) {
-                // New pagelet.
-                shouldUpdateUI = true
-                self.pageletsIds.insert(id)
-                let pagelet = try PageletView(json: pageletJson)
-                pagelets.append(pagelet)
-              }
+    Alamofire.request(url).responseJSON(queue: DispatchQueue.global()) { response in
+      let jsonArray = response.result.value as! [[String: Any]]
+      print(jsonArray)
+      for pageletJson in jsonArray {
+        do {
+          if let id = pageletJson[API.Keys.imageId] as? Int {
+            if !self.pageletsIds.contains(id) && leftToLoad > 0 && predicate(id) {
+              // New pagelet.
+              leftToLoad -= 1 // Decrement number of pagelets to load.
+              shouldUpdateUI = true // Should update UI
+              self.pageletsIds.insert(id)
+              let pagelet = try PageletView(json: pageletJson)
+              pagelets.append(pagelet)
             }
-          } catch {
-            print(error)
           }
+        } catch {
+          print(error)
         }
-        sync.leave()
+      }
+      sync.leave()
     }
     sync.wait()
     
@@ -94,10 +102,6 @@ class NewsFeedViewController: UIViewController {
       // No new pagelet.
       return
     }
-    
-    // Reverse order of the views, because they are inserted in the front of the content
-    // view.
-    pagelets = pagelets.reversed()
     
     DispatchQueue.main.async {
       // Update UI.
@@ -115,7 +119,22 @@ class NewsFeedViewController: UIViewController {
       
       // Add views to the content view.
       for pagelet in pagelets {
-        self.contentView.insertSubview(pagelet, at: 0)
+        // Should find the right place where to add the subview.
+        // Pagelets are sorted using image, in descreasing order.
+        var index = 0
+        while true {
+          if let p = self.contentView.subviews[index] as? PageletView {
+            if p.imageId < pagelet.imageId {
+              break
+            }
+          } else {
+            break
+          }
+          index += 1
+        }
+        
+        // Insert it inside the contentView.
+        self.contentView.insertSubview(pagelet, at: index)
       }
       
       // Setup autolayout constraints.
@@ -149,20 +168,28 @@ class NewsFeedViewController: UIViewController {
       }
     }
   }
-
 }
 
 // To Schedule updates.
 extension NewsFeedViewController: UIScrollViewDelegate {
+  
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    if scrollView.isAtTop() {
+    if scrollView.isAboveTop {
+      // Update is requested.
+      self.shouldScheduleUpdate = true
+      // Fetch only new pagelets.
+      self.updatePredicate = { id in return id > self.pageletsIds.max() ?? Int.min }
+    } else if scrollView.isBelowBottom {
+      // Update is requested.
       shouldScheduleUpdate = true
+      // Fetch old pagelets.
+      self.updatePredicate = { id in return id < self.pageletsIds.min() ?? Int.max }
     } else if self.shouldScheduleUpdate {
       self.shouldScheduleUpdate = false
       DispatchQueue.global().async {
         // Should not be in the main thread it may block it.
         self.updateSemaphore.wait()
-        self.updateNewsFeed()
+        self.updateNewsFeed(predicate: self.updatePredicate!)
         self.updateSemaphore.signal()
       }
     }
@@ -170,8 +197,47 @@ extension NewsFeedViewController: UIScrollViewDelegate {
 }
 
 extension UIScrollView {
-  func isAtTop() -> Bool {
-    let offset = CGFloat(-50)
-    return self.contentOffset.y < offset
+  
+  var isAboveTop: Bool {
+    return contentOffset.y <= verticalOffsetForAboveTop
   }
+  
+  var isAtTop: Bool {
+    return contentOffset.y <= verticalOffsetForTop
+  }
+  
+  var isAtBottom: Bool {
+    return contentOffset.y >= verticalOffsetForBottom
+  }
+  
+  var isBelowBottom: Bool {
+    return contentOffset.y >= verticalOffsetForBelowBottom
+  }
+  
+  var updateOffset: CGFloat {
+    return 150.0
+  }
+  
+  var verticalOffsetForAboveTop: CGFloat {
+    
+    return verticalOffsetForTop - updateOffset
+  }
+  
+  var verticalOffsetForBelowBottom: CGFloat {
+    return verticalOffsetForBottom + updateOffset
+  }
+  
+  var verticalOffsetForTop: CGFloat {
+    let topInset = contentInset.top
+    return -topInset
+  }
+  
+  var verticalOffsetForBottom: CGFloat {
+    let scrollViewHeight = bounds.height
+    let scrollContentSizeHeight = contentSize.height
+    let bottomInset = contentInset.bottom
+    let scrollViewBottomOffset = scrollContentSizeHeight + bottomInset - scrollViewHeight
+    return scrollViewBottomOffset
+  }
+  
 }
