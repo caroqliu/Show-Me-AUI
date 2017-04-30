@@ -19,4 +19,8 @@ class SettingsViewController: UITableViewController {
     Session.shared.destroyCurrentSession()
   }
   
+  @IBAction func didTapChangePassword() {
+    print("didTapChangePassword")
+    performSegue(withIdentifier: "ChangePasswordSegue", sender: self)
+  }
 }

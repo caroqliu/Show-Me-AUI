@@ -11,6 +11,12 @@ import Alamofire
 import UIView_Shake
 import MRProgress
 
+struct FormRequirements {
+  static let usernameMinimumLength = 6
+  static let passwordMinimumLength = 10
+}
+
+
 class SignUpViewController: UIViewController {
   @IBOutlet var backGesture: UITapGestureRecognizer!
   @IBOutlet weak var usernameTextField: UITextField!
@@ -20,11 +26,6 @@ class SignUpViewController: UIViewController {
   @IBOutlet weak var passwordTextField: UITextField!
   @IBOutlet weak var passwordCheckerTextField: UITextField!
   @IBOutlet weak var errorLabel: UILabel!
-  
-  struct FormRequirements {
-    static let usernameMinimumLength = 6
-    static let passwordMinimumLength = 10
-  }
   
   enum FormError {
     case missing(String)
