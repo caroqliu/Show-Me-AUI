@@ -74,8 +74,8 @@ struct Comment {
         downloadGroup.leave()
       }
     
-    // Wait for username and image to be downloaded for at most 5 seconds.
-    let timeout = DispatchTime.now() + DispatchTimeInterval.seconds(5)
+    // Wait for username and image to be downloaded for at most 20 seconds.
+    let timeout = DispatchTime.now() + DispatchTimeInterval.seconds(20)
     if downloadGroup.wait(timeout: timeout) == .timedOut {
       throw SerializationError.timeout("Comment", json)
     }

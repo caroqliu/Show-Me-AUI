@@ -106,4 +106,36 @@ class CommentParser {
     return attributedText
   }
   
+  // Returns users tagged in @param text.
+  // @param text: text to process
+  // @returns [(Int, String)]: Ids and user names of users.
+  static func usersTaggedInText(_ text: String) -> [(Int, String)] {
+    let atSign: Character = "@"
+    let words = text.components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
+    
+    var users = [(Int, String)]()
+    for word in words {
+      if word.isEmpty {
+        continue
+      }
+      
+      if word[word.startIndex] == atSign {
+        let usr = word.substring(from: word.index(after: word.startIndex))
+        do {
+          let db = try API.openDB()
+          let table = API.DB.usersTable
+          let userIdCol = API.DB.userId
+          let userNameCol = API.DB.userName
+          if let row = try db.pluck(table.filter(userNameCol == usr)) {
+            users.append((row[userIdCol], row[userNameCol]))
+          }
+        } catch {
+          print(error)
+        }
+      }
+    }
+    
+    return users
+  }
+  
 }

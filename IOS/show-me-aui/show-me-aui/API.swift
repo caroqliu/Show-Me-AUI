@@ -69,6 +69,7 @@ class API {
   struct DB {
     static let usersTable = Table("Users")
     static let userName = Expression<String>("userName")
+    static let userId = Expression<Int>("userId")
   }
   
   static func openDB() throws -> Connection {

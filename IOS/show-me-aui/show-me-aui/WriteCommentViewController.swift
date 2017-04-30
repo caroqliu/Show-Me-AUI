@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import Alamofire
+import SwiftyJSON
 
 // WriteCommentDelegate.
 protocol WriteCommentDelegate {
@@ -114,14 +115,35 @@ class WriteCommentViewController: UIViewController {
       return
     }
     
+    // Save Comment in the database.
     let url = API.UrlPaths.saveComment
     let parameters: Parameters = [API.Keys.userId: userId,
                                   API.Keys.imageId: imageId,
                                   API.Keys.commentText: text]
-    
     Alamofire.request(url, method: .get, parameters: parameters).response { _ in
       // Refresh comments through delegate.
       self.delegate?.fetchCommentsAsynchrounously()
+    }
+    
+    // Send notifications for users in the comment.
+    let users = CommentParser.usersTaggedInText(text)
+    
+    for user in users {
+      let url = API.UrlPaths.insertNotification
+      let parameters: Parameters = ["to": user.0,
+                                    "from": Session.shared.getUserIdForCurrentSession()!,
+                                    API.Keys.imageId: imageId]
+      
+      Alamofire.request(url, method: .get, parameters: parameters)
+        .responseJSON(queue: DispatchQueue.global()) { response in
+          switch response.result {
+          case .success:
+            print("Notification Sent to \(user.1) with id \(user.0)")
+            break
+          case .failure(let error):
+            print(error)
+          }
+        }
     }
     
     self.removeAnimate()
