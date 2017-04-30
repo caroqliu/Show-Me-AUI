@@ -15,8 +15,7 @@ class API {
   #else
     static let host = "https://showmeaui.herokuapp.com"
   #endif
-  
-  
+
   struct Keys {
     static let userName = "userName"
     static let imageId = "imageId"
