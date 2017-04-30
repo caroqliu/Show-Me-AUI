@@ -209,13 +209,17 @@ class ImageEditorViewController: UIViewController {
       return nil
     }
     
+    // Recall original settings, because filter will rotate the picture.
+    let originalScale = image.scale
+    let originalOrientation = image.imageOrientation
+    
     let ciImage = CIImage(cgImage: cgiImage)
     filter.setValue(ciImage, forKey: kCIInputImageKey)
     
     let context = CIContext()
     if let output = filter.outputImage,
       let cgiImage = context.createCGImage(output, from: output.extent) {
-      return UIImage(cgImage: cgiImage)
+      return UIImage(cgImage: cgiImage, scale: originalScale, orientation: originalOrientation)
     }
     
     return nil
