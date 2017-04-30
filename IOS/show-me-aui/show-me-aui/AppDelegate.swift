@@ -11,6 +11,7 @@ import UIKit
 import CoreData
 import IQKeyboardManagerSwift
 import SQLite
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,27 +27,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Create database for users, and download fetch them from the server.
     do {
       // Create Users table.
-            let db = try API.openDB()
+      let db = try API.openDB()
       try db.run(API.DB.usersTable.drop(ifExists: true))
       try db.run(API.DB.usersTable.create { make in
-        make.column(API.DB.userName, primaryKey: true)
+        make.column(API.DB.userId, primaryKey: true)
+        make.column(API.DB.userName)
       })
       
       // Populate table from the server.
       let url = API.UrlPaths.getUsers
       Alamofire.request(url).responseJSON(queue: DispatchQueue.global()) { response in
-        if let jsonArray = response.result.value as? [[String: Any]] {
-          for jsonUser in jsonArray {
+        switch response.result {
+        case .success(let value):
+          for (_, json) : (String, JSON) in JSON(value) {
             do {
               try db.run(API.DB.usersTable.insert(
-                API.DB.userName <- jsonUser[API.Keys.userName]! as! String
+                API.DB.userId <- json[API.Keys.userId].int!,
+                API.DB.userName <- json[API.Keys.userName].string!
               ))
             } catch {
               print(error)
             }
           }
-        } else {
-          NSLog("[Fetching users]: Could not convert result to json.")
+        case .failure(let error):
+          print(error)
         }
       }
     } catch {
