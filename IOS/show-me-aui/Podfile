@@ -12,4 +12,5 @@ target 'show-me-aui' do
   pod 'IQKeyboardManagerSwift'
   pod 'UIView+Shake'
   pod 'SQLite.swift', '~> 0.11.3'
+  pod 'SwiftyJSON'
 end
