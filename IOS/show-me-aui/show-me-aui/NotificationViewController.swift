@@ -133,7 +133,7 @@ extension NotificationViewController: UITableViewDataSource {
 extension NotificationViewController: UITableViewDelegate {
   
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    if scrollView.isAtTop() {
+    if scrollView.isAtTop {
       self.shouldScheduleUpdate = true
     } else if self.shouldScheduleUpdate {
       self.shouldScheduleUpdate = false
