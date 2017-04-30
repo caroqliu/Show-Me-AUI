@@ -111,7 +111,9 @@ class PageletView: UIView, WriteCommentDelegate {
         .response { response in
           if response.error == nil, let imagePath = response.destinationURL?.path {
             DispatchQueue.main.async {
-              self.userImageView.image = UIImage(contentsOfFile: imagePath)
+              // In case the image is not found on the server use a placeholder.
+              let image = UIImage(contentsOfFile: imagePath) ?? #imageLiteral(resourceName: "profile-placeholder")
+              self.userImageView.image = image
             }
           }
       }
