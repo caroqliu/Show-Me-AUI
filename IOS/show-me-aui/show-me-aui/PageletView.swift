@@ -220,6 +220,14 @@ class PageletView: UIView, WriteCommentDelegate {
     // Setup pageletImageView.
     pageletImageView.image = #imageLiteral(resourceName: "image_placeholder")
     pageletImageView.contentMode = .scaleAspectFit
+    
+    // create tap gesture for like.
+    let tap = UITapGestureRecognizer()
+    tap.numberOfTapsRequired = 2
+    tap.addTarget(self, action: #selector(didTapLike))
+    pageletImageView.addGestureRecognizer(tap)
+    pageletImageView.isUserInteractionEnabled = true
+    
     self.addSubview(pageletImageView)
     pageletImageView.snp.makeConstraints { make in
       make.left.right.equalTo(self)
