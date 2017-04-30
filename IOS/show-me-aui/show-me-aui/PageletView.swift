@@ -81,20 +81,11 @@ class PageletView: UIView, WriteCommentDelegate {
     self.setUpUI()
     
     DispatchQueue.global().async {
-      // Download Section.
-      let destination: DownloadRequest.DownloadFileDestination = { _, _ in
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let filename = FileManager.randomFileName(length: 10) + ".jpg"
-        let fileURL = documentsURL.appendingPathComponent(filename)
-        
-        return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
-      }
-      
       // Download pagelet main image.
       var parameters: Parameters = [API.Keys.imagePath: imagePath]
       var url = API.UrlPaths.imageAtPath
       Alamofire.download(url, method: .get, parameters: parameters, encoding: URLEncoding.default,
-                         headers: nil, to: destination)
+                         headers: nil, to: API.Keys.alamofireDownloadDestination)
         .response { response in
           if response.error == nil, let imagePath = response.destinationURL?.path {
             DispatchQueue.main.async {
@@ -107,7 +98,7 @@ class PageletView: UIView, WriteCommentDelegate {
       parameters = [API.Keys.userId: userId]
       url = API.UrlPaths.userImageWithId
       Alamofire.download(url, method: .get, parameters: parameters, encoding: URLEncoding.default,
-                         headers: nil, to: destination)
+                         headers: nil, to: API.Keys.alamofireDownloadDestination)
         .response { response in
           if response.error == nil, let imagePath = response.destinationURL?.path {
             DispatchQueue.main.async {
