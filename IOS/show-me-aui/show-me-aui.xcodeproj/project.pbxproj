@@ -17,6 +17,7 @@
 		DE18069D1E9A2DD4008F563A /* PageletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE18069C1E9A2DD4008F563A /* PageletView.swift */; };
 		DE2DDD351EA4075A002226EA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD341EA4075A002226EA /* Comment.swift */; };
 		DE2DDD371EA4082B002226EA /* SerializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DDD361EA4082B002226EA /* SerializationError.swift */; };
+		DE6949131EB5600F0073F733 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6949121EB5600F0073F733 /* Notification.swift */; };
 		DE770B461EAE01A600984D7E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE770B451EAE01A600984D7E /* SettingsViewController.swift */; };
 		DE770B4A1EAE0D9D00984D7E /* SnapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE770B491EAE0D9D00984D7E /* SnapViewController.swift */; };
 		DE7901591EA8F3D600B0C553 /* LikeDisLikeCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7901581EA8F3D600B0C553 /* LikeDisLikeCounterView.swift */; };
@@ -29,8 +30,9 @@
 		DEBCB40F1EB2438300A70489 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEBCB40E1EB2438300A70489 /* Images.xcassets */; };
 		DEBCB4111EB2479D00A70489 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB4101EB2479D00A70489 /* SignUpViewController.swift */; };
 		DEBCB4191EB3BFC300A70489 /* CommentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB4181EB3BFC300A70489 /* CommentParser.swift */; };
-		DEBCB41B1EB4D47100A70489 /* NotificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB41A1EB4D47100A70489 /* NotificationTableViewController.swift */; };
+		DEBCB41B1EB4D47100A70489 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB41A1EB4D47100A70489 /* NotificationViewController.swift */; };
 		DEBCB41D1EB4EDF800A70489 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB41C1EB4EDF800A70489 /* MainTabBarController.swift */; };
+		DEBCB41F1EB4F27E00A70489 /* PageletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB41E1EB4F27E00A70489 /* PageletViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,7 @@
 		DE18069C1E9A2DD4008F563A /* PageletView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageletView.swift; sourceTree = "<group>"; };
 		DE2DDD341EA4075A002226EA /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		DE2DDD361EA4082B002226EA /* SerializationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializationError.swift; sourceTree = "<group>"; };
+		DE6949121EB5600F0073F733 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		DE770B451EAE01A600984D7E /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DE770B491EAE0D9D00984D7E /* SnapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapViewController.swift; sourceTree = "<group>"; };
 		DE7901581EA8F3D600B0C553 /* LikeDisLikeCounterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeDisLikeCounterView.swift; sourceTree = "<group>"; };
@@ -59,8 +62,9 @@
 		DEBCB40E1EB2438300A70489 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DEBCB4101EB2479D00A70489 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		DEBCB4181EB3BFC300A70489 /* CommentParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentParser.swift; sourceTree = "<group>"; };
-		DEBCB41A1EB4D47100A70489 /* NotificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTableViewController.swift; sourceTree = "<group>"; };
+		DEBCB41A1EB4D47100A70489 /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DEBCB41C1EB4EDF800A70489 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		DEBCB41E1EB4F27E00A70489 /* PageletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageletViewController.swift; sourceTree = "<group>"; };
 		F30323DE870EE73A680E8641 /* Pods-show-me-aui.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-show-me-aui.release.xcconfig"; path = "Pods/Target Support Files/Pods-show-me-aui/Pods-show-me-aui.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +103,15 @@
 				DE1806981E999697008F563A /* LoginViewController.swift */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		DE6949111EB55FA90073F733 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				DE6949121EB5600F0073F733 /* Notification.swift */,
+				DEBCB41A1EB4D47100A70489 /* NotificationViewController.swift */,
+			);
+			name = Notification;
 			sourceTree = "<group>";
 		};
 		DE6C03CC1EA79B270098F7E5 /* Session */ = {
@@ -151,13 +164,13 @@
 				DE2DDD311EA3A3FD002226EA /* Login */,
 				DEBB6FE11EA4D2AB00A8DCE2 /* PageLet */,
 				DE770B481EAE0D6300984D7E /* News Feed */,
+				DE6949111EB55FA90073F733 /* Notification */,
 				DEBCB4121EB3AADD00A70489 /* Signup */,
 				DE6C03CC1EA79B270098F7E5 /* Session */,
 				DE770B471EAE044400984D7E /* Settings */,
 				DEA2FEE61E997EA200641011 /* Main.storyboard */,
 				DEBCB41C1EB4EDF800A70489 /* MainTabBarController.swift */,
 				DEBCB40E1EB2438300A70489 /* Images.xcassets */,
-				DEBCB41A1EB4D47100A70489 /* NotificationTableViewController.swift */,
 				DEBB6FE21EA4D2D400A8DCE2 /* Supporting Files */,
 			);
 			path = "show-me-aui";
@@ -175,6 +188,7 @@
 		DEBB6FE11EA4D2AB00A8DCE2 /* PageLet */ = {
 			isa = PBXGroup;
 			children = (
+				DEBCB41E1EB4F27E00A70489 /* PageletViewController.swift */,
 				DEBCB4171EB3BFAC00A70489 /* Comments */,
 				DE18069C1E9A2DD4008F563A /* PageletView.swift */,
 				DE7901581EA8F3D600B0C553 /* LikeDisLikeCounterView.swift */,
@@ -359,12 +373,14 @@
 				DE1806991E999697008F563A /* LoginViewController.swift in Sources */,
 				DEBCB4111EB2479D00A70489 /* SignUpViewController.swift in Sources */,
 				DEBCB4191EB3BFC300A70489 /* CommentParser.swift in Sources */,
+				DE6949131EB5600F0073F733 /* Notification.swift in Sources */,
 				DEBB6FEA1EA4DE9D00A8DCE2 /* WriteCommentViewController.swift in Sources */,
 				DEA2FEEB1E997EA200641011 /* show_me_aui.xcdatamodeld in Sources */,
 				DE2DDD351EA4075A002226EA /* Comment.swift in Sources */,
 				DEBB6FE81EA4DBEB00A8DCE2 /* CommentCell.swift in Sources */,
 				DE7901591EA8F3D600B0C553 /* LikeDisLikeCounterView.swift in Sources */,
-				DEBCB41B1EB4D47100A70489 /* NotificationTableViewController.swift in Sources */,
+				DEBCB41F1EB4F27E00A70489 /* PageletViewController.swift in Sources */,
+				DEBCB41B1EB4D47100A70489 /* NotificationViewController.swift in Sources */,
 				DE770B461EAE01A600984D7E /* SettingsViewController.swift in Sources */,
 				DE02BA0A1EA65B0500ADE8EF /* Session.swift in Sources */,
 				DE18069B1E9A2DA5008F563A /* NewsFeedViewController.swift in Sources */,

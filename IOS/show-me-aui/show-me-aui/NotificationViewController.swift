@@ -10,18 +10,13 @@ import UIKit
 import Alamofire
 import SnapKit
 
-struct Notification {
-  let message: String
-  let imageId: Int
-  let userId: Int
-  let date: String
-}
-
-class NotificationViewController: UIViewController {
+class NotificationViewController: UIViewController, PageletViewControllerDelegate {
   @IBOutlet weak var tableView: UITableView!
   
   var notifications = [Notification]()
   var notificationIds = Set<Int>()
+  
+  var imageId = 0
   
   var shouldScheduleUpdate = false
   let semaphore = DispatchSemaphore(value: 1)
@@ -47,7 +42,7 @@ class NotificationViewController: UIViewController {
     let parameters: Parameters =
       [API.Keys.userId: Session.shared.getUserIdForCurrentSession()!]
     Alamofire.request(url, parameters: parameters)
-      .responseJSON { response in
+      .responseJSON(queue: DispatchQueue.global()) { response in
         // Get json response.
         guard let jsonArray = response.result.value as? [[String: Any]] else {
           NSLog("Could not parse json response for notification.")
@@ -57,16 +52,12 @@ class NotificationViewController: UIViewController {
         // Create notifications from the json.
         var count = 0 // Count of new notification.
         for json in jsonArray {
-          let notification = Notification(message: json["message"] as! String,
-                                          imageId: json["imageId"] as! Int,
-                                          userId: json["userId"] as! Int,
-                                          date: json["date"] as! String)
-          
-          if !self.notificationIds.contains(json["notificationId"] as! Int) {
+          if let notification = Notification(json: json),
+            !self.notificationIds.contains(notification.id) {
             // Increment number of new updates
             count = count + 1
             self.notifications.append(notification)
-            self.notificationIds.insert(json["notificationId"] as! Int)
+            self.notificationIds.insert(notification.id)
           }
         }
         
@@ -100,7 +91,7 @@ extension NotificationViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell =
       tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath)
-    cell.textLabel?.text = self.notifications[indexPath.row].message
+    cell.textLabel?.text = notifications[indexPath.row].message
     return cell
   }
   
@@ -122,4 +113,18 @@ extension NotificationViewController: UITableViewDelegate {
     }
   }
 
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    self.imageId = notifications[indexPath.row].imageId
+    performSegue(withIdentifier: "PageLetSegue", sender: self)
+  }
+
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "PageLetSegue" {
+      if let vc = segue.destination as? PageletViewController {
+        vc.delegate = self
+      }
+    }
+  }
+  
 }

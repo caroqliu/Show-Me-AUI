@@ -517,6 +517,7 @@
                     <tabBarItem key="tabBarItem" title="Notifications" image="notification-icon" id="0kg-TR-K7r"/>
                     <connections>
                         <outlet property="tableView" destination="EvF-qN-7Xv" id="GQs-E6-3gB"/>
+                        <segue destination="hWg-g2-Rp0" kind="show" identifier="PageLetSegue" id="4ep-Te-ew5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EnL-cv-79n" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -543,6 +544,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wh0-Yv-hqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2844" y="4"/>
+        </scene>
+        <!--Pagelet View Controller-->
+        <scene sceneID="i8s-ZY-U7J">
+            <objects>
+                <viewController id="hWg-g2-Rp0" customClass="PageletViewController" customModule="show_me_aui" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qxw-EU-qLg"/>
+                        <viewControllerLayoutGuide type="bottom" id="320-lD-kja"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BN8-ap-ERE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7sv-bH-NrI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3911" y="-691"/>
         </scene>
         <!--Settings-->
         <scene sceneID="ZGg-Rf-0si">
