@@ -136,11 +136,22 @@ class SignUpViewController: UIViewController {
     
     Alamofire.request(url, method: .post, parameters: parameters)
       .responseJSON { response in
+        progress?.dismiss(true)
+
         // Check for status.
         if let json = response.result.value as? [String: Any],
           let status = json[API.Keys.result] as? Bool, !status {
           // Could not add user.
           DispatchQueue.main.async {
+            progress = MRProgressOverlayView.showOverlayAdded(to: self.view,
+                                                              title: "",
+                                                              mode: .cross,
+                                                              animated: true)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400) , execute: {
+              progress?.dismiss(true)
+            })
+            
             if let which = json[API.Keys.which] as? String {
               self.handleSignupError(error: .invalid(which, "\(which) already exists"))
             } else {
@@ -149,9 +160,7 @@ class SignUpViewController: UIViewController {
           }
         } else {
           // Signup successful.
-          
           // Show checkmarck instead of current loading.
-          progress?.dismiss(true)
           progress = MRProgressOverlayView.showOverlayAdded(to: self.view,
                                                             title: "",
                                                             mode: .checkmark,
