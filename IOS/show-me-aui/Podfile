@@ -13,4 +13,5 @@ target 'show-me-aui' do
   pod 'UIView+Shake'
   pod 'SQLite.swift', '~> 0.11.3'
   pod 'SwiftyJSON'
+  pod 'TouchVisualizer', '~>2.0.1'
 end
