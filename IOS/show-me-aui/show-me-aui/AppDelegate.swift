@@ -12,6 +12,7 @@ import CoreData
 import IQKeyboardManagerSwift
 import SQLite
 import SwiftyJSON
+import TouchVisualizer
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Enable IQKeyboardManager.
     IQKeyboardManager.sharedManager().enable = true
     
+    // Enable fingertips
+    Visualizer.start()
     
     // Create database for users, and download fetch them from the server.
     // Create database for users, and download fetch them from the server.
