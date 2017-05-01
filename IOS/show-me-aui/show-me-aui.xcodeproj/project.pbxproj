@@ -177,7 +177,6 @@
 				DE6C03CC1EA79B270098F7E5 /* Session */,
 				DE770B471EAE044400984D7E /* Settings */,
 				DEA2FEE61E997EA200641011 /* Main.storyboard */,
-				DEBCB41C1EB4EDF800A70489 /* MainTabBarController.swift */,
 				DEBCB40E1EB2438300A70489 /* Images.xcassets */,
 				DEBB6FE21EA4D2D400A8DCE2 /* Supporting Files */,
 			);
@@ -206,6 +205,7 @@
 		DEBB6FE21EA4D2D400A8DCE2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DEBCB41C1EB4EDF800A70489 /* MainTabBarController.swift */,
 				DEA2FEEE1E997EA200641011 /* LaunchScreen.storyboard */,
 				DEA2FEF11E997EA200641011 /* Info.plist */,
 				DEA2FEE91E997EA200641011 /* show_me_aui.xcdatamodeld */,
