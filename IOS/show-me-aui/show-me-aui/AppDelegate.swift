@@ -60,6 +60,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       print(error)
     }
     
+    // Check if user is authenticated.
+    self.window = UIWindow(frame: UIScreen.main.bounds)
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    if !Session.shared.isThereAnActiveSession() {
+      let loginVc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+      self.window?.rootViewController = loginVc
+    } else {
+      let homeVc = storyboard.instantiateViewController(withIdentifier: "HomePageViewController") as! MainTabBarController
+      self.window?.rootViewController = homeVc
+    }
+    self.window?.makeKeyAndVisible()
+    
     return true
   }
 

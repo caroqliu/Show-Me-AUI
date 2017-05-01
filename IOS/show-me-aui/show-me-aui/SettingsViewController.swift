@@ -17,10 +17,16 @@ class SettingsViewController: UITableViewController {
   @IBAction func didTapLogout(_ sender: UIButton) {
     print("didTapLogout")
     Session.shared.destroyCurrentSession()
+    
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let loginVc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+    
+    let app = UIApplication.shared.delegate
+    app?.window??.rootViewController = loginVc
   }
   
   @IBAction func didTapChangePassword() {
     print("didTapChangePassword")
-    performSegue(withIdentifier: "ChangePasswordSegue", sender: self)
   }
+  
 }

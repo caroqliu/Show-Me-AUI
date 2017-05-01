@@ -16,18 +16,7 @@ class ChangePasswordViewController: UIViewController {
   @IBOutlet weak var retypeTextField: UITextField!
   @IBOutlet weak var submitButton: UIButton!
   @IBOutlet weak var errorLabel: UILabel!
-  @IBOutlet weak var backButton: UIStackView!
-  
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
     
-    let tap = UITapGestureRecognizer()
-    tap.numberOfTapsRequired = 1
-    tap.addTarget(self, action: #selector(didTapBackButton))
-    backButton.addGestureRecognizer(tap)
-  }
-  
   enum FormError {
     case missing(String)
     case invalid(String, String)
@@ -94,7 +83,7 @@ class ChangePasswordViewController: UIViewController {
           // Redirect to login page after 1 seconds.
           DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             progress?.dismiss(true, completion: {
-              self.performSegue(withIdentifier: "SettingsSegue", sender: self)
+              self.navigationController?.popViewController(animated: true)
             })
           })
         case .failure(let error):
@@ -106,11 +95,6 @@ class ChangePasswordViewController: UIViewController {
           print(error)
         }
       }
-  }
-  
-  func didTapBackButton() {
-    print("didTapBackButton")
-    performSegue(withIdentifier: "SettingsSegue", sender: self)
   }
   
 }

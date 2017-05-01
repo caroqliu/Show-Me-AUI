@@ -165,6 +165,7 @@
 		DEA2FEE11E997EA200641011 /* show-me-aui */ = {
 			isa = PBXGroup;
 			children = (
+				DEA2FEE21E997EA200641011 /* AppDelegate.swift */,
 				DEBB6FE01EA4D29100A8DCE2 /* API */,
 				DEBCB4171EB3BFAC00A70489 /* Comments */,
 				DEBCB4131EB3AB2000A70489 /* Imaging */,
@@ -205,7 +206,6 @@
 		DEBB6FE21EA4D2D400A8DCE2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DEA2FEE21E997EA200641011 /* AppDelegate.swift */,
 				DEA2FEEE1E997EA200641011 /* LaunchScreen.storyboard */,
 				DEA2FEF11E997EA200641011 /* Info.plist */,
 				DEA2FEE91E997EA200641011 /* show_me_aui.xcdatamodeld */,

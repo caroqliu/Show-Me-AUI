@@ -13,7 +13,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="show_me_aui" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" customModule="show_me_aui" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -569,7 +569,7 @@
         <!--News Feed View Controller-->
         <scene sceneID="bnG-yf-vdb">
             <objects>
-                <viewController id="dne-Ix-BqE" customClass="NewsFeedViewController" customModule="show_me_aui" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewsFeedViewController" id="dne-Ix-BqE" customClass="NewsFeedViewController" customModule="show_me_aui" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sAH-PR-BO8"/>
                         <viewControllerLayoutGuide type="bottom" id="agA-35-oyo"/>
@@ -605,7 +605,7 @@
             </objects>
             <point key="canvasLocation" x="3911" y="-691"/>
         </scene>
-        <!--Settings-->
+        <!--Settings View Controller-->
         <scene sceneID="ZGg-Rf-0si">
             <objects>
                 <tableViewController id="nIK-sY-szJ" customClass="SettingsViewController" customModule="show_me_aui" customModuleProvider="target" sceneMemberID="viewController">
@@ -630,7 +630,7 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="didTapChangePassword" destination="nIK-sY-szJ" eventType="touchUpInside" id="Ncq-cN-zat"/>
-                                                        <segue destination="o9q-dL-JoC" kind="show" identifier="ChangePasswordSegue" id="bf0-Wp-Mtf"/>
+                                                        <segue destination="o9q-dL-JoC" kind="show" id="awA-In-e1a"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -656,7 +656,6 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="didTapLogout:" destination="nIK-sY-szJ" eventType="touchUpInside" id="hnt-UU-mQV"/>
-                                                        <segue destination="BYZ-38-t0r" kind="show" id="SZN-H2-xTx"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -676,11 +675,11 @@
                             <outlet property="delegate" destination="nIK-sY-szJ" id="g76-zz-vIT"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Settings" image="settings" id="rEQ-2I-IrB"/>
+                    <navigationItem key="navigationItem" id="zmb-0D-dHZ"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UUT-AJ-oVY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2844" y="727"/>
+            <point key="canvasLocation" x="3678" y="704"/>
         </scene>
         <!--Change Password View Controller-->
         <scene sceneID="kGg-IV-hJR">
@@ -753,53 +752,28 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fp-dT-Er5">
-                                <rect key="frame" x="16" y="20" width="83.5" height="20"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back-icon" translatesAutoresizingMaskIntoConstraints="NO" id="LQ7-xb-nh0">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="17e-s9-mAa"/>
-                                            <constraint firstAttribute="height" constant="20" id="akg-Jl-mnv"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDl-5I-bwi">
-                                        <rect key="frame" x="20" y="0.0" width="63.5" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="cBR-v7-vaH"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.1641182601" green="0.6002472043" blue="0.97734075779999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="mYI-vm-Xne" firstAttribute="centerY" secondItem="7lL-R9-WCd" secondAttribute="centerY" id="BX6-Z2-BOo"/>
                             <constraint firstItem="mYI-vm-Xne" firstAttribute="centerX" secondItem="7lL-R9-WCd" secondAttribute="centerX" id="cxS-MS-aST"/>
-                            <constraint firstItem="4fp-dT-Er5" firstAttribute="top" secondItem="EKv-mk-5zK" secondAttribute="bottom" id="lQX-Wm-vja"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="4fp-dT-Er5" secondAttribute="leading" id="pYc-g7-v4F"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="backButton" destination="4fp-dT-Er5" id="LuZ-K7-Jds"/>
                         <outlet property="errorLabel" destination="e98-xF-T0O" id="yf4-7s-riX"/>
                         <outlet property="passwordTextField" destination="ifz-Nv-GFv" id="Q4e-Bu-O8n"/>
                         <outlet property="retypeTextField" destination="1vS-bO-vz6" id="vWm-OK-dMa"/>
                         <outlet property="submitButton" destination="G3g-Se-new" id="rvn-3Z-sYu"/>
-                        <segue destination="nIK-sY-szJ" kind="show" identifier="SettingsSegue" id="xrg-85-Ems"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egX-y7-WUI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3861.5999999999999" y="644.52773613193403"/>
+            <point key="canvasLocation" x="4800.8000000000002" y="644.52773613193403"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="mWq-2k-L80">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="QNu-0R-J9M" customClass="MainTabBarController" customModule="show_me_aui" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="HomePageViewController" automaticallyAdjustsScrollViewInsets="NO" id="QNu-0R-J9M" customClass="MainTabBarController" customModule="show_me_aui" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="k82-ZE-fC7">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -808,7 +782,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="dne-Ix-BqE" kind="relationship" relationship="viewControllers" id="p0r-5D-EWw"/>
-                        <segue destination="nIK-sY-szJ" kind="relationship" relationship="viewControllers" id="tJZ-ZZ-kLG"/>
+                        <segue destination="VDm-eB-OwB" kind="relationship" relationship="viewControllers" id="tJZ-ZZ-kLG"/>
                         <segue destination="GDr-EM-J8t" kind="relationship" relationship="viewControllers" id="VSC-jp-VP0"/>
                         <segue destination="FPX-t8-FkI" kind="relationship" relationship="viewControllers" id="rN2-ED-rbD"/>
                     </connections>
@@ -836,6 +810,25 @@
             </objects>
             <point key="canvasLocation" x="964" y="1302"/>
         </scene>
+        <!--Settings-->
+        <scene sceneID="ZBx-si-NrY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VDm-eB-OwB" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings" id="rEQ-2I-IrB"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5GA-Wz-FtT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="nIK-sY-szJ" kind="relationship" relationship="rootViewController" id="p81-6u-oRT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hy0-6e-P3x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2844" y="726.38680659670172"/>
+        </scene>
     </scenes>
     <resources>
         <image name="back-icon" width="24" height="24"/>
@@ -845,8 +838,4 @@
         <image name="upload_default_image" width="225" height="225"/>
         <image name="upload_tab" width="25" height="25"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="kI6-pQ-ohL"/>
-        <segue reference="xrg-85-Ems"/>
-    </inferredMetricsTieBreakers>
 </document>
