@@ -23,24 +23,6 @@ class LoginViewController: UIViewController {
   @IBOutlet weak var errorMessageLabel: UILabel!
   @IBOutlet weak var signinForm: UIStackView!
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    // Initialize the view only if no user is logged in.
-    if Session.shared.isThereAnActiveSession() {
-      self.signinForm.isHidden = true
-    }
-  }
-  
-  override func viewDidAppear(_ animated: Bool) {
-    // Check if a user is already logged in.
-    if Session.shared.isThereAnActiveSession() {
-      // A user is logged in, no need to prompt the user for his credetials.
-      // Redirect to main page.
-      performSegue(withIdentifier: "FeedSegue", sender: self)
-    }
-  }
-  
   // Enum for common error messages while logging in.
   enum ErrorMessage {
     case emptyEmail
