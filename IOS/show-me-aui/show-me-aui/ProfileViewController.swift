@@ -11,6 +11,10 @@ import Alamofire
 import SwiftyJSON
 import SnapKit
 
+protocol ProfileDelegate {
+  var userId: Int { get }
+}
+
 class ProfileViewController: UIViewController {
   @IBOutlet weak var myCollectionView: UICollectionView!
   @IBOutlet weak var profileImageView: UIImageView!
@@ -18,12 +22,16 @@ class ProfileViewController: UIViewController {
   
   var imagesUploaded = [UIImage?]()
   
-  var userId: Int = 61755
+  var delegate: ProfileDelegate?
   
   fileprivate let sectionInsets = UIEdgeInsets(top: 30.0, left: 5.0, bottom: 30.0, right: 5.0)
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    guard let userId = delegate?.userId else {
+      return
+    }
     
     // Do any additional setaup after loading the view.
     myCollectionView.delegate = self
@@ -58,6 +66,7 @@ class ProfileViewController: UIViewController {
           self.userNameLabel.text = json?[API.Keys.userName]
         }
     }
+    
 
     // Download images uploaded by this user.
     url = API.UrlPaths.picturesForUserId
@@ -68,6 +77,7 @@ class ProfileViewController: UIViewController {
       switch response.result {
       case .success(let value):
         let jsonArray = JSON(value)
+        debugPrint(jsonArray)
         let count = jsonArray.count
         self.imagesUploaded = Array(repeatElement(nil, count: count))
         var index = 0

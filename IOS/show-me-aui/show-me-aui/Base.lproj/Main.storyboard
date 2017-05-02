@@ -620,11 +620,36 @@
                                         <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s50-0p-1xm" id="LJj-mx-HIa">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACM-yw-Wgc">
+                                                    <rect key="frame" x="8" y="6" width="360" height="30.5"/>
+                                                    <state key="normal" title="My">
+                                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="didTapMy" destination="nIK-sY-szJ" eventType="touchUpInside" id="qei-ea-JJV"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ACM-yw-Wgc" firstAttribute="top" secondItem="LJj-mx-HIa" secondAttribute="top" constant="6" id="9ut-F6-fLV"/>
+                                                <constraint firstItem="ACM-yw-Wgc" firstAttribute="leading" secondItem="LJj-mx-HIa" secondAttribute="leading" constant="8" id="Txw-3K-bhx"/>
+                                                <constraint firstAttribute="trailing" secondItem="ACM-yw-Wgc" secondAttribute="trailing" constant="7" id="axW-9o-xlB"/>
+                                                <constraint firstAttribute="bottom" secondItem="ACM-yw-Wgc" secondAttribute="bottom" constant="6.5" id="nyp-XO-YmB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="z0e-M7-UMu">
+                                        <rect key="frame" x="0.0" y="100" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z0e-M7-UMu" id="O85-oi-agk">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Swa-x5-oHE">
-                                                    <rect key="frame" x="8" y="8" width="360" height="30.5"/>
+                                                    <rect key="frame" x="7" y="6" width="360" height="30.5"/>
                                                     <state key="normal" title="Change Password">
                                                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     </state>
@@ -635,35 +660,35 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Swa-x5-oHE" firstAttribute="leading" secondItem="LJj-mx-HIa" secondAttribute="leading" constant="8" id="3wQ-SX-yUy"/>
-                                                <constraint firstAttribute="bottom" secondItem="Swa-x5-oHE" secondAttribute="bottom" constant="5" id="E1s-6r-qIh"/>
-                                                <constraint firstAttribute="trailing" secondItem="Swa-x5-oHE" secondAttribute="trailing" constant="7" id="EdZ-yw-UJ2"/>
-                                                <constraint firstItem="Swa-x5-oHE" firstAttribute="top" secondItem="LJj-mx-HIa" secondAttribute="top" constant="8" id="U7W-99-2fX"/>
+                                                <constraint firstItem="Swa-x5-oHE" firstAttribute="leading" secondItem="O85-oi-agk" secondAttribute="leading" constant="7" id="HEC-3q-Z9f"/>
+                                                <constraint firstAttribute="bottom" secondItem="Swa-x5-oHE" secondAttribute="bottom" constant="6.5" id="ogB-l8-1Yl"/>
+                                                <constraint firstItem="Swa-x5-oHE" firstAttribute="top" secondItem="O85-oi-agk" secondAttribute="top" constant="6" id="sHM-HC-fh4"/>
+                                                <constraint firstAttribute="trailing" secondItem="Swa-x5-oHE" secondAttribute="trailing" constant="8" id="ska-vg-Dgr"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="z0e-M7-UMu">
-                                        <rect key="frame" x="0.0" y="100" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="xg8-VU-W9f">
+                                        <rect key="frame" x="0.0" y="144" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z0e-M7-UMu" id="O85-oi-agk">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xg8-VU-W9f" id="1FW-6k-yeY">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACM-yw-Wgc">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sOg-PW-Gau">
                                                     <rect key="frame" x="8" y="8" width="360" height="30.5"/>
                                                     <state key="normal" title="Logout">
                                                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="didTapLogout:" destination="nIK-sY-szJ" eventType="touchUpInside" id="hnt-UU-mQV"/>
+                                                        <action selector="didTapLogout:" destination="nIK-sY-szJ" eventType="touchUpInside" id="ltZ-Vb-sL9"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="ACM-yw-Wgc" secondAttribute="trailing" constant="7" id="Gqt-jS-hyu"/>
-                                                <constraint firstItem="ACM-yw-Wgc" firstAttribute="top" secondItem="O85-oi-agk" secondAttribute="top" constant="8" id="UA1-Uo-jng"/>
-                                                <constraint firstItem="ACM-yw-Wgc" firstAttribute="leading" secondItem="O85-oi-agk" secondAttribute="leading" constant="8" id="XeZ-SL-SV7"/>
-                                                <constraint firstAttribute="bottom" secondItem="ACM-yw-Wgc" secondAttribute="bottom" constant="5" id="bzN-ZN-gKj"/>
+                                                <constraint firstItem="sOg-PW-Gau" firstAttribute="top" secondItem="1FW-6k-yeY" secondAttribute="top" constant="8" id="YW5-Rl-Vw0"/>
+                                                <constraint firstAttribute="bottom" secondItem="sOg-PW-Gau" secondAttribute="bottom" constant="5" id="aLQ-pp-IaN"/>
+                                                <constraint firstAttribute="trailing" secondItem="sOg-PW-Gau" secondAttribute="trailing" constant="7" id="huo-jb-XjX"/>
+                                                <constraint firstItem="sOg-PW-Gau" firstAttribute="leading" secondItem="1FW-6k-yeY" secondAttribute="leading" constant="8" id="m9g-jO-BuI"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -676,6 +701,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="zmb-0D-dHZ"/>
+                    <connections>
+                        <segue destination="3Mn-o9-yZf" kind="show" identifier="MySegue" id="NhC-In-eeA"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UUT-AJ-oVY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -776,7 +804,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y2t-Jv-rWq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3880.8000000000002" y="1602.5487256371816"/>
+            <point key="canvasLocation" x="3678" y="1491"/>
         </scene>
         <!--Change Password View Controller-->
         <scene sceneID="kGg-IV-hJR">

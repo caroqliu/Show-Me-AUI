@@ -8,10 +8,14 @@
 
 import UIKit
 
-class SettingsViewController: UITableViewController {
+class SettingsViewController: UITableViewController, ProfileDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+  }
+  
+  var userId: Int {
+    return Session.shared.getUserIdForCurrentSession()!
   }
   
   @IBAction func didTapLogout(_ sender: UIButton) {
@@ -27,6 +31,19 @@ class SettingsViewController: UITableViewController {
   
   @IBAction func didTapChangePassword() {
     print("didTapChangePassword")
+  }
+  
+  @IBAction func didTapMy() {
+    print("didTapMy")
+    performSegue(withIdentifier: "MySegue", sender: self)
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "MySegue" {
+      if let myVc = segue.destination as? ProfileViewController {
+        myVc.delegate = self
+      }
+    }
   }
   
 }
