@@ -82,9 +82,8 @@ class CommentParser {
         // Highlight the word, only if valid userName.
         do {
           let db = try API.openDB()
-          let count =
-            try db.scalar(API.DB.usersTable.filter(API.DB.userName == word).count)
-          if count > 0 {
+          let row = try db.pluck(API.DB.usersTable.filter(API.DB.userName == word))
+          if row != nil {
             // Highlight it.
             let range = NSRange.init(location: rangeStart, length: loc - rangeStart)
             attributedText.addAttribute(NSForegroundColorAttributeName,

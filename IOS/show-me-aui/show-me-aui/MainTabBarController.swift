@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import SQLite
+import Alamofire
+import SwiftyJSON
 
 class MainTabBarController: UITabBarController {
   
@@ -19,6 +22,52 @@ class MainTabBarController: UITabBarController {
         _ = controller.view
       }
     }
+    
+    startTimer()
+  }
+  
+  var timer: DispatchSourceTimer?
+  
+  func startTimer() {
+    let queue = DispatchQueue.global(qos: .background)
+    timer = DispatchSource.makeTimerSource(queue: queue)
+    timer!.scheduleRepeating(deadline: .now(), interval: .seconds(30))
+    timer!.setEventHandler { [weak self] in
+      let url = API.UrlPaths.getUsers
+      Alamofire.request(url).responseJSON(queue: DispatchQueue.global(qos: .background)) { response in
+        switch response.result {
+        case .success(let value):
+          let users = API.DB.usersTable
+          for (_, json) : (String, JSON) in JSON(value) {
+            do {
+              let db = try API.openDB()
+              let row = try db.pluck(users.filter(API.DB.userId == json[API.Keys.userId].int!))
+              
+              if row == nil {
+                try db.run(API.DB.usersTable.insert(
+                  API.DB.userId <- json[API.Keys.userId].int!,
+                  API.DB.userName <- json[API.Keys.userName].string!
+                ))
+              }
+            } catch {
+              print(error)
+            }
+          }
+        case .failure(let error):
+          print(error)
+        }
+      }
+    }
+    timer!.resume()
+  }
+  
+  func stopTimer() {
+    timer?.cancel()
+    timer = nil
+  }
+  
+  deinit {
+    self.stopTimer()
   }
   
   override func didReceiveMemoryWarning() {
