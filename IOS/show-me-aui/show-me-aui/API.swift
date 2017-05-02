@@ -74,11 +74,16 @@ class API {
     static let userId = Expression<Int>("userId")
   }
   
+  static var db: Connection?
+  
   static func openDB() throws -> Connection {
-    let path = NSSearchPathForDirectoriesInDomains(
-      .documentDirectory, .userDomainMask, true
-      ).first!
-    return try Connection("\(path)/db.sqlite3")
+    if db == nil {
+      let path = NSSearchPathForDirectoriesInDomains(
+        .documentDirectory, .userDomainMask, true
+        ).first!
+      db = try Connection("\(path)/db.sqlite3")
+    }
+    return db!
   }
   
 }
