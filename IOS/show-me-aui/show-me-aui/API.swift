@@ -57,6 +57,7 @@ class API {
     static let notificationsForUserId =       host + "/getNotificationsForUserId"
     static let numberOfLikes =                host + "/numberOfLikes"
     static let numberOfDislikes =             host + "/numberOfDisLikes"
+    static let picturesForUserId =            host + "/picturesForUserId"
     static let pictureWithImageId =           host + "/pictureWithImageId"
     static let saveComment =                  host + "/saveComment"
     static let savelike =                     host + "/saveLike"
