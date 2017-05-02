@@ -35,6 +35,8 @@
 		DEBCB41B1EB4D47100A70489 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB41A1EB4D47100A70489 /* NotificationViewController.swift */; };
 		DEBCB41D1EB4EDF800A70489 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB41C1EB4EDF800A70489 /* MainTabBarController.swift */; };
 		DEBCB41F1EB4F27E00A70489 /* PageletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBCB41E1EB4F27E00A70489 /* PageletViewController.swift */; };
+		DEFA7DCB1EB808FE0044A5FC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFA7DCA1EB808FE0044A5FC /* ProfileViewController.swift */; };
+		DEFA7DCD1EB811490044A5FC /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFA7DCC1EB811490044A5FC /* ImageCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +71,8 @@
 		DEBCB41A1EB4D47100A70489 /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DEBCB41C1EB4EDF800A70489 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		DEBCB41E1EB4F27E00A70489 /* PageletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageletViewController.swift; sourceTree = "<group>"; };
+		DEFA7DCA1EB808FE0044A5FC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		DEFA7DCC1EB811490044A5FC /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		F30323DE870EE73A680E8641 /* Pods-show-me-aui.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-show-me-aui.release.xcconfig"; path = "Pods/Target Support Files/Pods-show-me-aui/Pods-show-me-aui.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +169,7 @@
 		DEA2FEE11E997EA200641011 /* show-me-aui */ = {
 			isa = PBXGroup;
 			children = (
+				DEFA7DCC1EB811490044A5FC /* ImageCollectionViewCell.swift */,
 				DEA2FEE21E997EA200641011 /* AppDelegate.swift */,
 				DEBCB41C1EB4EDF800A70489 /* MainTabBarController.swift */,
 				DEBB6FE01EA4D29100A8DCE2 /* API */,
@@ -178,6 +183,7 @@
 				DE6C03CC1EA79B270098F7E5 /* Session */,
 				DE770B471EAE044400984D7E /* Settings */,
 				DEA2FEE61E997EA200641011 /* Main.storyboard */,
+				DEFA7DCA1EB808FE0044A5FC /* ProfileViewController.swift */,
 				DEBCB40E1EB2438300A70489 /* Images.xcassets */,
 				DEBB6FE21EA4D2D400A8DCE2 /* Supporting Files */,
 			);
@@ -373,6 +379,7 @@
 			files = (
 				DE770B4A1EAE0D9D00984D7E /* SnapViewController.swift in Sources */,
 				DE2DDD371EA4082B002226EA /* SerializationError.swift in Sources */,
+				DEFA7DCD1EB811490044A5FC /* ImageCollectionViewCell.swift in Sources */,
 				DEBCB41D1EB4EDF800A70489 /* MainTabBarController.swift in Sources */,
 				DE0BB7161EAFF80700357A27 /* PageletUploader.swift in Sources */,
 				DE0BB71C1EB0F90900357A27 /* ImageEditorViewController.swift in Sources */,
@@ -393,6 +400,7 @@
 				DE02BA0A1EA65B0500ADE8EF /* Session.swift in Sources */,
 				DE18069B1E9A2DA5008F563A /* NewsFeedViewController.swift in Sources */,
 				DEA2FEE31E997EA200641011 /* AppDelegate.swift in Sources */,
+				DEFA7DCB1EB808FE0044A5FC /* ProfileViewController.swift in Sources */,
 				DE0BB7181EB0C23600357A27 /* API.swift in Sources */,
 				DE18069D1E9A2DD4008F563A /* PageletView.swift in Sources */,
 			);
