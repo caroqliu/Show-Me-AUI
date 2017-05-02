@@ -45,8 +45,7 @@ class NotificationViewController: UIViewController, PageletViewControllerDelegat
     self.tableView.dataSource = self
     self.view.addSubview(self.tableView)
     self.tableView.snp.makeConstraints { make in
-      make.top.equalTo(self.topLayoutGuide.snp.bottom)
-      make.left.right.bottom.equalTo(self.view)
+      make.edges.equalTo(self.view)
     }
     
     // Download notifications.

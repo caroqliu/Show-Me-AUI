@@ -484,7 +484,7 @@
             </objects>
             <point key="canvasLocation" x="1904.8" y="2031.6341829085459"/>
         </scene>
-        <!--Notifications-->
+        <!--Notification View Controller-->
         <scene sceneID="MxU-fA-lov">
             <objects>
                 <viewController id="FPX-t8-FkI" customClass="NotificationViewController" customModule="show_me_aui" customModuleProvider="target" sceneMemberID="viewController">
@@ -556,7 +556,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Notifications" image="notification-icon" id="0kg-TR-K7r"/>
+                    <navigationItem key="navigationItem" id="Hqh-Qn-5gV"/>
                     <connections>
                         <outlet property="tableView" destination="EvF-qN-7Xv" id="GQs-E6-3gB"/>
                         <segue destination="hWg-g2-Rp0" kind="show" identifier="PageLetSegue" id="4ep-Te-ew5"/>
@@ -564,7 +564,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EnL-cv-79n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2844" y="-691.304347826087"/>
+            <point key="canvasLocation" x="3783.1999999999998" y="-691.304347826087"/>
         </scene>
         <!--News Feed View Controller-->
         <scene sceneID="bnG-yf-vdb">
@@ -603,7 +603,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7sv-bH-NrI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3911" y="-691"/>
+            <point key="canvasLocation" x="4848.8000000000002" y="-691.304347826087"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="ZGg-Rf-0si">
@@ -620,7 +620,7 @@
                                         <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s50-0p-1xm" id="LJj-mx-HIa">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACM-yw-Wgc">
@@ -645,7 +645,7 @@
                                         <rect key="frame" x="0.0" y="100" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z0e-M7-UMu" id="O85-oi-agk">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Swa-x5-oHE">
@@ -671,7 +671,7 @@
                                         <rect key="frame" x="0.0" y="144" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xg8-VU-W9f" id="1FW-6k-yeY">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sOg-PW-Gau">
@@ -722,7 +722,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="s3s-a0-ybd">
-                                <rect key="frame" x="26" y="40" width="270" height="50"/>
+                                <rect key="frame" x="26" y="84" width="270" height="50"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EBL-wn-CyU">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -743,13 +743,13 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Uploads" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTz-JM-99s">
-                                <rect key="frame" x="16" y="124" width="343" height="33.5"/>
+                                <rect key="frame" x="16" y="168" width="343" height="33.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8i7-tu-HNa">
-                                <rect key="frame" x="16" y="187" width="343" height="460"/>
+                                <rect key="frame" x="16" y="231" width="343" height="367"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KUi-3K-7BV">
                                     <size key="itemSize" width="200" height="200"/>
@@ -909,7 +909,7 @@
                         <segue destination="dne-Ix-BqE" kind="relationship" relationship="viewControllers" id="p0r-5D-EWw"/>
                         <segue destination="VDm-eB-OwB" kind="relationship" relationship="viewControllers" id="tJZ-ZZ-kLG"/>
                         <segue destination="GDr-EM-J8t" kind="relationship" relationship="viewControllers" id="VSC-jp-VP0"/>
-                        <segue destination="FPX-t8-FkI" kind="relationship" relationship="viewControllers" id="rN2-ED-rbD"/>
+                        <segue destination="wc6-8N-zfS" kind="relationship" relationship="viewControllers" id="rN2-ED-rbD"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TDL-5n-Kv9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -953,6 +953,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hy0-6e-P3x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2844" y="726.38680659670172"/>
+        </scene>
+        <!--Notifications-->
+        <scene sceneID="JHL-nf-ZAs">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wc6-8N-zfS" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Notifications" image="notification-icon" id="0kg-TR-K7r"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CWI-mh-81z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="FPX-t8-FkI" kind="relationship" relationship="rootViewController" id="9Ya-V0-Iql"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uDp-N3-waG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2844" y="-691.304347826087"/>
         </scene>
     </scenes>
     <resources>
