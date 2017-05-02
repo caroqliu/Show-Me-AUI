@@ -16,7 +16,9 @@ class NoticationTableViewCell: UITableViewCell {
   var wasRead: Bool = false {
     didSet {
       if wasRead {
-        wasReadImageView.isHidden = true
+        DispatchQueue.main.async {
+          self.wasReadImageView.isHidden = true
+        }
       }
     }
   }
